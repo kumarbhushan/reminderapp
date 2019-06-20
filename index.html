@@ -2432,7 +2432,6 @@
                 }
             }
             function onDeviceReady12() {
-                alert('dfd');
                 StatusBar.hide();
                 document.getElementById("dots11").style.backgroundColor = "rgba(0,0,0,1)";
 
@@ -2446,7 +2445,7 @@
                     finInstruc++;
                     var curr = carousel.getActiveIndex();
                     //var videoID = "video";
-                    // console.log(curr);            
+                    // console.log(curr);
                     if (curr == 0) {
                         finInstruc++;
                         document.getElementById("dots11").style.backgroundColor = "rgba(0,0,0,1)";
@@ -5065,9 +5064,9 @@
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
     <script>
         var base64Img = null;
-        imgToBase64('octocat.jpg', function (base64) {
-            base64Img = base64;
-        });
+        // imgToBase64('octocat.jpg', function (base64) {
+        //     base64Img = base64;
+        // });
 
         margins = {
             top: 70,
@@ -5164,18 +5163,20 @@
                 callback(null);
                 return;
             }
-            var xhr = new XMLHttpRequest();
-            xhr.responseType = 'blob';
-            xhr.onload = function () {
-                var reader = new FileReader();
-                reader.onloadend = function () {
-                    imgVariable = reader.result.replace('text/xml', 'image/jpeg');
-                    callback(imgVariable);
+            try {
+                var xhr = new XMLHttpRequest();
+                xhr.responseType = 'blob';
+                xhr.onload = function () {
+                    var reader = new FileReader();
+                    reader.onloadend = function () {
+                        imgVariable = reader.result.replace('text/xml', 'image/jpeg');
+                        callback(imgVariable);
+                    };
+                    reader.readAsDataURL(xhr.response);
                 };
-                reader.readAsDataURL(xhr.response);
-            };
-            xhr.open('GET', url);
-            xhr.send();
+                xhr.open('GET', url);
+                xhr.send();
+            } catch (err) { }
         };
 
         function footer(doc, pageNumber, totalPages) {
