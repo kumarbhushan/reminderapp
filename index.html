@@ -15,17 +15,37 @@
       connect-src 'self' 'unsafe-inline' 'unsafe-eval' blob: ws: *;">
     <script src="lib/onsen/js/onsenui.js"></script>
     <script src="lib/onsen/js/onsenui.min.js"></script>
-    <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <script src="cordova.js"></script>
     <script src="cordova_plugins.js"></script>
-    <script type="text/javascript" charset="utf-8" src="video.js"></script>
+    <!-- <script type="text/javascript" charset="utf-8" src="video.js"></script> -->
     <script src="CreateMySafetyPlan.js"></script>
-    <link rel="stylesheet" href="lib/onsen/css/onsenui.css">
+
     <script src="lib/lightbox/simple-lightbox.js"></script>
     <script src="gallery.js"></script>
+    <script type="text/javascript" src="tweets/js/lib/chui-3.5.0.min.js"></script>
+    <script type="text/javascript" src="tweets/js/lib/underscore-1.4.4.min.js"></script>
+    <script type="text/javascript" src="tweets/js/lib/backbone-1.0.0.min.js"></script>
+    <script type="text/javascript" src="tweets/js/lib/moment.min.js"></script>
+    <script type="text/javascript" src="tweets/js/system/main.js"></script>
+    <script type="text/javascript" src="tweets/js/system/base64.js"></script>
+
+    <!-- define models -->
+    <script src="tweets/js/models/tweet.js"></script>
+
+    <!-- define collections -->
+    <script src="tweets/js/collections/tweets.js"></script>
+
+    <!-- define views -->
+    <script type="text/javascript" src="tweets/js/views/main.js"></script>
+    <script type="text/javascript" src="tweets/js/views/listings.js"></script>
+    <script type="text/javascript" src="tweets/js/system/ready.js"></script>
+    <script type="text/javascript" src="tweets/js/system/router.js"></script>
+    <link rel="stylesheet" href="lib/onsen/css/onsenui.css">
     <link rel="stylesheet" type="text/css" href="lib/lightbox/simplelightbox.css" />
-    <script src="html2canvas.js"></script>
+    <!-- <script src="html2canvas.js"></script> -->
     <link rel="stylesheet" href="css/otl.css">
+    <script src="js/jspdf.min.js"></script>
     <title>ReMinder</title>
 </head>
 
@@ -269,7 +289,6 @@
             });
             window.fn = {};
         </script>
-        <script src="js/otl.js"></script>
     </div>
     <div id="MyStuff" class="contents" style="display:none;">
         <script>
@@ -829,10 +848,7 @@
                 </div>
                 <button style="border-radius:20px" id="shareloc">Share Loc</button>
             </div>
-
-
         </div>
-
         <div id="ContactsAddPage" hidden>
             <h4>Add</h4>
             <a href="javascript:void(0);" data-href="contacts" class="custom-btn">
@@ -850,54 +866,37 @@
             </div>
         </div>
         <div class="grid-container-whitebg">
-
             <div class="margin-top-180p"></div>
-
             <div class="contacts-container" id="contacts-container">
                 <div class="margin-top-120p"></div>
-
-
-
             </div>
-
-
-
             <div class="margin-bot-80p" style="height:50px"></div>
-
         </div>
         <script>
             var contacts = [];
             var contactColors = [];
             var contactIds = [];
             var contactNumbers = [];
-
             var shortName = 'WebSqlDB';
             var version = '1.0';
             var displayName = 'WebSqlDB';
             var maxSize = 4.9 * 1024 * 1024;
-
             function cancelCall() {
                 document.getElementById("CallConfirm").style.display = "none";
             }
-
             function call() {
                 document.getElementById("CallConfirm").style.display = "block";
-
                 console.log("call")
             }
-
             function getContactId(contactId) {
                 localStorage.setItem('editContactId', contactId);
             }
-
             function errorHandler(transaction, error) {
                 console.log('Error: ' + error.message + ' code: ' + error.code);
             }
-
             function successCallBack() {
                 console.log("DEBUGGING: success");
             }
-
             function nullHandler() { };
 
             function createContactsTable() {
@@ -913,7 +912,6 @@
                         [], nullHandler, errorHandler);
                 }, errorHandler, successCallBack);
             }
-
             function GetContactsValueFromDB() {
                 //alert('here');
                 var contacts = [];
@@ -921,7 +919,6 @@
                     console.log('Databases are not supported in this browser.');
                     return;
                 }
-
                 db.transaction(function (transaction) {
                     transaction.executeSql('SELECT UId, ContactName, ContactNumber, ContactColor FROM Contacts',
                         [],
@@ -962,8 +959,6 @@
                 });
             }
             document.addEventListener("deviceready", onDeviceReady, false);
-
-
             // PhoneGap is ready
             //
             function onDeviceReady() {
@@ -1015,24 +1010,7 @@
         </script>
     </div>
     <div id="tweets" class="contents" style="display:none;">
-        <script type="text/javascript" src="tweets/js/lib/chui-3.5.0.min.js"></script>
-        <script type="text/javascript" src="tweets/js/lib/underscore-1.4.4.min.js"></script>
-        <script type="text/javascript" src="tweets/js/lib/backbone-1.0.0.min.js"></script>
-        <script type="text/javascript" src="tweets/js/lib/moment.min.js"></script>
-        <script type="text/javascript" src="tweets/js/system/main.js"></script>
-        <script type="text/javascript" src="tweets/js/system/base64.js"></script>
 
-        <!-- define models -->
-        <script src="tweets/js/models/tweet.js"></script>
-
-        <!-- define collections -->
-        <script src="tweets/js/collections/tweets.js"></script>
-
-        <!-- define views -->
-        <script type="text/javascript" src="tweets/js/views/main.js"></script>
-        <script type="text/javascript" src="tweets/js/views/listings.js"></script>
-        <script type="text/javascript" src="tweets/js/system/ready.js"></script>
-        <script type="text/javascript" src="tweets/js/system/router.js"></script>
         <!-- panel overlays -->
         <div class="top-overlay short">
             <!-- section title -->
@@ -2067,13 +2045,6 @@
                 </ons-carousel>
 
             </div>
-
-            <script>
-
-
-            </script>
-
-
         </ons-page>
 
 
@@ -4184,7 +4155,6 @@
 
 
         </script>
-        <script src="js/otl.js"></script>
     </div>
     <div id="k10q" class="contents" style="display:none;">
         <!-- CONTENT -->
@@ -5060,8 +5030,10 @@
                 $('.botnav-container').show();
             });
         });
+        function hideEmptyField(filed) {
+            $(filed).hide()
+        }
     </script>
-    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
     <script>
         var base64Img = null;
         // imgToBase64('octocat.jpg', function (base64) {
@@ -5122,9 +5094,8 @@
                     width: margins.width// max width of content on PDF
                 },function(dispose) {
                     headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
-                }, 
+                },
                 margins);
-            	
             pdf.save('a4.pdf');
             var iframe = document.createElement('iframe');
             iframe.setAttribute('style','position:absolute;right:0; top:0; bottom:0; height:100%; width:650px; padding:20px;');
