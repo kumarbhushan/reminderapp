@@ -3209,3 +3209,7 @@ ons-carousel-item {
     height: 100vh;
     width: 100vw;
 }
+
+#carousel {
+    background: url("../img/poster_flowers.png") no-repeat center;
+}

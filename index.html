@@ -9,10 +9,11 @@
     <meta name="viewport"
         content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
     <meta http-equiv="Content-Security-Policy" content="
-      default-src * data: gap: https://ssl.gstatic.com 'unsafe-eval';
+    media-src 'self' blob: data: 'unsafe-inline' 'unsafe-eval' 'none' * ;
+      default-src * data: gap: https://ssl.gstatic.com ;
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
       script-src 'self' 'unsafe-inline' 'unsafe-eval' *;
-      connect-src 'self' 'unsafe-inline' 'unsafe-eval' blob: ws: *;">
+      connect-src 'self' data:; blob: ws: *;">
     <script src="lib/onsen/js/onsenui.js"></script>
     <script src="lib/onsen/js/onsenui.min.js"></script>
     <script src="js/jquery.min.js"></script>
@@ -41,6 +42,13 @@
     <script type="text/javascript" src="tweets/js/views/listings.js"></script>
     <script type="text/javascript" src="tweets/js/system/ready.js"></script>
     <script type="text/javascript" src="tweets/js/system/router.js"></script>
+
+    <script src='videos/v_flowers.js'></script>
+    <script src='videos/v_ripples.js'></script>
+    <script src='videos/v_shells.js'></script>
+    <script src='videos/v_sunrise.js'></script>
+    <script src='videos/v_tree.js'></script>
+
     <link rel="stylesheet" href="lib/onsen/css/onsenui.css">
     <link rel="stylesheet" type="text/css" href="lib/lightbox/simplelightbox.css" />
     <!-- <script src="html2canvas.js"></script> -->
@@ -130,16 +138,16 @@
             <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel" initial-index="0">
                 <ons-carousel-item id="ons-carousel-item5">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
-                        <video webkit-playsinline playsinline id="video_1" class="gif" autoplay loop poster="#">
-                            <source src="#" type="video/mp4">
+                        <video webkit-playsinline playsinline id="video_1" class="gif" autoplay loop>
+                            <source src="#" type="video/mp4" poster="#">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                 </ons-carousel-item>
                 <ons-carousel-item id="ons-carousel-item1">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
-                        <video webkit-playsinline playsinline id="video_2" class="gif" autoplay loop poster="#">
-                            <source src="#" type="video/mp4">
+                        <video webkit-playsinline playsinline id="video_2" class="gif" autoplay loop>
+                            <source src="#" type="video/mp4" poster="#">
                             Your browser does not support the video tag.
                         </video>
                     </div>
@@ -154,25 +162,25 @@
                 </ons-carousel-item>
                 <ons-carousel-item id="ons-carousel-item3">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
-                        <video webkit-playsinline playsinline id="video_4" class="gif" autoplay loop poster="#">
-                            <source src="#" type="video/mp4">
+                        <video webkit-playsinline playsinline id="video_4" class="gif" autoplay loop>
+                            <source src="#" type="video/mp4" poster="#">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                 </ons-carousel-item>
                 <ons-carousel-item id="ons-carousel-item4">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
-                        <video webkit-playsinline playsinline id="video_5" class="gif" autoplay loop poster="#">
-                            <source src="#" type="video/mp4">
+                        <video webkit-playsinline playsinline id="video_5" class="gif" autoplay loop>
+                            <source src="#" type="video/mp4" poster="#">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                 </ons-carousel-item>
 
             </ons-carousel>
-            <audio id="audio" autoplay loop>
+            <!-- <audio id="audio" autoplay loop>
                 <source src="media/lake.mp3" type="audio/mpeg">
-            </audio>
+            </audio> -->
             <script>
                 var db;
                 //$(document).ready(function(e){
@@ -214,39 +222,43 @@
                     /*Images*/
                     var carousel = document.getElementById('carousel');
                     var curr = carousel.getActiveIndex();
-                    //console.log(curr)
-                    //document.getElementById('video').setAttribute("id", curr);
                     carousel.addEventListener('postchange', function () {
                         var curr = carousel.getActiveIndex();
                         //document.getElementById("video" + curr).play();
                         if (curr == 0) {
-                            var audioSrc = $('.video_contain').eq(0)[0].attributes[1].nodeValue;
-                            //console.log($('.video_contain').eq(0)[0].attributes[1].nodeValue);
-                            document.getElementById("audio").src = "media/" + audioSrc + ".mp3";
+                            document.getElementById('video_1').play()
+                            document.getElementById('video_2').pause()
+                            document.getElementById('video_3').pause()
+                            document.getElementById('video_4').pause()
+                            document.getElementById('video_5').pause()
                         }
                         if (curr == 1) {
-                            var audioSrc = $('.video_contain').eq(1)[0].attributes[1].nodeValue;
-                            //console.log($('.video_contain').eq(1)[0].attributes[1].nodeValue);
-                            //document.getElementById("audio").src="media/beach.mp3";
-                            document.getElementById("audio").src = "media/" + audioSrc + ".mp3";
+                            document.getElementById('video_1').pause()
+                            document.getElementById('video_2').play()
+                            document.getElementById('video_3').pause()
+                            document.getElementById('video_4').pause()
+                            document.getElementById('video_5').pause()
                         }
                         if (curr == 2) {
-                            var audioSrc = $('.video_contain').eq(2)[0].attributes[1].nodeValue;
-                            //console.log($('.video_contain').eq(2)[0].attributes[1].nodeValue);
-                            //document.getElementById("audio").src="media/flowers.mp3";
-                            document.getElementById("audio").src = "media/" + audioSrc + ".mp3";
+                            document.getElementById('video_1').pause()
+                            document.getElementById('video_2').pause()
+                            document.getElementById('video_3').play()
+                            document.getElementById('video_4').pause()
+                            document.getElementById('video_5').pause()
                         }
                         if (curr == 3) {
-                            var audioSrc = $('.video_contain').eq(3)[0].attributes[1].nodeValue;
-                            //console.log($('.video_contain').eq(3)[0].attributes[1].nodeValue);
-                            //document.getElementById("audio").src="media/flowers.mp3";
-                            document.getElementById("audio").src = "media/" + audioSrc + ".mp3";
+                            document.getElementById('video_1').pause()
+                            document.getElementById('video_2').pause()
+                            document.getElementById('video_3').pause()
+                            document.getElementById('video_4').play()
+                            document.getElementById('video_5').pause()
                         }
                         if (curr == 4) {
-                            var audioSrc = $('.video_contain').eq(4)[0].attributes[1].nodeValue;
-                            //console.log($('.video_contain').eq(4)[0].attributes[1].nodeValue);
-                            //document.getElementById("audio").src="media/flowers.mp3";
-                            document.getElementById("audio").src = "media/" + audioSrc + ".mp3";
+                            document.getElementById('video_1').pause()
+                            document.getElementById('video_2').pause()
+                            document.getElementById('video_3').pause()
+                            document.getElementById('video_4').pause()
+                            document.getElementById('video_5').play()
                         }
                     });
                 }
@@ -4985,25 +4997,66 @@
             GetThemeFromDBHomePage();
             return false;
         });
+        function b64toBlob(b64Data, contentType, sliceSize) {
+            contentType = contentType || ''
+            sliceSize = sliceSize || 512
 
+            var byteCharacters = atob(b64Data)
+            var byteArrays = []
+
+            for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                var slice = byteCharacters.slice(offset, offset + sliceSize)
+
+                var byteNumbers = new Array(slice.length)
+                for (var i = 0; i < slice.length; i++) {
+                    byteNumbers[i] = slice.charCodeAt(i)
+                }
+
+                var byteArray = new Uint8Array(byteNumbers)
+
+                byteArrays.push(byteArray)
+            }
+
+            var blob = new Blob(byteArrays, { type: contentType })
+            return blob
+        }
         $(document).ready(function (e) {
             var page;
             var prevPage;
-            document.getElementById('video_1').src = "videos/flowers.mp4";
-            document.getElementById('video_1').load()
+            var contentType = 'video/mp4'
+            var blob = b64toBlob(v_flowers, contentType)
+            var blobUrl = URL.createObjectURL(blob)
+            document.getElementById('video_1').src = blobUrl;
             document.getElementById('video_1').play()
-            document.getElementById('video_2').src = "videos/ripples.mp4";
-            document.getElementById('video_2').load()
-            //document.getElementById('video_2').play()
-            document.getElementById('video_3').src = "videos/flowers.mp4";
-            document.getElementById('video_3').load()
-            //document.getElementById('video_3').play()
-            document.getElementById('video_4').src = "videos/ripples.mp4";
-            document.getElementById('video_4').load()
-            //document.getElementById('video_4').play()
-            document.getElementById('video_5').src = "videos/flowers.mp4";
-            document.getElementById('video_5').load()
-            //document.getElementById('video_5').play()
+            document.getElementById('video_1').oncanplay=function () {
+                console.log('play')
+                 setTimeout(function(){
+document.getElementById('video_1').play()
+            },5000)
+            }
+          
+            var blob2 = b64toBlob(v_ripples, contentType)
+            var blobUrl2 = URL.createObjectURL(blob2)
+
+            document.getElementById('video_2').src = blobUrl2;
+
+            var blob3 = b64toBlob(v_shells, contentType)
+            var blobUrl3 = URL.createObjectURL(blob3)
+
+            document.getElementById('video_3').src = blobUrl3;
+
+
+            var blob4 = b64toBlob(v_sunrise, contentType)
+            var blobUrl4 = URL.createObjectURL(blob4)
+
+            document.getElementById('video_4').src = blobUrl4;
+
+
+            var blob5 = b64toBlob(v_tree, contentType)
+            var blobUrl5 = URL.createObjectURL(blob5)
+
+            document.getElementById('video_5').src = blobUrl5;
+
             $('.panel-hotspot').click(function (e) {
                 e.preventDefault();
                 page = $(this).data('href');
