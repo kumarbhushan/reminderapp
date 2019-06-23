@@ -130,31 +130,42 @@
             <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel" initial-index="0">
                 <ons-carousel-item id="ons-carousel-item5">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
-                        <video class="gif" autoplay loop>
-                            <source src="videos/flowers.mp4" type="video/mp4">
-                            <source src="movie.ogg" type="video/ogg">Your browser does not support the video
-                            tag.</video></div>
+                        <video webkit-playsinline playsinline id="video_1" class="gif" autoplay loop poster="#">
+                            <source src="#" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
                 </ons-carousel-item>
                 <ons-carousel-item id="ons-carousel-item1">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
-                        <video class="gif" autoplay loop>
-                            <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
-                            <source src="movie.ogg" type="video/ogg">Your browser does not support the video
-                            tag.</video></div>
+                        <video webkit-playsinline playsinline id="video_2" class="gif" autoplay loop poster="#">
+                            <source src="#" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
                 </ons-carousel-item>
                 <ons-carousel-item id="ons-carousel-item2">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
-                        <video class="gif" autoplay loop>
-                            <source src="videos/ripples.mp4" type="video/mp4">
-                            <source src="movie.ogg" type="video/ogg">Your browser does not support the video
-                            tag.</video></div>
+                        <video webkit-playsinline playsinline id="video_3" class="gif" autoplay loop>
+                            <source src="#" type="video/mp4" poster="#">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
                 </ons-carousel-item>
                 <ons-carousel-item id="ons-carousel-item3">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
+                        <video webkit-playsinline playsinline id="video_4" class="gif" autoplay loop poster="#">
+                            <source src="#" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                 </ons-carousel-item>
                 <ons-carousel-item id="ons-carousel-item4">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
+                        <video webkit-playsinline playsinline id="video_5" class="gif" autoplay loop poster="#">
+                            <source src="#" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                 </ons-carousel-item>
 
@@ -4974,10 +4985,25 @@
             GetThemeFromDBHomePage();
             return false;
         });
+
         $(document).ready(function (e) {
             var page;
             var prevPage;
-
+            document.getElementById('video_1').src = "videos/flowers.mp4";
+            document.getElementById('video_1').load()
+            document.getElementById('video_1').play()
+            document.getElementById('video_2').src = "videos/ripples.mp4";
+            document.getElementById('video_2').load()
+            //document.getElementById('video_2').play()
+            document.getElementById('video_3').src = "videos/flowers.mp4";
+            document.getElementById('video_3').load()
+            //document.getElementById('video_3').play()
+            document.getElementById('video_4').src = "videos/ripples.mp4";
+            document.getElementById('video_4').load()
+            //document.getElementById('video_4').play()
+            document.getElementById('video_5').src = "videos/flowers.mp4";
+            document.getElementById('video_5').load()
+            //document.getElementById('video_5').play()
             $('.panel-hotspot').click(function (e) {
                 e.preventDefault();
                 page = $(this).data('href');

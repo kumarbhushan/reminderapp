@@ -30,10 +30,8 @@
     <preference name="android-targetSdkVersion" value="26" />
     <preference name="android-installLocation" value="auto" />
     <preference name="loadUrlTimeoutValue" value="70000000" />
-  
-    
-
-        <splash src="img/splashscreen320.png" width="320" height="480"/>
+    <preference name="AllowInlineMediaPlayback" value="true" />
+    <splash src="img/splashscreen320.png" width="320" height="480"/>
     <splash src="img/splashscreen640.png" width="640" height="960"/>
     <splash src="img/splashscreen768.png" width="768" height="1024"/>
     <splash src="img/splashscreen1536.png" width="1536" height="2048"/>
