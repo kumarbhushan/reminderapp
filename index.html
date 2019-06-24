@@ -133,29 +133,38 @@
             <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel" initial-index="0">
                 <ons-carousel-item id="ons-carousel-item1">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
-                        <video webkit-playsinline playsinline id="video_1" class="gif" autoplay loop>
+                        <img src='videos/sunsine.gif'>
+                        <audio id='audio_1'>
+                            <source src="audio/sunrise.mp3" type="audio/mpeg"></audio>
+                        <!-- <video webkit-playsinline playsinline id="video_1" class="gif" autoplay loop>
                             <source src="#" type="video/mp4" poster="#">
                             Your browser does not support the video tag.
-                        </video>
+                        </video> -->
                     </div>
                 </ons-carousel-item>
                 <ons-carousel-item id="ons-carousel-item2">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
-                        <video webkit-playsinline playsinline id="video_2" class="gif" autoplay loop>
+                        <img src='videos/ripples.gif'>
+                        <audio id='audio_2'>
+                            <source src="audio/ripples.mp3" type="audio/mpeg"></audio>
+                        <!-- <video webkit-playsinline playsinline id="video_2" class="gif" autoplay loop>
                             <source src="#" type="video/mp4" poster="#">
                             Your browser does not support the video tag.
-                        </video>
+                        </video> -->
                     </div>
                 </ons-carousel-item>
                 <ons-carousel-item id="ons-carousel-item3">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
-                        <video webkit-playsinline playsinline id="video_3" class="gif" autoplay loop>
+                        <img src='videos/shells.gif'>
+                        <audio id='audio_3'>
+                            <source src="audio/shells.mp3" type="audio/mpeg"></audio>
+                        <!-- <video webkit-playsinline playsinline id="video_3" class="gif" autoplay loop>
                             <source src="#" type="video/mp4" poster="#">
                             Your browser does not support the video tag.
-                        </video>
+                        </video> -->
                     </div>
                 </ons-carousel-item>
-                <ons-carousel-item id="ons-carousel-item4">
+                <!-- <ons-carousel-item id="ons-carousel-item4">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
                         <video webkit-playsinline playsinline id="video_4" class="gif" autoplay loop>
                             <source src="#" type="video/mp4" poster="#">
@@ -170,7 +179,7 @@
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                </ons-carousel-item>
+                </ons-carousel-item> -->
             </ons-carousel>
             <!-- <audio id="audio" autoplay loop>
                 <source src="media/lake.mp3" type="audio/mpeg">
@@ -221,42 +230,43 @@
                             var curr = carousel.getActiveIndex();
                             //document.getElementById("video" + curr).play();
                             if (curr == 0) {
-                                document.getElementById('video_1').play()
-                                document.getElementById('video_2').pause()
-                                document.getElementById('video_3').pause()
-                                document.getElementById('video_4').pause()
-                                document.getElementById('video_5').pause()
+
+                                document.getElementById('audio_1').play()
+                                document.getElementById('audio_2').pause()
+                                document.getElementById('audio_3').pause()
+                                document.getElementById('audio_4').pause()
+                                document.getElementById('audio_5').pause()
                             }
                             if (curr == 1) {
-                                document.getElementById('video_1').pause()
-                                document.getElementById('video_2').play()
-                                document.getElementById('video_3').pause()
-                                document.getElementById('video_4').pause()
-                                document.getElementById('video_5').pause()
+                                document.getElementById('audio_1').pause()
+                                document.getElementById('audio_2').play()
+                                document.getElementById('audio_3').pause()
+                                document.getElementById('audio_4').pause()
+                                document.getElementById('audio_5').pause()
                             }
                             if (curr == 2) {
-                                document.getElementById('video_1').pause()
-                                document.getElementById('video_2').pause()
-                                document.getElementById('video_3').play()
-                                document.getElementById('video_4').pause()
-                                document.getElementById('video_5').pause()
+                                document.getElementById('audio_1').pause()
+                                document.getElementById('audio_2').pause()
+                                document.getElementById('audio_3').play()
+                                document.getElementById('audio_4').pause()
+                                document.getElementById('audio_5').pause()
                             }
-                            if (curr == 3) {
-                                document.getElementById('video_1').pause()
-                                document.getElementById('video_2').pause()
-                                document.getElementById('video_3').pause()
-                                document.getElementById('video_4').play()
-                                document.getElementById('video_5').pause()
-                            }
-                            if (curr == 4) {
-                                document.getElementById('video_1').pause()
-                                document.getElementById('video_2').pause()
-                                document.getElementById('video_3').pause()
-                                document.getElementById('video_4').pause()
-                                document.getElementById('video_5').play()
-                            }
+                            // if (curr == 3) {
+                            //     document.getElementById('audio_1').pause()
+                            //     document.getElementById('audio_2').pause()
+                            //     document.getElementById('audio_3').pause()
+                            //     document.getElementById('audio_4').play()
+                            //     document.getElementById('audio_5').pause()
+                            // }
+                            // if (curr == 4) {
+                            //     document.getElementById('audio_1').pause()
+                            //     document.getElementById('audio_2').pause()
+                            //     document.getElementById('audio_3').pause()
+                            //     document.getElementById('audio_4').pause()
+                            //     document.getElementById('audio_5').play()
+                            // }
                         } catch (err) {
-
+                            alert('videoPlay', err)
                         }
                     });
                 }
@@ -2249,6 +2259,7 @@
                     <div class="margin-bot-50p"></div>
 
                     <div class="border-bot"></div>
+                    <p>v 1.0.01</p>
                     <p class="center">Proudly designed and developed by</p>
                     <a href="http://www.thebigcanvas.com/" target="_blank">
                         <div class="tbc-logo"></div>
@@ -5458,6 +5469,7 @@
             var prevPage;
             var contentType = 'video/mp4'
             try {
+                document.getElementById('audio_1').play()
                 var blob = b64toBlob(v_flowers, contentType)
                 var blobUrl = URL.createObjectURL(blob)
                 document.getElementById('video_1').src = blobUrl;
@@ -5484,7 +5496,9 @@
                 var blob5 = b64toBlob(v_tree, contentType)
                 var blobUrl5 = URL.createObjectURL(blob5)
                 document.getElementById('video_5').src = blobUrl5;
-            } catch (err) { }
+            } catch (err) {
+                //alert('videoBlob', err)
+            }
             $('.panel-hotspot').click(function (e) {
                 e.preventDefault();
                 $('.commonhide').hide();
