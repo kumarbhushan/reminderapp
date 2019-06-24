@@ -1,5 +1,4 @@
 <!doctype html>
-<!doctype html>
 <html class="no-js" lang="en" dir="ltr">
 
 <head>
@@ -9,19 +8,18 @@
     <meta name="viewport"
         content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
     <meta http-equiv="Content-Security-Policy" content="
-    media-src 'self' blob: data: 'unsafe-inline' 'unsafe-eval' 'none' * ;
+      media-src 'self' blob: data: 'unsafe-inline' 'unsafe-eval' * ;
       default-src * data: gap: https://ssl.gstatic.com ;
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
       script-src 'self' 'unsafe-inline' 'unsafe-eval' *;
-      connect-src 'self' data:; blob: ws: *;">
+      connect-src 'self' data: blob: ws: *;">
     <script src="lib/onsen/js/onsenui.js"></script>
     <script src="lib/onsen/js/onsenui.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="cordova.js"></script>
     <script src="cordova_plugins.js"></script>
-    <!-- <script type="text/javascript" charset="utf-8" src="video.js"></script> -->
+    <!--<script type="text/javascript" charset="utf-8" src="video.js"></script>-->
     <script src="CreateMySafetyPlan.js"></script>
-
     <script src="lib/lightbox/simple-lightbox.js"></script>
     <script src="gallery.js"></script>
     <script type="text/javascript" src="tweets/js/lib/chui-3.5.0.min.js"></script>
@@ -30,13 +28,10 @@
     <script type="text/javascript" src="tweets/js/lib/moment.min.js"></script>
     <script type="text/javascript" src="tweets/js/system/main.js"></script>
     <script type="text/javascript" src="tweets/js/system/base64.js"></script>
-
     <!-- define models -->
     <script src="tweets/js/models/tweet.js"></script>
-
     <!-- define collections -->
     <script src="tweets/js/collections/tweets.js"></script>
-
     <!-- define views -->
     <script type="text/javascript" src="tweets/js/views/main.js"></script>
     <script type="text/javascript" src="tweets/js/views/listings.js"></script>
@@ -51,9 +46,10 @@
 
     <link rel="stylesheet" href="lib/onsen/css/onsenui.css">
     <link rel="stylesheet" type="text/css" href="lib/lightbox/simplelightbox.css" />
-    <!-- <script src="html2canvas.js"></script> -->
+    <script src="html2canvas.js"></script>
     <link rel="stylesheet" href="css/otl.css">
     <script src="js/jspdf.min.js"></script>
+    <script src="js/reportGenerator.js"></script>
     <title>ReMinder</title>
 </head>
 
@@ -136,7 +132,7 @@
             </div>
             <div id="emoji-container" onclick="showPopUp();"><img id="emoji" src="img/emoji2.png"></div>
             <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel" initial-index="0">
-                <ons-carousel-item id="ons-carousel-item5">
+                <ons-carousel-item id="ons-carousel-item1">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
                         <video webkit-playsinline playsinline id="video_1" class="gif" autoplay loop>
                             <source src="#" type="video/mp4" poster="#">
@@ -144,7 +140,7 @@
                         </video>
                     </div>
                 </ons-carousel-item>
-                <ons-carousel-item id="ons-carousel-item1">
+                <ons-carousel-item id="ons-carousel-item2">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
                         <video webkit-playsinline playsinline id="video_2" class="gif" autoplay loop>
                             <source src="#" type="video/mp4" poster="#">
@@ -152,7 +148,7 @@
                         </video>
                     </div>
                 </ons-carousel-item>
-                <ons-carousel-item id="ons-carousel-item2">
+                <ons-carousel-item id="ons-carousel-item3">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
                         <video webkit-playsinline playsinline id="video_3" class="gif" autoplay loop>
                             <source src="#" type="video/mp4" poster="#">
@@ -160,7 +156,7 @@
                         </video>
                     </div>
                 </ons-carousel-item>
-                <ons-carousel-item id="ons-carousel-item3">
+                <ons-carousel-item id="ons-carousel-item4">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
                         <video webkit-playsinline playsinline id="video_4" class="gif" autoplay loop>
                             <source src="#" type="video/mp4" poster="#">
@@ -168,7 +164,7 @@
                         </video>
                     </div>
                 </ons-carousel-item>
-                <ons-carousel-item id="ons-carousel-item4">
+                <ons-carousel-item id="ons-carousel-item5">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
                         <video webkit-playsinline playsinline id="video_5" class="gif" autoplay loop>
                             <source src="#" type="video/mp4" poster="#">
@@ -176,7 +172,6 @@
                         </video>
                     </div>
                 </ons-carousel-item>
-
             </ons-carousel>
             <!-- <audio id="audio" autoplay loop>
                 <source src="media/lake.mp3" type="audio/mpeg">
@@ -223,42 +218,46 @@
                     var carousel = document.getElementById('carousel');
                     var curr = carousel.getActiveIndex();
                     carousel.addEventListener('postchange', function () {
-                        var curr = carousel.getActiveIndex();
-                        //document.getElementById("video" + curr).play();
-                        if (curr == 0) {
-                            document.getElementById('video_1').play()
-                            document.getElementById('video_2').pause()
-                            document.getElementById('video_3').pause()
-                            document.getElementById('video_4').pause()
-                            document.getElementById('video_5').pause()
-                        }
-                        if (curr == 1) {
-                            document.getElementById('video_1').pause()
-                            document.getElementById('video_2').play()
-                            document.getElementById('video_3').pause()
-                            document.getElementById('video_4').pause()
-                            document.getElementById('video_5').pause()
-                        }
-                        if (curr == 2) {
-                            document.getElementById('video_1').pause()
-                            document.getElementById('video_2').pause()
-                            document.getElementById('video_3').play()
-                            document.getElementById('video_4').pause()
-                            document.getElementById('video_5').pause()
-                        }
-                        if (curr == 3) {
-                            document.getElementById('video_1').pause()
-                            document.getElementById('video_2').pause()
-                            document.getElementById('video_3').pause()
-                            document.getElementById('video_4').play()
-                            document.getElementById('video_5').pause()
-                        }
-                        if (curr == 4) {
-                            document.getElementById('video_1').pause()
-                            document.getElementById('video_2').pause()
-                            document.getElementById('video_3').pause()
-                            document.getElementById('video_4').pause()
-                            document.getElementById('video_5').play()
+                        try {
+                            var curr = carousel.getActiveIndex();
+                            //document.getElementById("video" + curr).play();
+                            if (curr == 0) {
+                                document.getElementById('video_1').play()
+                                document.getElementById('video_2').pause()
+                                document.getElementById('video_3').pause()
+                                document.getElementById('video_4').pause()
+                                document.getElementById('video_5').pause()
+                            }
+                            if (curr == 1) {
+                                document.getElementById('video_1').pause()
+                                document.getElementById('video_2').play()
+                                document.getElementById('video_3').pause()
+                                document.getElementById('video_4').pause()
+                                document.getElementById('video_5').pause()
+                            }
+                            if (curr == 2) {
+                                document.getElementById('video_1').pause()
+                                document.getElementById('video_2').pause()
+                                document.getElementById('video_3').play()
+                                document.getElementById('video_4').pause()
+                                document.getElementById('video_5').pause()
+                            }
+                            if (curr == 3) {
+                                document.getElementById('video_1').pause()
+                                document.getElementById('video_2').pause()
+                                document.getElementById('video_3').pause()
+                                document.getElementById('video_4').play()
+                                document.getElementById('video_5').pause()
+                            }
+                            if (curr == 4) {
+                                document.getElementById('video_1').pause()
+                                document.getElementById('video_2').pause()
+                                document.getElementById('video_3').pause()
+                                document.getElementById('video_4').pause()
+                                document.getElementById('video_5').play()
+                            }
+                        } catch (err) {
+
                         }
                     });
                 }
@@ -273,14 +272,17 @@
             function cancelCall() {
                 document.getElementById("CallConfirm").style.display = "none";
             }
+
             function call() {
                 document.getElementById("CallConfirm").style.display = "block";
                 console.log("call")
             }
+
             function showPopUp() {
                 document.getElementById("popup").style.display = "block";
                 document.getElementById("emoji-container").style.display = "none";
             }
+
             function changeto1() {
                 console.log("ready");
                 document.getElementById("emoji").src = "img/emoji1.png";
@@ -288,12 +290,14 @@
                 document.getElementById("emoji-container").style.display = "block";
                 localStorage.setItem('emoji', 'emoji1');
             }
+
             function changeto2() {
                 document.getElementById("emoji").src = "img/emoji2.png";
                 document.getElementById("popup").style.display = "none";
                 document.getElementById("emoji-container").style.display = "block";
                 localStorage.setItem('emoji', 'emoji2');
             }
+
             function changeto3() {
                 document.getElementById("emoji").src = "img/emoji3.png";
                 document.getElementById("popup").style.display = "none";
@@ -312,6 +316,7 @@
             });
             window.fn = {};
         </script>
+
     </div>
     <div id="MyStuff" class="contents" style="display:none;">
         <script>
@@ -335,6 +340,7 @@
             }
 
             function nullHandler() { };
+
             function createStuffTable() {
                 if (!window.openDatabase) {
                     console.log('Databases are not supported in this browser.');
@@ -347,6 +353,7 @@
                 }, errorHandler, successCallBack);
                 console.log("table created");
             }
+
             function GetStuffFromDB() {
                 if (!window.openDatabase) {
                     console.log('Databases are not supported in this browser.');
@@ -376,6 +383,7 @@
                     });
                 });
             }
+
             function CheckImageInDB(imageURI) {
                 if (!window.openDatabase) {
                     console.log('Databases are not supported in this browser.');
@@ -396,6 +404,7 @@
                     });
                 });
             }
+
             function AddImageToDB(imageURI) {
 
                 if (!window.openDatabase) {
@@ -415,8 +424,9 @@
                 //console.log("table populated");
                 //openGallery();
             }
+
             function DeleteImageFromDB(imageURI) {
-                alert('here');
+                //alert('here');
                 if (!window.openDatabase) {
                     console.log('Databases are not supported in this browser.');
                     return;
@@ -429,6 +439,7 @@
                 //GetStuffFromDB();
             }
             document.addEventListener("deviceready", onDeviceReady, false);
+
             function onDeviceReady() {
                 var DefaultImageItems = $("#myStuffItems")[0].children;
                 for (var key = 0; key < DefaultImageItems.length; key++) {
@@ -474,10 +485,12 @@
                 //openGallery();
                 StatusBar.hide();
             }
+
             function movePic(file) {
                 window.resolveLocalFileSystemURL(file, resolveOnSuccess, resOnError);
 
             }
+
             function resolveOnSuccess(entry) {
                 var d = new Date();
                 var n = d.getTime();
@@ -592,7 +605,7 @@
             <!-- section title -->
             <div class="sectionbar">
                 <div class="section-title info">
-                    <div class="section-icon-mystuff"></div>My Stuff
+                    <div class="section-icon-mystuff-header"></div>My Stuff
                 </div>
             </div>
             <!-- title bar / back button -->
@@ -617,7 +630,7 @@
                 <p>+</p>
             </div>
         </div>
-        <div id="MyStuffAddPage" hidden>
+        <div id="MyStuffAddPage" class="commonhide" hidden>
             <h4>Add</h4>
             <div class="btn-camera" id="btn-camera" onclick="">Camera</div>
             <div class="btn-library" id="btn-library" onclick="">Photo Library</div>
@@ -667,21 +680,18 @@
             </div>
 
         </div>
-        <!-- <div class="bot-overlay"></div>
+        <div class="bot-overlay"></div>
         <div class="bot-overlay-high"></div>
         <div class="bot-container">
             <div class="AddmyStuffItem" onclick="$('.contents').hide();$('#addThemePage').show();">
                 <p>+</p>
             </div>
-        </div>-->
+        </div>
 
         <div class="grid-container">
-
             <div class="margin-top-180p"></div>
-
             <div class="theme-container">
                 <div class="margin-top-180p"></div>
-
                 <div class="theme1">
                     <div class="contact-gradient"></div>
                     <div class="contactname">Peaceful Water</div>
@@ -707,16 +717,12 @@
                     <div class="contactname">Ocean Waves</div>
                     <img src="img/btn-cross-white.png" class="btn-select-theme" id="add-theme-waves">
                 </div>
-
             </div>
             <div class="theme-container" id="themeItem">
             </div>
 
             <div class="margin-bot-100p"></div>
-
-
         </div>
-
         <script>
             function cancelCall() {
                 document.getElementById("CallConfirm").style.display = "none";
@@ -861,30 +867,265 @@
             }
         </script>
     </div>
+
+    <div id="editcontacts" class="contents" style="display:none;">
+        <script>
+            var selectedColor = "";
+            var ContactFullName = "";
+            var ContactFirstName = "";
+            var ContactLastName = "";
+            var ContactNumber = "";
+            var ProfilePic = '';
+            //var ContactColor = "";
+            var ContactUId = "";
+            var db;
+            var shortName = 'WebSqlDB';
+            var version = '1.0';
+            var displayName = 'WebSqlDB';
+            var maxSize = 4.9 * 1024 * 1024;
+            var colorArray = ['#bcbec0', '#be1e2d', '#f15a29', '#1b75bc', '#009444'];
+
+            function selectColor(el) {
+                console.log($(el)[0].val());
+                return selectedColor = $(el)[0].val();
+            }
+
+            function errorHandler(transaction, error) {
+                console.log('Error: ' + error.message + ' code: ' + error.code);
+            }
+
+            function successCallBack() {
+                console.log("DEBUGGING: success");
+
+            }
+
+            function updateDBSuccessCallBack() {
+
+            }
+
+            function nullHandler() { };
+
+            function UpdateValueInDBContact(ContactFullName, ContactNumber, ContactColor, ContactUId) {
+                // alert(ContactUId);
+                var ProfilePic = $('#dummy-img').attr('src');
+                if (!window.openDatabase) {
+                    console.log('Databases are not supported in this browser.');
+                    return;
+                }
+
+                db.transaction(function (transaction) {
+                    console.log("Updating");
+                    transaction.executeSql(
+                        'UPDATE Contacts SET ContactName = ?, ContactNumber = ?, ContactColor = ?, ProfilePic = ? WHERE UId=?',
+                        [ContactFullName, ContactNumber, ContactColor, ProfilePic, ContactUId],
+                        function () {
+                            console.log("DEBUGGING: success");
+                            var planCompleted = localStorage.getItem("planCompleted");
+                            if (planCompleted == "0" || planCompleted == 0) {
+                                //document.location.href='CreateMySafetyPlanQ4.html'; 
+                                $('.contents').hide();
+                                $('#CreateMySafetyPlanQ4').show();
+                                GetContactsValueFromDB11();
+                            } else {
+                                //document.location.href='myteam.html';
+                                $('.contents').hide();
+                                $('#myteam').show();
+                                GetContactsValueFromDB11();
+                            }
+                        });
+                });
+                localStorage.setItem("editContactId", "");
+
+            }
+
+            function GetValueFromDB1(ContactUId) {
+                //alert(ContactUId)
+                contactAdded = 0;
+                if (!window.openDatabase) {
+                    console.log('Databases are not supported in this browser.');
+                    return;
+                }
+                db.transaction(function (transaction) {
+                    transaction.executeSql(
+                        'SELECT ContactName, ContactNumber, ProfilePic FROM Contacts WHERE UId=?', [
+                            ContactUId
+                        ],
+                        function (transaction, results) {
+
+                            if (results.rows.length) {
+                                console.log(results.rows.item(0).ContactName);
+
+                                var FullName = results.rows.item(0).ContactName;
+                                var FullNameSplit = FullName.split(" ");
+                                if (FullNameSplit != undefined && FullNameSplit != "undefined") {
+                                    ContactFirstName = FullNameSplit[0];
+                                    ContactLastName = FullNameSplit[(FullNameSplit.length) - 1];
+                                } else {
+                                    ContactFirstName = FullName;
+                                    ContactLastName = "";
+                                }
+
+                                ContactNumber = results.rows.item(0).ContactNumber;
+                                ProfilePic = results.rows.item(0).ProfilePic;
+                            } else {
+                                console.log("error: contact not found")
+                            }
+                            document.getElementById("contactFirstName").value = ContactFirstName;
+                            document.getElementById("contactLastName").value = ContactLastName;
+                            document.getElementById("contactNumber").value = ContactNumber;
+                            document.getElementById("ContactUId").value = ContactUId;
+                            $('#dummy-img').attr('src', ProfilePic)
+                        });
+                });
+            }
+
+            function goBack() {
+                var planCompleted = localStorage.getItem("planCompleted");
+                if (planCompleted == "0" || planCompleted == 0) {
+                    //document.location.href='CreateMySafetyPlanQ4.html'; 
+                    $('.contents').hide();
+                    $('#CreateMySafetyPlanQ4').show();
+                } else {
+                    //document.location.href='myteam.html';
+                    $('.contents').hide();
+                    $('#myteam').show();
+                }
+
+            }
+
+            function cancelDelete() {
+                document.getElementById("deleteConfirm").style.display = "none";
+            }
+
+            function deleteContact() {
+                ContactUId = localStorage.getItem('editContactId');
+                db.transaction(function (transaction) {
+                    transaction.executeSql('DELETE FROM Contacts WHERE UId=?', [ContactUId], function () {
+                        document.getElementById("deleteConfirm").style.display = "none";
+                        goBack();
+                    });
+                });
+
+            }
+            document.addEventListener("deviceready", onDeviceReady, false);
+
+
+            function onDeviceReady() {
+                ContactUId = localStorage.getItem('editContactId');
+                console.log()
+                db = openDatabase(shortName, version, displayName, maxSize);
+                GetValueFromDB1(ContactUId);
+                $("#saveContact").click(function () {
+
+
+
+                    var ContactColor = colorArray[Math.floor(Math.random() * colorArray.length)];
+                    ContactFirstName = document.getElementById("contactFirstName").value;
+                    ContactLastName = document.getElementById("contactLastName").value;
+                    ContactNumber = document.getElementById("contactNumber").value;
+                    ContactUId = document.getElementById("ContactUId").value;
+                    ContactFullName = ContactFirstName.trim() + " " + ContactLastName.trim();
+                    if (ContactFirstName.trim() != "" && ContactLastName.trim() != "" && ContactNumber.trim() !=
+                        "") {
+                        UpdateValueInDBContact(ContactFullName, ContactNumber.trim(), ContactColor, ContactUId);
+                    } else {
+                        $("#formValidation").show();
+                        console.log("Validation Faild");
+                    }
+
+                });
+
+                $("#btn-delete-contacts").click(function () {
+                    document.getElementById("deleteConfirm").style.display = "block";
+                });
+            }
+        </script>
+        <div id="AddUserImage" class="commonhide" hidden>
+            <h4>Add</h4>
+            <div class="btn-camera" id="btn-camera-image" onclick="">Camera</div>
+            <div class="btn-library" id="btn-library-image" onclick="">Photo Library</div>
+
+        </div>
+        <div class="bot-container">
+            <div class="btn-done" value="Done" id="saveContact">Done</div>
+            <div class="btn-delete-contacts" id="btn-delete-contacts"><img class="btn-delete" src="img/btn-delete.png">
+            </div>
+        </div>
+        <!-- CONTENT -->
+        <div class="grid-container-whitebg">
+
+            <div class="margin-top-180p"></div>
+
+            <div class="panel-container">
+                <div class="contact-colors" hidden>
+                    <div onclick="selectColor(this);" class="colors grey colors-active" value="#bcbec0">&nbsp</div>
+                    <div onclick="selectColor(this);" class="colors red" value="#be1e2d">&nbsp</div>
+                    <div onclick="selectColor(this);" class="colors orange" value="#f15a29">&nbsp</div>
+                    <div onclick="selectColor(this);" class="colors blue" value="#1b75bc">&nbsp</div>
+                    <div onclick="selectColor(this);" class="colors green" value="#009444">&nbsp</div>
+                    <div onclick="selectColor(this);" class="colors add-colors" value="#bcbec0">
+                        <div class="add-colors-plus">
+                            <p>+</p>
+                        </div>
+                    </div>
+
+                </div>
+                <form>
+                    <div class="form-container">
+                        <div class="img-container" onclick="$('#AddUserImage').show();"><img id="dummy-img"
+                                style="border-radius:60px;height:100px;width:100px;"" src=" img/btn-photo-contact.png">
+                                </div> <span id="formValidation" style="color:#be1e2d;" hidden>All fields are
+                            required.</span>
+                            <p class="form-text">First name</p>
+
+                            <input maxlength="20" class="form-textfield" type="hidden" id="ContactUId"
+                                name="ContactUId">
+                            <input maxlength="20" class="form-textfield" type="text" id="contactFirstName"
+                                name="firstname">
+                            <br>
+                            <br>
+                            <p class="form-text">Last name</p>
+                            <input maxlength="20" class="form-textfield" type="text" id="contactLastName"
+                                name="lastname">
+                            <br>
+                            <br>
+                            <p class="form-text">Phone</p>
+                            <input class="form-textfield" type="tel" id="contactNumber" name="phone">
+                            <br><br>
+                        </div>
+                </form>
+            </div>
+            <div class="margin-bot-150p" style="height:150px"></div>
+        </div>
+
+    </div>
     <div id="myteam" class="contents" style="display:none;">
         <!-- panel overlays -->
         <div class="top-overlay">
             <!-- section title -->
             <div class="sectionbar">
                 <div class="section-title info">
-                    <div class="section-icon-myteam"></div>My Team
+                    <div class="section-icon-myteam-header"></div>My Team
                 </div>
                 <button style="border-radius:20px" id="shareloc">Share Loc</button>
             </div>
+
+
         </div>
-        <div id="ContactsAddPage" hidden>
+
+        <div id="ContactsAddPage1" class="commonhide" hidden>
             <h4>Add</h4>
             <a href="javascript:void(0);" data-href="contacts" class="custom-btn">
-                <div class="btn-phone-contacts" id="btn-camera">New From Phone</div>
+                <div class="btn-phone-contacts" id="">New From Phone</div>
             </a>
             <a href="javascript:void(0);" data-href="addcontacts" class="custom-btn">
-                <div class="btn-add-contacts" id="btn-library">New Contact</div>
+                <div class="btn-add-contacts" id="">New Contact</div>
             </a>
             <img hidden id="myImage" style="width:50px; height:50px;" />
             <!--<div class="btn-save" onclick="saveImage();">Save</div>-->
         </div>
         <div class="bot-container">
-            <div class="AddContactsItem" onclick="$('#ContactsAddPage').show();">
+            <div class="AddContactsItem" onclick="$('#ContactsAddPage1').show();">
                 <p>+</p>
             </div>
         </div>
@@ -896,48 +1137,58 @@
             <div class="margin-bot-80p" style="height:50px"></div>
         </div>
         <script>
-            var contacts = [];
-            var contactColors = [];
-            var contactIds = [];
-            var contactNumbers = [];
+            // var contacts = [];
+            // var contactColors = [];
+            // var contactIds = [];
+            // var contactNumbers = [];
             var shortName = 'WebSqlDB';
             var version = '1.0';
             var displayName = 'WebSqlDB';
             var maxSize = 4.9 * 1024 * 1024;
+
             function cancelCall() {
                 document.getElementById("CallConfirm").style.display = "none";
             }
+
             function call() {
                 document.getElementById("CallConfirm").style.display = "block";
                 console.log("call")
             }
+
             function getContactId(contactId) {
                 localStorage.setItem('editContactId', contactId);
+                return true;
             }
+
             function errorHandler(transaction, error) {
                 console.log('Error: ' + error.message + ' code: ' + error.code);
             }
+
             function successCallBack() {
                 console.log("DEBUGGING: success");
             }
+
             function nullHandler() { };
 
             function createContactsTable() {
                 if (!window.openDatabase) {
-
                     console.log('Databases are not supported in this browser.');
                     return;
                 }
-
                 db.transaction(function (tx) {
                     tx.executeSql(
                         'CREATE TABLE IF NOT EXISTS Contacts(UId INTEGER NOT NULL PRIMARY KEY, ContactName TEXT NOT NULL, ContactNumber TEXT NOT NULL, ContactColor TEXT NOT NULL)',
                         [], nullHandler, errorHandler);
                 }, errorHandler, successCallBack);
             }
-            function GetContactsValueFromDB() {
-                //alert('here');
+
+            function GetContactsValueFromDB11() {
+                //alert('here****');
+
                 var contacts = [];
+                var contactColors = [];
+                var contactIds = [];
+                var contactNumbers = [];
                 if (!window.openDatabase) {
                     console.log('Databases are not supported in this browser.');
                     return;
@@ -946,29 +1197,32 @@
                     transaction.executeSql('SELECT UId, ContactName, ContactNumber, ContactColor FROM Contacts',
                         [],
                         function (transaction, results) {
-
                             if (results.rows.length) {
+                                //alert("Row :"+results.rows.length);
                                 for (var i = 0; i < results.rows.length; i++) {
                                     console.log(results.rows.item(i).ContactName);
                                     contacts.push(results.rows.item(i).ContactName);
                                     contactNumbers.push(results.rows.item(i).ContactNumber);
                                     contactColors.push(results.rows.item(i).ContactColor);
                                     contactIds.push(results.rows.item(i).UId);
+                                    //alert(results.rows.item(i).UId);
                                 }
                                 console.log(contacts);
                                 console.log(contactColors);
+                                //alert(contacts.length+'length'); 
                                 $("#contacts-container").empty();
                                 for (var j = 0; j < contacts.length; j++) {
-
+                                    //alert(j +"----" +contactIds[j]);
                                     $("#contacts-container").append(
                                         '<div class="callcard-contact1" style="background-color:' +
                                         contactColors[j] +
                                         '"><div class="contact-gradient"></div><div class="contactname">' +
                                         contacts[j] + '<br>' + contactNumbers[j] +
                                         '</div><div><a href="tel:' + contactNumbers[j] +
-                                        '" class="callbtn"></a></div><div><a onclick="getContactId(' +
+                                        '" class="callbtn"></a></div><div><a onclick=" return getContactId(' +
                                         contactIds[j] +
-                                        ');" href="editcontacts.html" class="editcontact"></a></div></div>'
+                                        ');" data-id = "' + contactIds[j] +
+                                        '" data-href="editcontacts" href="javascript:void();" class="editcontact custom-btn-edit"></a></div></div>'
                                     );
                                 }
                                 $("#contacts-container").append('<div class="empty-space"></div>');
@@ -989,9 +1243,7 @@
                 localStorage.setItem("editPlanMode", "off");
                 db = openDatabase(shortName, version, displayName, maxSize);
                 createContactsTable();
-                GetContactsValueFromDB();
-
-
+                GetContactsValueFromDB11();
                 $(document).on('click', '#shareloc', function () {
                     var onSuccess = function (position) {
                         /*alert('Latitude: '          + position.coords.latitude          + '\n' +
@@ -1012,28 +1264,21 @@
                             chooserTitle: 'Pick an app', // Android only, you can override the default share sheet title,
                             appPackageName: 'com.apple.social.facebook' // Android only, you can provide id of the App you want to share with
                         };
-
-
-
                         window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
                     };
-
                     // onError Callback receives a PositionError object
                     //
                     function onError(error) {
                         alert('code: ' + error.code + '\n' +
                             'message: ' + error.message + '\n');
                     }
-
                     navigator.geolocation.getCurrentPosition(onSuccess, onError);
-
                 })
 
             }
         </script>
     </div>
     <div id="tweets" class="contents" style="display:none;">
-
         <!-- panel overlays -->
         <div class="top-overlay short">
             <!-- section title -->
@@ -1142,13 +1387,17 @@
             var maxSize = 4.9 * 1024 * 1024;
             var selectedElement = "";
             var answers = [];
+
             function errorHandler(transaction, error) {
                 console.log('Error: ' + error.message + ' code: ' + error.code);
             }
+
             function successCallBack() {
                 console.log("DEBUGGING: success");
             }
+
             function nullHandler() { };
+
             function createTable() {
                 console.log("DEBUGGING: we are in the onBodyLoad() function");
                 if (!window.openDatabase) {
@@ -1161,7 +1410,9 @@
                         [], nullHandler, errorHandler);
                 }, errorHandler, successCallBack);
             }
+
             function GetValueFromDB(QId, AId) {
+                //alert(QId);
                 var answer = "";
                 if (!window.openDatabase) {
                     console.log('Databases are not supported in this browser.');
@@ -1175,7 +1426,6 @@
                                 console.log(results.rows.item(0).Answer);
                                 answer = results.rows.item(0).Answer.trim();
 
-
                                 if (answer != null && answer != "undefined" && answer != "") {
                                     //$("#"+"Q"+QId+"A"+AId).show();
                                     document.getElementById("Q" + QId + "A" + AId).style.display = "block";
@@ -1187,12 +1437,17 @@
                         });
                 });
             }
+
             function editQuestion(QId) {
                 localStorage.setItem("editPlanMode", "on");
                 var editPlanStage = localStorage.setItem('planStage', (parseInt(QId) - 1));
                 $('.contents').hide();
                 $('#CreateMySafetyPlanQ' + QId).show();
+                for (var i = 1; i < 7; i++) {
+                    GetValueFromDBPlan(QId, i);
+                }
             }
+
             function GetContactsValueFromDB1() {
                 var contacts = [];
                 var contactNumbers = [];
@@ -1234,6 +1489,7 @@
                 });
             }
             document.addEventListener("deviceready", onDeviceReady, false);
+
             function onDeviceReady() {
                 localStorage.setItem("editPlanMode", "off");
                 db = openDatabase(shortName, version, displayName, maxSize);
@@ -1245,43 +1501,57 @@
                     GetValueFromDB(5, i);
                 }
                 GetContactsValueFromDB1();
-
-
             }
-            $(document).on('click', '#sharethis', function () {
-                var element = $("#pdfData");
-                var getCanvas;
-                try {
-                    html2canvas(element, {
-                        onrendered: function (canvas) {
-                            var imgageData = canvas.toDataURL("image/png");
-                            var doc = new jsPDF('p', 'px', [canvas.width, canvas.height]);
-                            var width = doc.internal.pageSize.getWidth();
-                            var height = doc.internal.pageSize.getHeight();
-                            doc.addImage(imgageData, 'PNG', 0, 0, width, height);
-                            doc.save('sample.pdf');
-                            var pdfOutput = doc.output();
-                            var myBase64 = btoa(pdfOutput);
-                            var contentType = "application/pdf";
-                            var folderpath = cordova.file.externalRootDirectory;
-                            var filename = "MySafetyPlan.pdf";
-                            var finalPath = folderpath + '' + filename;
-                            savebase64AsPDF(folderpath, filename, myBase64, contentType);
-                            var options = {
-                                message: 'PDF', // not supported on some apps (Facebook, Instagram)
-                                subject: 'the subject', // fi. for email
-                                files: [finalPath], // an array of filenames either locally or remotely
-                                chooserTitle: 'Pick an app', // Android only, you can override the default share sheet title,
-                                appPackageName: 'com.apple.social.facebook' // Android only, you can provide id of the App you want to share with
-                            };
-                            window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
-                        }
+
+            function getShareDocument(selector) {
+                var $childrens = jQuery(selector).children(),
+                    output = [];
+
+                jQuery.each($childrens, function (index, child) {
+                    var $child = jQuery(child).children().filter(function () {
+                        return !jQuery(this).get(0).hasAttribute('onclick') && jQuery(this).is(
+                            ':visible') && !jQuery(this).is('img');
                     });
+
+                    if ($child.length > 0) {
+                        jQuery.each($child, function (index, element) {
+                            var $this = jQuery(element);
+
+                            if ($this.is('p') && $this.hasClass('safety-label'))
+                                output.push('<strong>' + $this.get(0).outerHTML + '</strong>');
+                            else
+                                output.push($this.get(0).outerHTML);
+                        });
+                    }
+                });
+
+                return output.join(" ");
+            }
+
+            $(document).on('click', '#sharethis', function () {
+                var data = getShareDocument('#pdfData'),
+                    folderPath = cordova.file.cacheDirectory,
+                    fileName = "safetyPlan.pdf";
+
+                alert(cordova.file.applicationStorageDirectory);
+                try {
+                    reportGenerator.generate(data, folderPath, fileName, function (fileUrl) {
+                        var options = {
+                            message: 'share this', // not supported on some apps (Facebook, Instagram)
+                            subject: 'My Safety Plan', // fi. for email
+                            files: [
+                                fileUrl
+                            ], // an array of filenames either locally or remotely
+                            chooserTitle: 'Pick an app', // Android only, you can override the default share sheet title,
+                            appPackageName: 'com.apple.social.facebook' // Android only, you can provide id of the App you want to share with
+                        };
+                        window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+                    });
+                } catch (ex) {
+                    alert(ex);
                 }
-                catch (err) {
-                    alert(err);
-                }
-            })
+            });
+
             var onSuccess = function (result) {
                 console.log("Share completed? " + result.completed);
                 console.log("Shared to app: " + result.app);
@@ -2064,9 +2334,7 @@
                             <span id="dots4"> &nbsp; </span>
                         </div>
                     </ons-carousel-cover>
-
                 </ons-carousel>
-
             </div>
         </ons-page>
 
@@ -2273,7 +2541,7 @@
 
         </div>
         <div class="bot-overlay-high"></div>
-        <div id="ContactsAddPage" hidden>
+        <div id="ContactsAddPage" class="commonhide" hidden>
             <h4>Add</h4>
             <a href="javascript:void(0);" data-href="contacts">
                 <div class="btn-phone-contacts" id="btn-camera">New From Phone</div>
@@ -2381,9 +2649,11 @@
                     } else {
                         $('.contents').hide();
                         $('#CreateMySafetyPlanQ1').show();
+                        $('#QQ1A1').focus();
                         $('#inner-header').show();
                     }
                 }
+
                 function qnavigate(que) {
                     $('.contents').hide();
                     $('#CreateMySafetyPlanQ1').hide();
@@ -2425,7 +2695,9 @@
                     document.getElementById('carousel1').setActiveIndex(curr + 1);
                 }
             }
+
             function onDeviceReady12() {
+                //alert('dfd');
                 StatusBar.hide();
                 document.getElementById("dots11").style.backgroundColor = "rgba(0,0,0,1)";
 
@@ -2439,7 +2711,7 @@
                     finInstruc++;
                     var curr = carousel.getActiveIndex();
                     //var videoID = "video";
-                    // console.log(curr);
+                    // console.log(curr);            
                     if (curr == 0) {
                         finInstruc++;
                         document.getElementById("dots11").style.backgroundColor = "rgba(0,0,0,1)";
@@ -2589,7 +2861,7 @@
                 </div>
             </div>
         </div>
-        <div id="AddTheme" hidden>
+        <div id="AddTheme" class="commonhide" hidden>
             <h4>Add</h4>
             <div class="btn-camera" id="btn-camera-theme" onclick="">Camera</div>
             <div class="btn-library" id="btn-library-theme" onclick="">Photo Library</div>
@@ -3018,7 +3290,7 @@
             <!-- section title -->
             <div class="sectionbar">
                 <div class="section-title info">
-                    <div class="section-icon-myteam"></div>My Team
+                    <div class="section-icon-myteam-header"></div>My Team
                 </div>
             </div>
             <!-- title bar / back button -->
@@ -3030,10 +3302,17 @@
             </div>
 
         </div>
+        <div id="AddUserImage" class="commonhide" hidden>
+            <h4>Add</h4>
+            <div class="btn-camera" id="btn-camera-image" onclick="">Camera</div>
+            <div class="btn-library" id="btn-library-image" onclick="">Photo Library</div>
+
+        </div>
         <div class="bot-overlay-high"></div>
         <div class="bot-container">
             <div class="btn-done" value="Done" id="addNewContactBtn">Done</div>
         </div>
+
         <!-- CONTENT -->
         <div class="grid-container-whitebg">
 
@@ -3057,21 +3336,26 @@
 
                 <form>
                     <div class="form-container">
-                        <span id="formValidation" style="color:#be1e2d;" hidden>All fields are required.</span>
-                        <p class="form-text" style="margin:0">First name</p>
-                        <input maxlength="20" class="form-textfield" type="text" maxlength="50" name="firstname"
-                            id="contactFirstName">
 
-                        <br>
-                        <br>
-                        <p class="form-text" style="margin:0">Last name</p>
-                        <input maxlength="20" class="form-textfield" type="text" name="lastname" id="contactLastName">
-                        <br>
-                        <br>
-                        <p class="form-text" style="margin:0">Phone</p>
-                        <input class="form-textfield" type="tel" name="phone" id="contactNumber">
-                        <br><br>
-                    </div>
+                        <div class="img-container" onclick="$('#AddUserImage').show();"><img id="dummy-img"
+                                style="border-radius:60px;height:100px;width:100px;"" src=" img/btn-photo-contact.png">
+                                </div> <span id="formValidationerr" style="color:#be1e2d;" hidden>All fields are
+                            required.</span>
+                            <p class="form-text" style="margin:0">First name</p>
+                            <input maxlength="20" class="form-textfield" type="text" maxlength="50" name="firstname"
+                                id="addContactFirstName">
+
+                            <br>
+                            <br>
+                            <p class="form-text" style="margin:0">Last name</p>
+                            <input maxlength="20" class="form-textfield" type="text" name="lastname"
+                                id="addContactLastName">
+                            <br>
+                            <br>
+                            <p class="form-text" style="margin:0">Phone</p>
+                            <input class="form-textfield" type="tel" name="phone" id="addContactNumber">
+                            <br><br>
+                        </div>
 
 
                 </form>
@@ -3114,6 +3398,18 @@
 
             function successCallBack() {
                 console.log("DEBUGGING: success");
+                //alert('create');
+
+            }
+
+
+            function errorHandlerImage(transaction, error) {
+                alert('Error: ' + error.message + ' code: ' + error.code);
+            }
+
+            function successCallBackImage() {
+                console.log("DEBUGGING: success");
+                alert('create');
 
             }
 
@@ -3130,31 +3426,36 @@
                     return;
                 }
                 db.transaction(function (tx) {
+                    //tx.executeSql('DROP TABLE IF EXISTS Contacts');
                     tx.executeSql(
-                        'CREATE TABLE IF NOT EXISTS Contacts(UId INTEGER NOT NULL PRIMARY KEY, ContactName TEXT NOT NULL, ContactNumber TEXT NOT NULL, ContactColor TEXT NOT NULL)',
+                        'CREATE TABLE IF NOT EXISTS Contacts(UId INTEGER NOT NULL PRIMARY KEY, ContactName TEXT NOT NULL, ContactNumber TEXT NOT NULL,ProfilePic TEXT NOT NULL, ContactColor TEXT NOT NULL)',
                         [], nullHandler, errorHandler);
                 }, errorHandler, successCallBack);
             }
 
-            function InsertValueInDB(ContactFullName, ContactNumber, ContactColor) {
+            function InsertValueInDB(ContactFullName, ContactNumber, ContactColor, ImageUrl) {
                 console.log("inside insert");
+                alert('insert');
                 if (!window.openDatabase) {
                     console.log('Databases are not supported in this browser.');
                     return;
                 }
                 db.transaction(function (transaction) {
                     console.log("Inserting");
+                    alert('db');
                     transaction.executeSql(
-                        'INSERT INTO Contacts(ContactName, ContactNumber, ContactColor) VALUES (?,?, ?)', [
-                            ContactFullName, ContactNumber, ContactColor
+                        'INSERT INTO Contacts(ContactName, ContactNumber, ContactColor, ProfilePic) VALUES (?,?, ?, ?)',
+                        [
+                            ContactFullName, ContactNumber, ContactColor, ImageUrl
                         ],
                         function () {
                             console.log("DEBUGGING: success");
+                            alert('success');
                             var planCompleted = localStorage.getItem("planCompleted");
-                            GetContactsValueFromDB();
-                            $('#ContactsAddPage').hide();
+                            GetContactsValueFromDB11();
+                            $('#ContactsAddPage1').hide();
                             if (planCompleted == "0" || planCompleted == 0) {
-
+                                alert('plan');
                                 //document.location.href='CreateMySafetyPlanQ4.html';  
                                 $('.contents').hide();
                                 $('#CreateMySafetyPlanQ4').show();
@@ -3163,8 +3464,9 @@
                                 $('.contents').hide();
                                 //  $("#myteam").load( document.URL +"#myteam");
                                 $('#myteam').show();
+                                alert('ten');
                             }
-                        });
+                        }, errorHandlerImage, successCallBackImage);
                 });
             }
 
@@ -3188,30 +3490,156 @@
 
 
             function onDeviceReady() {
-
+                var ImageUrl = '';
                 db = openDatabase(shortName, version, displayName, maxSize);
                 createTable();
                 $("#addNewContactBtn").click(function () {
-
+                    alert('hereadd');
                     //ContactColor = selectedColor;
                     var ContactColor = colorArray[Math.floor(Math.random() * colorArray.length)];
-                    console.log(document.getElementById("contactFirstName").value);
-                    ContactFirstName = document.getElementById("contactFirstName").value;
-                    ContactLastName = document.getElementById("contactLastName").value;
-                    ContactNumber = document.getElementById("contactNumber").value;
+                    console.log(document.getElementById("addContactFirstName").value);
+                    ContactFirstName = document.getElementById("addContactFirstName").value;
+                    ContactLastName = document.getElementById("addContactLastName").value;
+                    ContactNumber = document.getElementById("addContactNumber").value;
                     ContactFullName = ContactFirstName.trim() + " " + ContactLastName.trim();
+                    ImageUrl = $('#dummy-img').attr('src');
+
+                    alert(ContactFirstName + '-' + ContactLastName + '*' + ContactNumber + '--' + ImageUrl);
                     if (ContactFirstName.trim() != "" && ContactLastName.trim() != "" && ContactNumber.trim() !=
-                        "") {
-                        InsertValueInDB(ContactFullName, ContactNumber.trim(), ContactColor.trim());
+                        "" && ImageUrl != '') {
+                        alert('here-if');
+                        $("#formValidation").hide();
+                        InsertValueInDB(ContactFullName, ContactNumber.trim(), ContactColor.trim(), ImageUrl);
                     } else {
-                        $("#formValidation").show();
+                        alert('here-else');
+                        $("#formValidationerr").show();
                         console.log("Validation Faild");
                     }
 
 
                 });
 
+                $("#btn-camera-image").click(function () {
+                    getPhotoFromCameraProfilePic();
+                });
+                $("#btn-library-image").click(function () {
+                    getPhotoFromAlbumProfilePic();
+                });
 
+
+            }
+
+            function moveProfilePic(file) {
+                window.resolveLocalFileSystemURL(file, resolveOnSuccessProfilePic, resOnError);
+
+            }
+
+            function resolveOnSuccessProfilePic(entry) {
+                var d = new Date();
+                var n = d.getTime();
+                //new file name
+                var newFileName = n + ".jpg";
+                var imageFolder = "Re-Minder/profile_pic";
+
+
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSys) {
+                    //The folder is created if doesn't exist
+                    fileSys.root.getDirectory(imageFolder, {
+                        create: true,
+                        exclusive: false
+                    },
+                        function (directory) {
+                            entry.moveTo(directory, newFileName, successMoveProfilePic, resOnError);
+                        },
+                        resOnError);
+                },
+                    resOnError);
+            }
+
+            function successMoveProfilePic(entry) {
+                //I do my insert with "entry.fullPath" as for the path
+                console.log("successfull move");
+                alert
+                ImageUrl = entry.toURL();
+                $('#dummy-img').attr('src', ImageUrl);
+                // CheckThemeInDB(entry.toURL());
+                //alert(entry.toURL());
+            }
+
+            function resOnError(error) {
+                //alert(error.code);
+                console.log(error);
+                location.reload(true);
+            }
+
+            function getPhotoFromCameraProfilePic() {
+                $('#AddUserImage').hide();
+                navigator.camera.getPicture(onPhotoDataSuccessProfilePic, onFailProfilePic, {
+                    quality: 50,
+                    correctOrientation: true,
+                    sourceType: navigator.camera.PictureSourceType.CAMERA,
+                    destinationType: navigator.camera.DestinationType.FILE_URI,
+                });
+            }
+
+            function onPhotoDataSuccessProfilePic(imageData) {
+                console.log(imageData);
+                alert('imgdata')
+                //var image = document.getElementById('myImage'); 
+                //image.style.display = 'block'; 
+                //image.src =imageData; 
+                //console.log(imageData);
+                //CheckImageInDB(imageData);
+                moveProfilePic(imageData);
+            }
+
+            function getPhotoFromAlbumProfilePic() {
+                $('#AddUserImage').hide();
+                console.log(pictureSource);
+                console.log(destinationType);
+                navigator.camera.getPicture(onPhotoURISuccessProfilePic, onFail, {
+                    quality: 50,
+                    correctOrientation: true,
+                    sourceType: navigator.camera.PictureSourceType.SAVEDPHOTOALBUM,
+                    destinationType: navigator.camera.DestinationType.FILE_URI
+                });
+            }
+
+            function onPhotoURISuccessProfilePic(imageURI) {
+                //var image = document.getElementById('myImage'); 
+                //image.style.display = 'block'; 
+                //image.src = imageURI; 
+                //console.log(imageURI);
+                //CheckImageInDB(imageURI);
+                if (imageURI[0] == "c" || imageURI[0] == "C") {
+                    window.FilePath.resolveNativePath(imageURI, function (result) {
+                        // onSuccess code
+                        var correctedImageURI = 'file://' + result;
+                        moveProfilePic(correctedImageURI);
+
+                    }, function (error) {
+                        // onError code here
+                    });
+                } else {
+                    moveProfilePic(imageURI);
+                }
+
+            }
+
+            function errorCallback() { }
+
+            function onFailProfilePic(message) {
+                console.log('Failed because:' + message);
+                location.reload(true);
+            }
+
+            function getPhoto(pictureSource) {
+                // Retrieve image file location from specified source
+                navigator.camera.getPicture(onPhotoURISuccessProfilePic, onFailProfilePic, {
+                    quality: 50,
+                    destinationType: destinationType.FILE_URI,
+                    sourceType: source
+                });
             }
 
 
@@ -3219,18 +3647,19 @@
 
 
             /*document.addEventListener('init', function(event) {
-              var page = event.target;
+          var page = event.target;
 
-              if (page.id === 'page1') {
-                page.querySelector('#push-button').onclick = function() {
-                  document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Page 2'}});
-                };
-              } else if (page.id === 'page2') {
-                page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-              }
-            });
-               */
+          if (page.id === 'page1') {
+            page.querySelector('#push-button').onclick = function() {
+              document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Page 2'}});
+            };
+          } else if (page.id === 'page2') {
+            page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+          }
+        });
+           */
         </script>
+
     </div>
     <div id="CreateMySafetyPlanQ1" class="contents" style="display:none;">
         <!-- panel overlays -->
@@ -3772,7 +4201,7 @@
                     </div>
                     <div id="contactsNumbers">
                     </div>
-                    <div id="ContactsAddPage" hidden>
+                    <div id="ContactsAddPage" class="commonhide" hidden>
                         <h4>Add</h4>
                         <a href="javascript:void(0);" data-href="contacts">
                             <div class="btn-phone-contacts" id="btn-camera">New From Phone</div>
@@ -4030,6 +4459,13 @@
 
                 <button class="btn-next" type="" id="Q7Submit" onclick="localStorage.setItem('planStage','7'); localStorage.setItem('planCompleted', '1'); $('.contents').hide();$('#Home').show();newInit();
                         $('#inner-header').show();
+                        for (var i = 1; i < 7; i++) {
+                    GetValueFromDB(1, i);
+                    GetValueFromDB(2, i);
+                    GetValueFromDB(3, i);
+                    GetValueFromDB(5, i);
+                }
+                GetContactsValueFromDB1();
                         $('.topnav').show();
                         $('.botnav-container').show();" Hidden>SAVE</button>
                 <div class="face-think-path"><img class="face-think-path-img" src="img/safetyplan-6.png">
@@ -4066,7 +4502,7 @@
                 </div>
             </div>
 
-            <div class="center margin-top-neg20p"><a href="home.html" class="button">Continue</a></div>
+            <div class="center margin-top-neg20p"><a data-href="Home" class="button custom-btn">Continue</a></div>
 
             <div class="margin-bot-100p"></div>
 
@@ -4100,7 +4536,7 @@
                 </div>
             </div>
 
-            <div class="center margin-top-neg20p"><a href="home.html" class="button">Continue</a></div>
+            <div class="center margin-top-neg20p"><a data-href="Home" class="button custom-btn">Continue</a></div>
 
             <div class="margin-bot-100p"></div>
 
@@ -4134,7 +4570,7 @@
                 </div>
             </div>
 
-            <div class="center margin-top-neg20p"><a href="home.html" class="button">Continue</a></div>
+            <div class="center margin-top-neg20p"><a data-href="home" class="button custom-btn">Continue</a></div>
 
             <div class="margin-bot-100p"></div>
 
@@ -4143,6 +4579,7 @@
             function cancelCall() {
                 document.getElementById("CallConfirm").style.display = "none";
             }
+
             function call() {
                 document.getElementById("CallConfirm").style.display = "block";
 
@@ -4160,13 +4597,11 @@
                     $("#results-low").show();
                     $("#results-high").hide();
                     $("#results-medium").hide();
-                }
-                else if (k10_results > 15 && k10_results < 30) {
+                } else if (k10_results > 15 && k10_results < 30) {
                     $("#results-medium").show();
                     $("#results-low").hide();
                     $("#results-high").hide();
-                }
-                else {
+                } else {
                     $("#results-high").show();
                     $("#results-low").hide();
                     $("#results-medium").hide();
@@ -4174,9 +4609,7 @@
                 //StatusBar.hide();
             });
 
-          //}
-
-
+            //}
         </script>
     </div>
     <div id="k10q" class="contents" style="display:none;">
@@ -4995,6 +5428,7 @@
                 $("#" + id)[0].src = "img/btn-cross-white.png";
             }
             GetThemeFromDBHomePage();
+            newInit();
             return false;
         });
         function b64toBlob(b64Data, contentType, sliceSize) {
@@ -5024,41 +5458,37 @@
             var page;
             var prevPage;
             var contentType = 'video/mp4'
-            var blob = b64toBlob(v_flowers, contentType)
-            var blobUrl = URL.createObjectURL(blob)
-            document.getElementById('video_1').src = blobUrl;
-            document.getElementById('video_1').play()
-            document.getElementById('video_1').oncanplay=function () {
-                console.log('play')
-                 setTimeout(function(){
-document.getElementById('video_1').play()
-            },5000)
-            }
-          
-            var blob2 = b64toBlob(v_ripples, contentType)
-            var blobUrl2 = URL.createObjectURL(blob2)
-
-            document.getElementById('video_2').src = blobUrl2;
-
-            var blob3 = b64toBlob(v_shells, contentType)
-            var blobUrl3 = URL.createObjectURL(blob3)
-
-            document.getElementById('video_3').src = blobUrl3;
-
-
-            var blob4 = b64toBlob(v_sunrise, contentType)
-            var blobUrl4 = URL.createObjectURL(blob4)
-
-            document.getElementById('video_4').src = blobUrl4;
-
-
-            var blob5 = b64toBlob(v_tree, contentType)
-            var blobUrl5 = URL.createObjectURL(blob5)
-
-            document.getElementById('video_5').src = blobUrl5;
-
+            try {
+                var blob = b64toBlob(v_flowers, contentType)
+                var blobUrl = URL.createObjectURL(blob)
+                document.getElementById('video_1').src = blobUrl;
+                document.getElementById('video_1').play()
+                document.getElementById('video_1').oncanplay = function () {
+                    try {
+                        document.getElementById('video_1').play()
+                    } catch (err) { }
+                    setTimeout(function () {
+                        try {
+                            document.getElementById('video_1').play()
+                        } catch (err) { }
+                    }, 5000)
+                }
+                var blob2 = b64toBlob(v_ripples, contentType)
+                var blobUrl2 = URL.createObjectURL(blob2)
+                document.getElementById('video_2').src = blobUrl2;
+                var blob3 = b64toBlob(v_shells, contentType)
+                var blobUrl3 = URL.createObjectURL(blob3)
+                document.getElementById('video_3').src = blobUrl3;
+                var blob4 = b64toBlob(v_sunrise, contentType)
+                var blobUrl4 = URL.createObjectURL(blob4)
+                document.getElementById('video_4').src = blobUrl4;
+                var blob5 = b64toBlob(v_tree, contentType)
+                var blobUrl5 = URL.createObjectURL(blob5)
+                document.getElementById('video_5').src = blobUrl5;
+            } catch (err) { }
             $('.panel-hotspot').click(function (e) {
                 e.preventDefault();
+                $('.commonhide').hide();
                 page = $(this).data('href');
                 $('.contents').hide();
                 $('#' + page).show();
@@ -5073,12 +5503,16 @@ document.getElementById('video_1').play()
                     newInit()
 
                 }
+                if (page == 'instructions') {
+                    $('#QQ1A1').focus();
+
+                }
                 if (page == 'content') {
                     $('#info-click').removeClass('btn-info');
                     $('#info-click').addClass('btn-info-active');
 
                 }
-
+                $('.commonhide').hide();
                 $('.contents').hide();
                 $('#' + page).show();
                 return false;
@@ -5090,7 +5524,22 @@ document.getElementById('video_1').play()
                 $('#' + page).show();
                 return false;
             });
+            $(document).on('click', '.custom-btn-edit', function (e) {
+                e.preventDefault();
+                $('.commonhide').hide();
+                page = $(this).data('href');
+                //alert($(this).data('href')+'-----'+$(this).data('id'));
+                localStorage.setItem('editContactId', $(this).data('id'));
+                $('.contents').hide();
+                $('#' + page).show();
+                GetValueFromDB1($(this).data('id'));
+                return false;
+            });
+
+
             $('.custom-btn').click(function (e) {
+                $('#ContactsAddPage1').hide();
+                $('.commonhide').hide();
                 e.preventDefault();
                 page = $(this).data('href');
                 $('.contents').hide();
@@ -5100,25 +5549,21 @@ document.getElementById('video_1').play()
             $('#start11').click(function () {
                 $('.contents').hide();
                 $('#instructions').show();
+                $('#QQ1A1').focus();
+
             });
             $('#info-click').click(function () {
-
+                $('.commonhide').hide();
                 $('.contents').hide();
                 $('#content').show();
                 $('#inner-header').show();
                 $('.botnav-container').show();
             });
         });
-        function hideEmptyField(filed) {
-            $(filed).hide()
-        }
     </script>
     <script>
+        $('#QQ1A1').focus();
         var base64Img = null;
-        // imgToBase64('octocat.jpg', function (base64) {
-        //     base64Img = base64;
-        // });
-
         margins = {
             top: 70,
             bottom: 40,
@@ -5127,59 +5572,18 @@ document.getElementById('video_1').play()
         };
 
         generate = function (writer) {
-            // Remember to execute this after the onDeviceReady event
-
-            // If your base64 string contains "data:application/pdf;base64,"" at the beginning, keep reading.
             var doc = new jsPDF();
-
             doc.text(20, 20, 'HELLO! Re-minder');
-
             doc.setFont("courier");
             doc.setFontType("normal");
             doc.text(20, 30, 'This is a PDF document generated using JSPDF.');
             doc.text(20, 50, 'YES, Inside of PhoneGap!');
-
             var pdfOutput = doc.output();
-
             var myBase64 = btoa(pdfOutput);
-            //var myBase64 = "JVBERi0xLjcKCjEgMCBvYmogICUgZW50cnkgcG9pbnQKPDwKICAvVHlwZSAvQ2F0YWxvZwogIC9QYWdlcyAyIDAgUgo+PgplbmRvYmoKCjIgMCBvYmoKPDwKICAvVHlwZSAvUGFnZXMKICAvTWVkaWFCb3ggWyAwIDAgMjAwIDIwMCBdCiAgL0NvdW50IDEKICAvS2lkcyBbIDMgMCBSIF0KPj4KZW5kb2JqCgozIDAgb2JqCjw8CiAgL1R5cGUgL1BhZ2UKICAvUGFyZW50IDIgMCBSCiAgL1Jlc291cmNlcyA8PAogICAgL0ZvbnQgPDwKICAgICAgL0YxIDQgMCBSIAogICAgPj4KICA+PgogIC9Db250ZW50cyA1IDAgUgo+PgplbmRvYmoKCjQgMCBvYmoKPDwKICAvVHlwZSAvRm9udAogIC9TdWJ0eXBlIC9UeXBlMQogIC9CYXNlRm9udCAvVGltZXMtUm9tYW4KPj4KZW5kb2JqCgo1IDAgb2JqICAlIHBhZ2UgY29udGVudAo8PAogIC9MZW5ndGggNDQKPj4Kc3RyZWFtCkJUCjcwIDUwIFRECi9GMSAxMiBUZgooSGVsbG8sIHdvcmxkISkgVGoKRVQKZW5kc3RyZWFtCmVuZG9iagoKeHJlZgowIDYKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDEwIDAwMDAwIG4gCjAwMDAwMDAwNzkgMDAwMDAgbiAKMDAwMDAwMDE3MyAwMDAwMCBuIAowMDAwMDAwMzAxIDAwMDAwIG4gCjAwMDAwMDAzODAgMDAwMDAgbiAKdHJhaWxlcgo8PAogIC9TaXplIDYKICAvUm9vdCAxIDAgUgo+PgpzdGFydHhyZWYKNDkyCiUlRU9G";
-            // To define the type of the Blob
             var contentType = "application/pdf";
-            // if cordova.file is not available use instead :
-            // var folderpath = "file:///storage/emulated/0/";
             var folderpath = cordova.file.externalRootDirectory;
             var filename = "helloWorld.pdf";
-
-
-
-
-
             savebase64AsPDF(folderpath, filename, myBase64, contentType);
-            /*writer.onwriteend = function (evt) {
-                    console.log("contents of file now 'some sample text'");
-                    // ...
-                  };
-                  var pdf = new jsPDF('p', 'pt', 'a4');
-                  pdf.addHTML(document.body, function () {
-                    writer.write(pdf.output('arraybuffer'));
-                  });*/
-            /*var pdf = new jsPDF('p', 'pt', 'a4');
-            pdf.setFontSize(18);
-            pdf.fromHTML(document.getElementById('MySafetyPlan'), 
-                margins.left, // x coord
-                margins.top,
-                {
-                    // y coord
-                    width: margins.width// max width of content on PDF
-                },function(dispose) {
-                    headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
-                },
-                margins);
-            pdf.save('a4.pdf');
-            var iframe = document.createElement('iframe');
-            iframe.setAttribute('style','position:absolute;right:0; top:0; bottom:0; height:100%; width:650px; padding:20px;');
-            document.body.appendChild(iframe);
-            iframe.src = pdf.output('datauristring');*/
         };
 
         function headerFooterFormatting(doc, totalPages) {
@@ -5197,45 +5601,34 @@ document.getElementById('video_1').play()
             doc.setFontSize(30);
             doc.setTextColor(40);
             doc.setFontStyle('normal');
-
-
-
             doc.text("Report Header Template", margins.left + 50, 40);
             doc.setLineCap(2);
             doc.line(3, 70, margins.width + 43, 70); // horizontal line
         };
 
-        // You could either use a function similar to this or pre convert an image with for example http://dopiaza.org/tools/datauri
-        // http://stackoverflow.com/questions/6150289/how-to-convert-image-into-base64-string-using-javascript
         function imgToBase64(url, callback, imgVariable) {
-
             if (!window.FileReader) {
                 callback(null);
                 return;
             }
-            try {
-                var xhr = new XMLHttpRequest();
-                xhr.responseType = 'blob';
-                xhr.onload = function () {
-                    var reader = new FileReader();
-                    reader.onloadend = function () {
-                        imgVariable = reader.result.replace('text/xml', 'image/jpeg');
-                        callback(imgVariable);
-                    };
-                    reader.readAsDataURL(xhr.response);
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = 'blob';
+            xhr.onload = function () {
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    imgVariable = reader.result.replace('text/xml', 'image/jpeg');
+                    callback(imgVariable);
                 };
-                xhr.open('GET', url);
-                xhr.send();
-            } catch (err) { }
+                reader.readAsDataURL(xhr.response);
+            };
+            xhr.open('GET', url);
+            xhr.send();
         };
 
         function footer(doc, pageNumber, totalPages) {
-
             var str = "Page " + pageNumber + " of " + totalPages
-
             doc.setFontSize(10);
             doc.text(str, margins.left, doc.internal.pageSize.height - 20);
-
         };
 
         /*load js dynamically*/
@@ -5254,16 +5647,6 @@ document.getElementById('video_1').play()
                 document.getElementsByTagName("head")[0].appendChild(fileref)
         }
 
-        /*code snip*/
-        /**
-         * Convert a base64 string in a Blob according to the data and contentType.
-         * 
-         * @param b64Data {String} Pure base64 string without contentType
-         * @param contentType {String} the content type of the file i.e (application/pdf - text/plain)
-         * @param sliceSize {Int} SliceSize to process the byteCharacters
-         * @see http://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript
-         * @return Blob
-         */
         function b64toBlob(b64Data, contentType, sliceSize) {
             contentType = contentType || '';
             sliceSize = sliceSize || 512;
@@ -5300,12 +5683,7 @@ document.getElementById('video_1').play()
         function savebase64AsPDF(folderpath, filename, content, contentType) {
             // Convert the base64 string in a Blob
             var DataBlob = b64toBlob(content, contentType);
-
             console.log("Starting to write the file :3");
-
-
-
-
             window.resolveLocalFileSystemURL(folderpath, function (dir) {
                 console.log("Access to the directory granted succesfully");
                 dir.getFile(filename, {
@@ -5321,8 +5699,6 @@ document.getElementById('video_1').play()
                 });
             });
         }
-
-
         /*code snip*/
     </script>
 
