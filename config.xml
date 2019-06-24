@@ -116,7 +116,7 @@
     <platform name="android">
         <!-- iOS 8.0+ -->
         <!-- iPhone 6 Plus  -->
-        <icon src="img/iconlogo.png" width="192" height="192" />
+        <icon src="img/iconLogo.png" width="192" height="192" />
 
         <!-- iOS 7.0+ -->
         <!-- iPhone / iPod Touch  -->
