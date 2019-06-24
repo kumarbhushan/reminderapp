@@ -115,6 +115,7 @@ function GetValueFromDBPlan(QId, AId) {
         if (answer != null && answer != 'undefined' && answer != '') {
           // document.getElementById("Q"+QId+"AddField"+(AId+1)).style.display = "none";
           $('#QQ' + QId + 'A' + AId).show()
+          $('#QQ' + QId + 'A' + AId).focus();
           // document.getElementById("Q"+QId+"A"+AId).style.display = "block";
           // document.getElementById("Q"+QId+"AddField"+(AId+2)).style.display = "block";
         } else {

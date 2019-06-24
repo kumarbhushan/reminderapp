@@ -67,7 +67,7 @@
             <div class="topnav" style="display:none">
                 <a href="javascript:void(0);" data-href="content" id="info-click" class="btn-info"></a>
                 <a href="javascript:void(0);" data-href="emergency" class="btn-emergencylist custom-btn"></a>
-                <a href="#" class="btn-000rib"><a onclick="call();" class="btn-000num">000</a></a>
+                <a href="#" class="btn-000rib"><a onclick="call();" class="btn-000num"></a></a>
             </div>
         </div>
         <!-- bottom navigation -->
@@ -86,7 +86,7 @@
                         </a></li>
                     <li><a href="javascript:void(0);" data-href="MyStuff" class="btntext">
                             <div class="btn">
-                                <div class=" icon-mystuff"></div>
+                                <div class=" icon-mystuff1"></div>
                             </div>My Stuff
                         </a></li>
                     <li><a href="javascript:void(0);" data-href="myteam" class="btntext">
@@ -108,7 +108,7 @@
         <ons-page>
             <div class="grad-top"></div>
             <div class="grad-bot"></div>
-            <div id="CallConfirm" hidden>
+            <!--div id="CallConfirm" hidden>
                 <h4>Are you sure you want to dial 000?</h4>
                 <div class="btncall-btns">
                     <a href="tel:000">
@@ -116,52 +116,43 @@
                     </a>
                     <div class="btn-call-no" id="btn-call-no" onclick="cancelCall()">No</div>
                 </div>
-            </div>
+            </div-->
             <div id="popup" hidden>
                 <p class="popup-text">How are you feeling?</p>
 
-                <img src="img/emoji1.png" id="emoji1" class="emoji1" onclick="changeto1()">
-                <img src="img/emoji2.png" id="emoji2" class="emoji2" onclick="changeto2()">
-                <img src="img/emoji3.png" id="emoji3" class="emoji3" onclick="changeto3()">
+                <img src="img/icon-sad.png" id="emoji1" class="emoji1" onclick="changeto1()">
+                <img src="img/icon-neutral.png" id="emoji2" class="emoji2" onclick="changeto2()">
+                <img src="img/icon-smile.png" id="emoji3" class="emoji3" onclick="changeto3()">
                 <a href="javascript:void(0);" data-href="k10assessment" class="custom-btn">
-                    <div class="btn-k10-assessment"><img src="img/btn-k10.png">
+                    <div class="btn-k10-assessment"><img src="img/icon-k10.png">
                         <p>K10 Assessment</p>
                     </div>
                 </a>
             </div>
-            <div id="emoji-container" onclick="showPopUp();"><img id="emoji" src="img/emoji2.png"></div>
-            <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel" initial-index="0">
+            <div id="emoji-container" onclick="showPopUp();"><img id="emoji" src="img/icon-neutral.png"></div>
+            <ons-carousel fullscreen swipeable auto-scroll auto-refresh overscrollable id="carousel" initial-index="0">
                 <ons-carousel-item id="ons-carousel-item1">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
                         <img src='videos/sunsine.gif'>
-                        <audio id='audio_1'>
+                        <audio id='audio_1' loop>
                             <source src="audio/sunrise.mp3" type="audio/mpeg"></audio>
-                        <!-- <video webkit-playsinline playsinline id="video_1" class="gif" autoplay loop>
-                            <source src="#" type="video/mp4" poster="#">
-                            Your browser does not support the video tag.
-                        </video> -->
+                        
                     </div>
                 </ons-carousel-item>
                 <ons-carousel-item id="ons-carousel-item2">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
                         <img src='videos/ripples.gif'>
-                        <audio id='audio_2'>
+                        <audio id='audio_2' loop>
                             <source src="audio/ripples.mp3" type="audio/mpeg"></audio>
-                        <!-- <video webkit-playsinline playsinline id="video_2" class="gif" autoplay loop>
-                            <source src="#" type="video/mp4" poster="#">
-                            Your browser does not support the video tag.
-                        </video> -->
+                        
                     </div>
                 </ons-carousel-item>
                 <ons-carousel-item id="ons-carousel-item3">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
                         <img src='videos/shells.gif'>
-                        <audio id='audio_3'>
+                        <audio id='audio_3' loop>
                             <source src="audio/shells.mp3" type="audio/mpeg"></audio>
-                        <!-- <video webkit-playsinline playsinline id="video_3" class="gif" autoplay loop>
-                            <source src="#" type="video/mp4" poster="#">
-                            Your browser does not support the video tag.
-                        </video> -->
+                       
                     </div>
                 </ons-carousel-item>
                 <!-- <ons-carousel-item id="ons-carousel-item4">
@@ -188,8 +179,9 @@
                 var db;
                 //$(document).ready(function(e){
                 console.log("ons.getScriptPage()***********************************************" + ons.getScriptPage());
-                //alert(ons.getScriptPage());
+                //
                 function newInit() {
+                    //alert('here');
                     //document.addEventListener('init', function(event) {
                     var selectedEmoji = localStorage.getItem("emoji");
                     document.getElementById("emoji").src = "img/" + selectedEmoji + ".png";
@@ -266,7 +258,7 @@
                             //     document.getElementById('audio_5').play()
                             // }
                         } catch (err) {
-                            alert('videoPlay', err)
+                            
                         }
                     });
                 }
@@ -294,21 +286,21 @@
 
             function changeto1() {
                 console.log("ready");
-                document.getElementById("emoji").src = "img/emoji1.png";
+                document.getElementById("emoji").src = "img/icon-sad.png";
                 document.getElementById("popup").style.display = "none";
                 document.getElementById("emoji-container").style.display = "block";
                 localStorage.setItem('emoji', 'emoji1');
             }
 
             function changeto2() {
-                document.getElementById("emoji").src = "img/emoji2.png";
+                document.getElementById("emoji").src = "img/icon-neutral.png";
                 document.getElementById("popup").style.display = "none";
                 document.getElementById("emoji-container").style.display = "block";
                 localStorage.setItem('emoji', 'emoji2');
             }
 
             function changeto3() {
-                document.getElementById("emoji").src = "img/emoji3.png";
+                document.getElementById("emoji").src = "img/icon-smile.png";
                 document.getElementById("popup").style.display = "none";
                 document.getElementById("emoji-container").style.display = "block";
                 localStorage.setItem('emoji', 'emoji3');
@@ -403,7 +395,7 @@
                         transaction, results) {
 
                         if (results.rows.length) {
-                            //alert(results.rows[i]["ImageURI"]);
+                            //
                             $('#MyStuffAddPage').hide();
 
                         } else {
@@ -435,7 +427,7 @@
             }
 
             function DeleteImageFromDB(imageURI) {
-                //alert('here');
+                //
                 if (!window.openDatabase) {
                     console.log('Databases are not supported in this browser.');
                     return;
@@ -524,11 +516,11 @@
                 //I do my insert with "entry.fullPath" as for the path
                 console.log("successfull move");
                 CheckImageInDB(entry.toURL());
-                //alert(entry.toURL());
+                //
             }
 
             function resOnError(error) {
-                //alert(error.code);
+                //
                 console.log(error);
                 GetStuffFromDB()
                 //location.reload(true);
@@ -678,7 +670,7 @@
             <!-- section title -->
             <div class="sectionbar">
                 <div class="section-title info">
-                    <div class="section-icon-mystuff"></div>My Stuff
+                    <div class="section-icon-mystuff-header"></div>My Stuff
                 </div>
             </div>
             <!-- title bar / back button -->
@@ -730,7 +722,7 @@
             <div class="theme-container" id="themeItem">
             </div>
 
-            <div class="margin-bot-100p"></div>
+            <div class="margin-bot-150p"></div>
         </div>
         <script>
             function cancelCall() {
@@ -916,7 +908,7 @@
 
             function UpdateValueInDBContact(ContactFullName, ContactNumber, ContactColor, ContactUId) {
                 // alert(ContactUId);
-                var ProfilePic = $('#dummy-img').attr('src');
+                var ProfilePic = $('#dummy-img-edit').attr('src');
                 if (!window.openDatabase) {
                     console.log('Databases are not supported in this browser.');
                     return;
@@ -948,7 +940,7 @@
             }
 
             function GetValueFromDB1(ContactUId) {
-                //alert(ContactUId)
+                //
                 contactAdded = 0;
                 if (!window.openDatabase) {
                     console.log('Databases are not supported in this browser.');
@@ -983,24 +975,12 @@
                             document.getElementById("contactLastName").value = ContactLastName;
                             document.getElementById("contactNumber").value = ContactNumber;
                             document.getElementById("ContactUId").value = ContactUId;
-                            $('#dummy-img').attr('src', ProfilePic)
+                            $('#dummy-img-edit').attr('src', ProfilePic)
                         });
                 });
             }
 
-            function goBack() {
-                var planCompleted = localStorage.getItem("planCompleted");
-                if (planCompleted == "0" || planCompleted == 0) {
-                    //document.location.href='CreateMySafetyPlanQ4.html'; 
-                    $('.contents').hide();
-                    $('#CreateMySafetyPlanQ4').show();
-                } else {
-                    //document.location.href='myteam.html';
-                    $('.contents').hide();
-                    $('#myteam').show();
-                }
-
-            }
+            
 
             function cancelDelete() {
                 document.getElementById("deleteConfirm").style.display = "none";
@@ -1047,12 +1027,151 @@
                 $("#btn-delete-contacts").click(function () {
                     document.getElementById("deleteConfirm").style.display = "block";
                 });
+
+                
+                $("#btn-camera-image-edit").click(function () {
+                    getPhotoFromCameraProfilePicEdit();
+                });
+                $("#btn-library-image-edit").click(function () {
+                    getPhotoFromAlbumProfilePicEdit();
+                });
+
+
+            }
+
+            function moveProfilePicEdit(file) {
+                window.resolveLocalFileSystemURL(file, resolveOnSuccessProfilePicEdit, resOnError);
+
+            }
+ 
+            function resolveOnSuccessProfilePicEdit(entry) {
+                var d = new Date();
+                var n = d.getTime();
+                //new file name
+                var newFileName = n + ".jpg";
+                var imageFolder = "Re-Minder/profile_pic";
+
+
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSys) {
+                        //The folder is created if doesn't exist
+                        fileSys.root.getDirectory(imageFolder, {
+                                create: true,
+                                exclusive: false
+                            },
+                            function (directory) {
+                                entry.moveTo(directory, newFileName, successMoveProfilePicEdit, resOnError);
+                            },
+                            resOnError);
+                    },
+                    resOnError);
+            }
+
+            function successMoveProfilePicEdit(entry) {
+                //I do my insert with "entry.fullPath" as for the path
+                console.log("successfull move");
+                //alert
+                ImageUrl = entry.toURL();
+                $('#dummy-img-edit').attr('src', ImageUrl);
+                // CheckThemeInDB(entry.toURL());
+                //alert(entry.toURL());
+            }
+
+            function resOnError(error) {
+                //alert(error.code);
+                console.log(error);
+                location.reload(true);
+            }
+
+            function getPhotoFromCameraProfilePicEdit() {
+                $('#AddUserImage').hide();
+                navigator.camera.getPicture(onPhotoDataSuccessProfilePicEdit, onFailProfilePicEdit, {
+                    quality: 50,
+                    correctOrientation: true,
+                    sourceType: navigator.camera.PictureSourceType.CAMERA,
+                    destinationType: navigator.camera.DestinationType.FILE_URI,
+                });
+            }
+
+            function onPhotoDataSuccessProfilePicEdit(imageData) {
+                console.log(imageData);
+                //alert('imgdata')
+                //var image = document.getElementById('myImage'); 
+                //image.style.display = 'block'; 
+                //image.src =imageData; 
+                //console.log(imageData);
+                //CheckImageInDB(imageData);
+                moveProfilePicEdit(imageData);
+            }
+
+            function getPhotoFromAlbumProfilePicEdit() {
+                $('#AddUserImage1').hide();
+                console.log(pictureSource);
+                console.log(destinationType);
+                navigator.camera.getPicture(onPhotoURISuccessProfilePicEdit, onFail, {
+                    quality: 50,
+                    correctOrientation: true,
+                    sourceType: navigator.camera.PictureSourceType.SAVEDPHOTOALBUM,
+                    destinationType: navigator.camera.DestinationType.FILE_URI
+                });
+            }
+
+            function onPhotoURISuccessProfilePicEdit(imageURI) {
+                //var image = document.getElementById('myImage'); 
+                //image.style.display = 'block'; 
+                //image.src = imageURI; 
+                //console.log(imageURI);
+                //CheckImageInDB(imageURI);
+                if (imageURI[0] == "c" || imageURI[0] == "C") {
+                    window.FilePath.resolveNativePath(imageURI, function (result) {
+                        // onSuccess code
+                        var correctedImageURI = 'file://' + result;
+                        moveProfilePicEdit(correctedImageURI);
+
+                    }, function (error) {
+                        // onError code here
+                    });
+                } else {
+                    moveProfilePicEdit(imageURI);
+                }
+
+            }
+
+            function errorCallback() {}
+
+            function onFailProfilePicEdit(message) {
+                console.log('Failed because:' + message);
+                location.reload(true);
+            }
+
+            function getPhotoEdit(pictureSource) {
+                // Retrieve image file location from specified source
+                navigator.camera.getPicture(onPhotoURISuccessProfilePicEdit, onFailProfilePicEdit, {
+                    quality: 50,
+                    destinationType: destinationType.FILE_URI,
+                    sourceType: source
+                });
             }
         </script>
-        <div id="AddUserImage" class="commonhide" hidden>
+        <div class="top-overlay">
+            <!-- section title -->
+            <div class="sectionbar">
+                <div class="section-title info">
+                    <div class="section-icon-myteam-header"></div>My Team
+                </div>
+            </div>
+            <!-- title bar / back button -->
+            <div class="titlebar">
+                <div class="title">Edit Contact</div>
+                <div class="arrow-back">
+                    <div onclick="goBack();" class="panel-hotspot1"></div>
+                </div>
+            </div>
+
+        </div>
+        <div id="AddUserImage1" class="commonhide" hidden>
             <h4>Add</h4>
-            <div class="btn-camera" id="btn-camera-image" onclick="">Camera</div>
-            <div class="btn-library" id="btn-library-image" onclick="">Photo Library</div>
+            <div class="btn-camera" id="btn-camera-image-edit" onclick="">Camera</div>
+            <div class="btn-library" id="btn-library-image-edit" onclick="">Photo Library</div>
 
         </div>
         <div class="bot-container">
@@ -1081,7 +1200,7 @@
                 </div>
                 <form>
                     <div class="form-container">
-                        <div class="img-container" onclick="$('#AddUserImage').show();"><img id="dummy-img"
+                        <div class="img-container" onclick="$('#AddUserImage1').show();"><img id="dummy-img-edit"
                                 style="border-radius:60px;height:100px;width:100px;"" src=" img/btn-photo-contact.png">
                                 </div> <span id="formValidation" style="color:#be1e2d;" hidden>All fields are
                             required.</span>
@@ -1116,7 +1235,7 @@
                 <div class="section-title info">
                     <div class="section-icon-myteam-header"></div>My Team
                 </div>
-                <button style="border-radius:20px" id="shareloc">Share Loc</button>
+                <!--button style="border-radius:20px" id="shareloc">Share Loc</button-->
             </div>
 
 
@@ -1141,6 +1260,8 @@
         <div class="grid-container-whitebg">
             <div class="margin-top-180p"></div>
             <div class="contacts-container" id="contacts-container">
+                    
+                        
                 <div class="margin-top-120p"></div>
             </div>
             <div class="margin-bot-80p" style="height:50px"></div>
@@ -1192,37 +1313,39 @@
             }
 
             function GetContactsValueFromDB11() {
-                //alert('here****');
+                //
 
                 var contacts = [];
                 var contactColors = [];
                 var contactIds = [];
                 var contactNumbers = [];
+                var conactPic = [];
                 if (!window.openDatabase) {
                     console.log('Databases are not supported in this browser.');
                     return;
                 }
                 db.transaction(function (transaction) {
-                    transaction.executeSql('SELECT UId, ContactName, ContactNumber, ContactColor FROM Contacts',
+                    transaction.executeSql('SELECT UId, ProfilePic, ContactName, ContactNumber, ContactColor FROM Contacts',
                         [],
                         function (transaction, results) {
                             if (results.rows.length) {
-                                //alert("Row :"+results.rows.length);
+                                //
                                 for (var i = 0; i < results.rows.length; i++) {
                                     console.log(results.rows.item(i).ContactName);
                                     contacts.push(results.rows.item(i).ContactName);
                                     contactNumbers.push(results.rows.item(i).ContactNumber);
                                     contactColors.push(results.rows.item(i).ContactColor);
                                     contactIds.push(results.rows.item(i).UId);
+                                    conactPic.push(results.rows.item(i).ProfilePic);
                                     //alert(results.rows.item(i).UId);
                                 }
                                 console.log(contacts);
                                 console.log(contactColors);
-                                //alert(contacts.length+'length'); 
+                                //
                                 $("#contacts-container").empty();
                                 for (var j = 0; j < contacts.length; j++) {
                                     //alert(j +"----" +contactIds[j]);
-                                    $("#contacts-container").append(
+                                    /*$("#contacts-container").append(
                                         '<div class="callcard-contact1" style="background-color:' +
                                         contactColors[j] +
                                         '"><div class="contact-gradient"></div><div class="contactname">' +
@@ -1232,7 +1355,23 @@
                                         contactIds[j] +
                                         ');" data-id = "' + contactIds[j] +
                                         '" data-href="editcontacts" href="javascript:void();" class="editcontact custom-btn-edit"></a></div></div>'
+                                    );*/
+                                    $("#contacts-container").append(
+                                        '<div class="main-div">'+
+                        '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="'+conactPic[j]+'">	</div>'+
+                        '<div class="head-num">'+
+                            '<div class="heading"><span class="cus head">'+contacts[j]+'</span></div>'+
+                            '<div class="num"><p>' + contactNumbers[j] +
+                                        '</p> <a onclick=" return getContactId(' +
+                                        contactIds[j] +
+                                        ');" data-id = "' + contactIds[j] +
+                                        '" data-href="editcontacts" href="javascript:void();" class="custom-btn-edit"><img style="width:40px;" src="img/btn-edit.png"></a></div>'+
+                        '</div>'+
+                        '<div class="call-icon"><img style="width:60px;" src="img/icon-phone.png"><br>'+
+                                '<img  class="shareloc" style="width:60px;" src="img/btn-location.png">	</div>'+
+                    '</div>'
                                     );
+                                   
                                 }
                                 $("#contacts-container").append('<div class="empty-space"></div>');
                             } else {
@@ -1253,9 +1392,9 @@
                 db = openDatabase(shortName, version, displayName, maxSize);
                 createContactsTable();
                 GetContactsValueFromDB11();
-                $(document).on('click', '#shareloc', function () {
+                $(document).on('click', '.shareloc', function () {
                     var onSuccess = function (position) {
-                        /*alert('Latitude: '          + position.coords.latitude          + '\n' +
+                        /*
                               'Longitude: '         + position.coords.longitude         + '\n' +
                               'Altitude: '          + position.coords.altitude          + '\n' +
                               'Accuracy: '          + position.coords.accuracy          + '\n' +
@@ -1278,8 +1417,8 @@
                     // onError Callback receives a PositionError object
                     //
                     function onError(error) {
-                        alert('code: ' + error.code + '\n' +
-                            'message: ' + error.message + '\n');
+                        
+                            console.log('message: ' + error.message + '\n');
                     }
                     navigator.geolocation.getCurrentPosition(onSuccess, onError);
                 })
@@ -1421,7 +1560,7 @@
             }
 
             function GetValueFromDB(QId, AId) {
-                //alert(QId);
+                //
                 var answer = "";
                 if (!window.openDatabase) {
                     console.log('Databases are not supported in this browser.');
@@ -1455,6 +1594,7 @@
                 for (var i = 1; i < 7; i++) {
                     GetValueFromDBPlan(QId, i);
                 }
+               
             }
 
             function GetContactsValueFromDB1() {
@@ -1462,12 +1602,13 @@
                 var contactNumbers = [];
                 var contactColors = [];
                 var contactIds = [];
+                var contactPic = [];
                 if (!window.openDatabase) {
                     console.log('Databases are not supported in this browser.');
                     return;
                 }
                 db.transaction(function (transaction) {
-                    transaction.executeSql('SELECT UId, ContactName, ContactNumber, ContactColor FROM Contacts',
+                    transaction.executeSql('SELECT UId, ProfilePic, ContactName, ContactNumber, ContactColor FROM Contacts',
                         [],
                         function (transaction, results) {
 
@@ -1478,17 +1619,29 @@
                                     contactColors.push(results.rows.item(i).ContactColor);
                                     contactNumbers.push(results.rows.item(i).ContactNumber);
                                     contactIds.push(results.rows.item(i).UId);
+                                    conactPic.push(results.rows.item(i).ProfilePic);
                                 }
                                 console.log(contacts.length);
                                 console.log(contactColors);
                                 for (var j = 0; j < contacts.length; j++) {
-                                    $("#contactsNumbers").append(
+                                   /* $("#contactsNumbers").append(
                                         '<div class="callcard-contact1" style="background-color:' +
                                         contactColors[j] +
                                         '"><div class="contact-gradient"></div><div class="contactname">' +
                                         contacts[j] + '<br>' + contactNumbers[j] +
                                         '</div><div><a class="callbtn" href="tel:' + contactNumbers[j] +
-                                        '"></a></div></div>');
+                                        '"></a></div></div>');*/
+                                    $("#contactsNumbers").append(
+                                        '<div class="main-div">'+
+                                            '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="'+conactPic[j]+'">	</div>'+
+                                            '<div class="head-num">'+
+                                                '<div class="heading"><span class="cus head">'+contacts[j]+'</span></div>'+
+                                                '<div class="num"><p>' + contactNumbers[j] +
+                                                            '</p> </div>'+
+                                            '</div>'+
+                                            '<div class="call-icon"><img style="width:60px;" src="img/icon-phone.png"></div>'+
+                                        '</div>'
+                                    );
                                 }
 
                             } else {
@@ -1533,16 +1686,15 @@
                         });
                     }
                 });
-
                 return output.join(" ");
             }
 
             $(document).on('click', '#sharethis', function () {
-                var data = getShareDocument('#pdfData'),
+                    var _data = $('<div>'+$('#pdfData').html()+'</div>')
+                 _data.find('#ignorePDF').remove();
+                var data = _data.html(),
                     folderPath = cordova.file.cacheDirectory,
                     fileName = "safetyPlan.pdf";
-
-                alert(cordova.file.applicationStorageDirectory);
                 try {
                     reportGenerator.generate(data, folderPath, fileName, function (fileUrl) {
                         var options = {
@@ -1557,7 +1709,6 @@
                         window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
                     });
                 } catch (ex) {
-                    alert(ex);
                 }
             });
 
@@ -1568,7 +1719,6 @@
 
             var onError = function (msg) {
                 console.log("Sharing failed with message: " + msg);
-                alert(msg);
             };
         </script>
         <div class="grid-container-mysafetyplan">
@@ -1586,7 +1736,7 @@
             <div class="margin-top-180p"></div>
             <div class="panel-container" id="pdfData">
                 <div id="QSet1" class="panel">
-                    <div onclick="editQuestion(1);">
+                    <div id="#ignorePDF" onclick="editQuestion(1);">
                         <div class="border-middle"></div>
                         <div class=""><img class="img-button-edit" src="img/btn-edit.png"></div>
                     </div>
@@ -1601,9 +1751,9 @@
                         onclick="document.getElementById('QSet1').style.display = 'none'; document.getElementById('QSet2').style.display = 'initial';">
                     </div>
                 </div>
-                <div class="face-think-path"><img class="face-think-path-img" src="img/safety-plan-1.png"></div>
+                <div id="#ignorePDF" class="face-think-path"><img class="face-think-path-img" style="width:100%;height:140px" src="img/safety-plan-1.png"></div>
                 <div id="QSet2" class="panel2">
-                    <div onclick="editQuestion(2);">
+                    <div id="#ignorePDF" onclick="editQuestion(2);">
                         <div class="border-middle"></div>
                         <div class=""><img class="img-button-edit" src="img/btn-edit.png"></div>
                     </div>
@@ -1614,13 +1764,13 @@
                     <div id="Q2A4" hidden></div>
                     <div id="Q2A5" hidden></div>
                     <div id="Q2A6" hidden></div>
-                    <div style="width:30px; height:10px; background-color: transparent;"
+                    <div id="#ignorePDF" style="width:30px; height:10px; background-color: transparent;"
                         onclick="document.getElementById('QSet2').style.display = 'none'; document.getElementById('QSet3').style.display = 'initial';">
                     </div>
                 </div>
-                <div class="face-think-path"><img class="face-think-path-img" src="img/safety-plan-2.png"></div>
+                <div class="face-think-path"><img class="face-think-path-img" style="width:100%;height:140px" src="img/safety-plan-2.png"></div>
                 <div id="QSet3" class="panel2">
-                    <div onclick="editQuestion(3);">
+                    <div id="#ignorePDF" onclick="editQuestion(3);">
                         <div class="border-middle"></div>
                         <div class=""><img class="img-button-edit" src="img/btn-edit.png"></div>
                     </div>
@@ -1631,49 +1781,69 @@
                     <div id="Q3A4" hidden></div>
                     <div id="Q3A5" hidden></div>
                     <div id="Q3A6" hidden></div>
-                    <div style="width:30px; height:10px; background-color: transparent;"
+                    <div id="#ignorePDF" style="width:30px; height:10px; background-color: transparent;"
                         onclick="document.getElementById('QSet3').style.display = 'none'; document.getElementById('QSet4').style.display = 'initial';">
                     </div>
                 </div>
-                <div class="face-think-path"><img class="face-think-path-img" src="img/safety-plan-3.png"></div>
+                <div class="face-think-path"><img class="face-think-path-img" style="width:100%;height:140px" src="img/safety-plan-3.png"></div>
                 <div id="QSet4" class="panel2">
-                    <div onclick="editQuestion(4);">
+                    <div id="#ignorePDF" onclick="editQuestion(4);">
                         <div class="border-middle"></div>
                         <div class=""><img class="img-button-edit" src="img/btn-edit.png"></div>
                     </div>
                     <p class="safety-label">I can talk to...</p>
-                    <div class="emergency-contact">
-                        <div class="contactname">Emergency <br> 000</div>
-                        <div><a class="callbtn"></a></div>
+                    <div class="main-div">
+                        <div class="img"><img style="width:90px;" src="img/logo-suicidecallback.png">	</div>
+                        <div class="head-num">
+                            <div class="heading"><span class="cus head">Suicide Call Back Service</span></div>
+                            <div class="num"><p>1300 659 467</p></div>
+                        </div>
+                        <div class="call-icon"><img style="width:60px;" src="img/icon-phone.png">	</div>
                     </div>
-                    <div class="emergency-contact">
-                        <div class="contactname">Suicide Call Back Service<br> 1300 659 467</div>
-                        <div><a href="#" class="callbtn"></a></div>
+
+                    <div class="main-div">
+                        <div class="img"><img style="width:90px;" src="img/logo-suicideline.png">	</div>
+                        <div class="head-num">
+                            <div class="heading"><span class="cus head">SuicideLine Victoria </span></div>
+                            <div class="num"><p>1300 651 251</p></div>
+                        </div>
+                        <div class="call-icon"><img style="width:60px;" src="img/icon-phone.png">	</div>
                     </div>
-                    <div class="emergency-contact">
-                        <div class="contactname">SuicideLine <br>Victoria <br>1300 651 251</div>
-                        <div><a href="#" class="callbtn"></a></div>
+
+                    <div class="main-div">
+                        <div class="img"><img style="width:90px;" src="img/logo-mensline.png">	</div>
+                        <div class="head-num">
+                            <div class="heading"><span class="cus head">MensLine Australia </span></div>
+                            <div class="num"><p>1300 78 99 78</p></div>
+                        </div>
+                        <div class="call-icon"><img style="width:60px;" src="img/icon-phone.png">	</div>
                     </div>
-                    <div class="emergency-contact">
-                        <div class="contactname">MensLine <br>Australia <br>1300 78 99 78</div>
-                        <div><a href="#" class="callbtn"></a></div>
+
+                    <div class="main-div">
+                        <div class="img"><img style="width:90px;" src="img/logo-lifeline.png">	</div>
+                        <div class="head-num">
+                            <div class="heading"><span class="cus head">Lifeline</span></div>
+                            <div class="num"><p>13 11 14</p></div>
+                        </div>
+                        <div class="call-icon"><img style="width:60px;" src="img/icon-phone.png">	</div>
                     </div>
-                    <div class="emergency-contact">
-                        <div class="contactname">Lifeline<br> 13 11 14</div>
-                        <div><a href="#" class="callbtn"></a></div>
-                    </div>
-                    <div class="emergency-contact">
-                        <div class="contactname">Kids Helpline <br>1800 55 1800</div>
-                        <div><a href="#" class="callbtn"></a></div>
+
+                    <div class="main-div">
+                        <div class="img"><img style="width:90px;" src="img/logo-kidshelpline.png">	</div>
+                        <div class="head-num">
+                            <div class="heading"><span class="cus head">Kids Helpline</span></div>
+                            <div class="num"><p>1800 55 1800</p></div>
+                        </div>
+                        <div class="call-icon"><img style="width:60px;" src="img/icon-phone.png">	</div>
                     </div>
                     <div id="contactsNumbers"></div>
-                    <div style="width:30px; height:10px; background-color: transparent"
+                    <div id="#ignorePDF" style="width:30px; height:10px; background-color: transparent"
                         onclick="document.getElementById('QSet4').style.display = 'none'; document.getElementById('QSet5').style.display = 'initial';">
                     </div>
                 </div>
-                <div class="face-think-path"><img class="face-think-path-img" src="img/safety-plan-4-2.png"></div>
+                <div id="#ignorePDF" class="face-think-path"><img class="face-think-path-img" style="width:100%;height:140px" src="img/safety-plan-4-2.png"></div>
                 <div id="QSet5" class="panel2">
-                    <div onclick="editQuestion(5);">
+                    <div id="#ignorePDF" onclick="editQuestion(5);">
                         <div class="border-middle"></div>
                         <div class=""><img class="img-button-edit" src="img/btn-edit.png"></div>
                     </div>
@@ -1684,24 +1854,24 @@
                     <div id="Q5A4" hidden></div>
                     <div id="Q5A5" hidden></div>
                     <div id="Q5A6" hidden></div>
-                    <div style="width:30px; height:10px;background-color: transparent"
+                    <div id="#ignorePDF" style="width:30px; height:10px;background-color: transparent"
                         onclick="document.getElementById('QSet5').style.display = 'none'; document.getElementById('QSet6').style.display = 'initial';">
                     </div>
                 </div>
-                <div class="face-think-path"><img class="face-think-path-img" src="img/safetyplan-4.png"></div>
+                <div id="#ignorePDF" class="face-think-path"><img class="face-think-path-img" style="width:100%;height:140px" src="img/safetyplan-4.png"></div>
                 <div id="QSet6" class="panel2">
                     <p class="safety-label">I’m still not feeling safe; <br>I need to call emergency services on 000.
                     </p>
-                    <div style="width:30px; height:10px; background-color: transparent;"
+                    <div id="#ignorePDF" style="width:30px; height:10px; background-color: transparent;"
                         onclick="document.getElementById('QSet6').style.display = 'none'; document.getElementById('QSet7').style.display = 'initial';">
                     </div>
                 </div>
-                <div class="face-think-path"><img class="face-think-path-img" src="img/safetyplan-5.png"></div>
+                <div class="face-think-path"><img class="face-think-path-img" style="width:100%;height:140px" src="img/safetyplan-5.png"></div>
                 <div id="QSet7" class="">
                     <div class="safetyplan-end-p">Make a safety plan commitment</div>
                     <div class="safetyplan-end-p">I commit to my safety plan<br> when the need arises.</div>
                 </div>
-                <div class="face-think-path"><img class="face-think-path-img" src="img/safetyplan-6.png"></div>
+                <div id="#ignorePDF" class="face-think-path"><img class="face-think-path-img" style="width:100%;height:140px" src="img/safetyplan-6.png"></div>
             </div>
             <div class="margin-bot-100p"></div>
         </div>
@@ -1768,6 +1938,7 @@
                 <div class="arrow-back"><a href="javascript:void(0);" data-href="content" class="panel-hotspot"></a>
                 </div>
             </div>
+            
 
         </div>
         <div class="grid-container">
@@ -1776,9 +1947,9 @@
 
             <div class="panel-container">
                 <div class="panel">
-                    <div class="border-top"></div>
+                    <!--div class="border-top"></div>
                     <div class="content-title">About Suicide Call Back Service</div>
-                    <div class="border-bot"></div>
+                    <div class="border-bot"></div-->
                     <p><a style="color:#9fcd5a" href="#"
                             onclick="window.open('https://www.suicidecallbackservice.org.au/need-to-talk/', '_system');">Suicide
                             Call Back Service</a> is a 24 hour, Australia-wide service that provides free telephone,
@@ -1817,9 +1988,9 @@
 
             <div class="panel-container">
                 <div class="panel">
-                    <div class="border-top"></div>
+                    <!--div class="border-top"></div>
                     <div class="content-title">Disclaimer</div>
-                    <div class="border-bot"></div>
+                    <div class="border-bot"></div-->
                     <p>The ReMinder app has been developed to be part of your overall safety and mental health plan. It
                         is not intended to be your only form of support. A trusted person in your life or a health
                         professional can help you to develop your plan.</p>
@@ -1859,9 +2030,9 @@
 
             <div class="panel-container">
                 <div class="panel">
-                    <div class="border-top"></div>
+                    <!--div class="border-top"></div>
                     <div class="content-title">1. PURPOSE OF THIS POLICY</div>
-                    <div class="border-bot"></div>
+                    <div class="border-bot"></div-->
                     <p>This Policy details how we comply with the Privacy Act, including the APPs, as well as with
                         equivalent applicable
                         State legislation, which regulate how we collect, use, disclose and store Information.
@@ -2247,9 +2418,9 @@
 
             <div class="panel-container">
                 <div class="panel">
-                    <div class="border-top"></div>
+                    <!--div class="border-top"></div>
                     <div class="content-title">About This App</div>
-                    <div class="border-bot"></div>
+                    <div class="border-bot"></div-->
                     <p>The ReMinder app helps you to create a simple and convenient suicide safety plan on your phone.
                         The app has been designed to be part of an overall mental health strategy and is not intended to
                         be used in isolation.</p>
@@ -2273,7 +2444,7 @@
     </div>
     <div id="instructions2" class="contents" style="display:none;">
         <ons-page>
-            <div id="CallConfirm" hidden>
+            <!--div id="CallConfirm" hidden>
                 <h4>Are you sure you want to dial 000?</h4>
                 <div class="btncall-btns">
                     <a href="tel:000">
@@ -2281,14 +2452,14 @@
                     </a>
                     <div class="btn-call-no" id="btn-call-no" onclick="cancelCall()">No</div>
                 </div>
-            </div>
+            </div-->
 
             <!-- bottom navigation -->
 
             <div class="grad-top"></div>
             <div class="grad-bot"></div>
             <div class="instructions-container">
-                <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel" initial-index="0">
+                <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel22" initial-index="0">
 
                     <ons-carousel-item>
                         <img class="instructions-iconstart" style="margin-top: 150px" src="img/icon-start.png">
@@ -2376,7 +2547,7 @@
                 document.getElementById("dots1").style.backgroundColor = "rgba(225,225,225,1)";
 
 
-                var carousel = document.getElementById('carousel');
+                var carousel = document.getElementById('carousel22');
                 var curr = carousel.getActiveIndex();
                 //console.log(curr)
                 console.log(finInstruc);
@@ -2429,23 +2600,23 @@
 
             }
             document.getElementById("dots1").addEventListener("click", function () {
-                document.getElementById('carousel').setActiveIndex(0);
+                document.getElementById('carousel22').setActiveIndex(0);
                 console.log("clicked");
 
             });
             document.getElementById("dots2").addEventListener("click", function () {
-                document.getElementById('carousel').setActiveIndex(1);
+                document.getElementById('carousel22').setActiveIndex(1);
                 console.log("clicked");
 
             });
             document.getElementById("dots3").addEventListener("click", function () {
-                document.getElementById('carousel').setActiveIndex(2);
+                document.getElementById('carousel22').setActiveIndex(2);
                 console.log("clicked");
 
             });
 
             document.getElementById("dots4").addEventListener("click", function () {
-                document.getElementById('carousel').setActiveIndex(3);
+                document.getElementById('carousel22').setActiveIndex(3);
                 console.log("clicked");
 
             });
@@ -2481,7 +2652,53 @@
             <div class="margin-top-180p"></div>
 
             <div class="contacts-container" id="contacts-container">
-                <div class="emergency-contact">
+
+                    <div class="main-div">
+                            <div class="img"><img style="width:90px;" src="img/logo-suicidecallback.png">	</div>
+                            <div class="head-num">
+                                <div class="heading"><span class="cus head">Suicide Call Back Service</span></div>
+                                <div class="num"><p>1300 659 467</p></div>
+                            </div>
+                            <div class="call-icon"><img style="width:60px;" src="img/icon-phone.png">	</div>
+                        </div>
+    
+                        <div class="main-div">
+                            <div class="img"><img style="width:90px;" src="img/logo-suicideline.png">	</div>
+                            <div class="head-num">
+                                <div class="heading"><span class="cus head">SuicideLine Victoria </span></div>
+                                <div class="num"><p>1300 651 251</p></div>
+                            </div>
+                            <div class="call-icon"><img style="width:60px;" src="img/icon-phone.png">	</div>
+                        </div>
+    
+                        <div class="main-div">
+                            <div class="img"><img style="width:90px;" src="img/logo-mensline.png">	</div>
+                            <div class="head-num">
+                                <div class="heading"><span class="cus head">MensLine Australia </span></div>
+                                <div class="num"><p>1300 78 99 78</p></div>
+                            </div>
+                            <div class="call-icon"><img style="width:60px;" src="img/icon-phone.png">	</div>
+                        </div>
+    
+                        <div class="main-div">
+                            <div class="img"><img style="width:90px;" src="img/logo-lifeline.png">	</div>
+                            <div class="head-num">
+                                <div class="heading"><span class="cus head">Lifeline</span></div>
+                                <div class="num"><p>13 11 14</p></div>
+                            </div>
+                            <div class="call-icon"><img style="width:60px;" src="img/icon-phone.png">	</div>
+                        </div>
+    
+                        <div class="main-div">
+                            <div class="img"><img style="width:90px;" src="img/logo-kidshelpline.png">	</div>
+                            <div class="head-num">
+                                <div class="heading"><span class="cus head">Kids Helpline</span></div>
+                                <div class="num"><p>1800 55 1800</p></div>
+                            </div>
+                            <div class="call-icon"><img style="width:60px;" src="img/icon-phone.png">	</div>
+                        </div>
+
+               <!-- <div class="emergency-contact">
 
                     <div class="contactname">
                         <span class="name-span"> Emergency </span>
@@ -2491,6 +2708,7 @@
                     <div><a href="tel:000" class="callbtn"></a></div>
 
                 </div>
+
                 <div class="emergency-contact">
 
                     <div class="contactname">Suicide Call Back Service<br> 1300 659 467</div>
@@ -2524,7 +2742,7 @@
                     <div><a href="tel:1800551800" class="callbtn"></a></div>
 
 
-                </div>
+                </div>-->
 
             </div>
 
@@ -2707,7 +2925,7 @@
             }
 
             function onDeviceReady12() {
-                //alert('dfd');
+                //
                 StatusBar.hide();
                 document.getElementById("dots11").style.backgroundColor = "rgba(0,0,0,1)";
 
@@ -2860,14 +3078,14 @@
             <!-- section title -->
             <div class="sectionbar">
                 <div class="section-title info">
-                    <div class="section-icon-myteam"></div>My Theme
+                    <div class="section-icon-mystuff-header"></div>My Theme
                 </div>
             </div>
             <!-- title bar / back button -->
             <div class="titlebar">
                 <div class="title">Add Theme</div>
                 <div class="arrow-back">
-                    <div onclick="goBack();" class="panel-hotspot"></div>
+                    <div onclick="goBack();" class="panel-hotspot1"></div>
                 </div>
             </div>
         </div>
@@ -2879,8 +3097,8 @@
             <!--<div class="btn-save" onclick="saveImage();">Save</div>-->
         </div>
         <div class="bot-overlay-high"></div>
-        <div class="bot-container">
-            <div class="btn-done" value="Done" id="addNewThemeBtn">Select Theme</div>
+        <div class="bot-container">   
+            <div class="btn-done1" value="Done" id="addNewThemeBtn">Select Theme</div>
         </div>
         <!-- CONTENT -->
         <div class="grid-container-whitebg">
@@ -2889,8 +3107,7 @@
                 <form>
                     <div class="form-container">
                         <span id="themeformValidation" style="color:#be1e2d;" hidden>All fields are required.</span>
-                        <p class="form-text" style="margin:0">Title</p>
-                        <input maxlength="20" class="form-textfield" type="text" maxlength="50" name="title"
+                        <input maxlength="20" placeholder='Theme title' class="form-textfield" type="text" maxlength="50" name="title"
                             id="themeTitle">
                         <br>
                         <br><br><br>
@@ -2913,7 +3130,7 @@
 
 
             function errorHandlerTheme(transaction, error) {
-                alert('Error: ' + error.message + ' code: ' + error.code);
+                
             }
 
             function successCallBack() {
@@ -2937,11 +3154,11 @@
                         [], nullHandler, errorHandlerTheme);
                 }, errorHandlerTheme, successCallBack);
                 console.log("table created");
-                //alert('create');
+                //
             }
 
             function GetThemeFromDB() {
-                //alert('here');
+                //
                 if (!window.openDatabase) {
                     console.log('Databases are not supported in this browser.');
                     return;
@@ -2949,39 +3166,58 @@
                 db.transaction(function (transaction) {
                     transaction.executeSql('SELECT ThemeURI, ThemeTitle FROM Theme', [], function (transaction,
                         results) {
-                        // alert('herea');
+                        // 
 
                         if (results.rows.length) {
-                            // alert('if');
+                            // 
                             console.log(results);
 
 
                             console.log(results);
-                            //alert(results);
+                            //
                             $('#themeItem').empty();
                             for (var i = 0; i < results.rows.length; i++) {
-                                //alert('qqq'+results.rows.item(i).ThemeURI);
-                                $('#themeItem').append($(
+                                //
+                               
+                               // localStorage.setItem('add-theme-' + i, "enabled");
+                                var cusTheme = localStorage.getItem('add-theme-' + i);
+                                //alert(cusTheme  );
+                                if (cusTheme == null) {
+                                    localStorage.setItem('add-theme-' + i, "disabled");
+                                    $('#themeItem').append(
+                                    '<div class="common-theme" style="background:url(' + results
+                                        .rows.item(i).ThemeURI +
+                                    '); background-size: cover;"><div class="contact-gradient"></div><div class="contactname">' +
+                                    results.rows.item(i).ThemeTitle +
+                                    '</div><img src="img/btn-plus-white.png"  class="btn-select-theme cus-theme" id="add-theme-' +
+                                    i + '"></div>');
+                                }else{
+
+                                    if (cusTheme == "enabled") {
+                                      
+                                            $('#themeItem').append(
                                     '<div class="common-theme" style="background:url(' + results
                                         .rows.item(i).ThemeURI +
                                     '); background-size: cover;"><div class="contact-gradient"></div><div class="contactname">' +
                                     results.rows.item(i).ThemeTitle +
                                     '</div><img src="img/btn-cross-white.png"  class="btn-select-theme cus-theme" id="add-theme-' +
-                                    i + '"></div>'));
-                                localStorage.setItem('add-theme-' + i, "enabled");
-                                var cusTheme = localStorage.getItem('add-theme-' + i);
-                                if (cusTheme == "enabled") {
-                                    $("#carousel").append('<ons-carousel-item id ="' + i + 6 +
-                                        '"><div  class="video_contain" value="waves" style="text-align: center; font-size: 30px;  color: #fff;"><img class="gif" src="' +
-                                        results.rows.item(i).ThemeURI +
-                                        '"></div></ons-carousel-item>');
-                                }
+                                    i + '"></div>');
+                                        }else{
+                                            $('#themeItem').append(
+                                    '<div class="common-theme" style="background:url(' + results
+                                        .rows.item(i).ThemeURI +
+                                    '); background-size: cover;"><div class="contact-gradient"></div><div class="contactname">' +
+                                    results.rows.item(i).ThemeTitle +
+                                    '</div><img src="img/btn-plus-white.png"  class="btn-select-theme cus-theme" id="add-theme-' +
+                                    i + '"></div>');
+                                        }
+                                    }
 
                             }
                             //openGallery();
 
                         } else {
-                            //alert('else');
+                            //
                             console.log("GetThemeFromDB - no Image in db");
                             //openGallery();
                         }
@@ -2990,7 +3226,7 @@
             }
 
             function GetThemeFromDBHomePage() {
-                //alert('here');
+                //
                 if (!window.openDatabase) {
                     console.log('Databases are not supported in this browser.');
                     return;
@@ -2998,20 +3234,45 @@
                 db.transaction(function (transaction) {
                     transaction.executeSql('SELECT ThemeURI, ThemeTitle FROM Theme', [], function (transaction,
                         results) {
-                        // alert('herea');
+                        // 
 
                         if (results.rows.length) {
-                            // alert('if');
+                            // 
                             console.log(results);
 
 
                             console.log(results);
-                            //alert(results);
+                            //
+                            $("#carousel").empty();
+                            $("#carousel").append(
+                                '<ons-carousel-item id="ons-carousel-item1">'+
+                    '<div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">'+
+                        '<img src="videos/sunsine.gif">'+
+                       '<audio id="audio_1" loop>'+
+                            '<source src="audio/sunrise.mp3" type="audio/mpeg"></audio>'+
+                        '</div>'+
+                '</ons-carousel-item>'+
+                '<ons-carousel-item id="ons-carousel-item2">'+
+                   '<div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">'+
+                        '<img src="videos/ripples.gif">'+
+                        '<audio id="audio_2" loop>'+
+                         '<source src="audio/ripples.mp3" type="audio/mpeg"></audio>'+
+                        '</div>'+
+                    '</ons-carousel-item>'+
+                '<ons-carousel-item id="ons-carousel-item3">'+
+                    '<div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">'+
+                        '<img src="videos/shells.gif">'+
+                        '<audio id="audio_3" loop>'+
+                            '<source src="audio/shells.mp3" type="audio/mpeg"></audio>'+
+                        '</div>'+
+                '</ons-carousel-item>');
+
 
                             for (var i = 0; i < results.rows.length; i++) {
-                                //alert('qqq'+results.rows.item(i).ThemeURI);
+                                //
 
                                 var cusTheme = localStorage.getItem('add-theme-' + i);
+                                //alert(cusTheme);
                                 if (cusTheme == "enabled") {
                                     $("#carousel").append('<ons-carousel-item id ="' + i + 6 +
                                         '"><div  class="video_contain" value="waves" style="text-align: center; font-size: 30px;  color: #fff;"><img class="gif" src="' +
@@ -3023,7 +3284,7 @@
                             //openGallery();
 
                         } else {
-                            //alert('else');
+                            //
                             console.log("GetThemeFromDB - no Image in db");
                             //openGallery();
                         }
@@ -3041,11 +3302,11 @@
                         transaction, results) {
 
                         if (results.rows.length) {
-                            //alert(results.rows[i]["ImageURI"]);
+                            //
                             $('#AddTheme').hide();
 
                         } else {
-                            //alert('add');
+                            //
                             console.log("CheckThemeInDB - no Image in db");
                             AddThemeToDB(imageURI);
                         }
@@ -3063,10 +3324,10 @@
                     return;
                 }
                 db.transaction(function (transaction) {
-                    //alert('inadd'+imageURI);
+                    //
                     transaction.executeSql('INSERT INTO Theme(ThemeURI, ThemeTitle) VALUES (?,?)', [imageURI, $(
                         '#themeTitle').val()], function (transaction, imageURI) {
-                            //alert('added');
+                            //
                             //$('#themeItem').append($('<div class="common-theme" style="background:url('+imageURI+'); background-size: cover;"><div class="contact-gradient"></div><div class="contactname">'+$('#themeTitle').val()+'</div><img src="img/btn-cross-white.png"  class="btn-select-theme" id="add-theme-lake"></div>'));
                             $('#AddTheme').hide();
                             $('.contents').hide();
@@ -3148,7 +3409,7 @@
                 //document.getElementById("myStuffItems").innerHTML = "";
 
                 createThemeTable();
-
+                GetThemeFromDBHomePage();
                 GetThemeFromDB();
                 $("#btn-camera-theme").click(function () {
                     getPhotoFromCameraTheme();
@@ -3209,11 +3470,11 @@
                 //I do my insert with "entry.fullPath" as for the path
                 console.log("successfull move");
                 CheckThemeInDB(entry.toURL());
-                //alert(entry.toURL());
+                //
             }
 
             function resOnError(error) {
-                //alert(error.code);
+                //
                 console.log(error);
                 location.reload(true);
             }
@@ -3305,9 +3566,9 @@
             </div>
             <!-- title bar / back button -->
             <div class="titlebar">
-                <div class="title">Add Contacts</div>
+                <div class="title">Add New Contact</div>
                 <div class="arrow-back">
-                    <div onclick="goBack();" class="panel-hotspot"></div>
+                    <div onclick="goBack();" class="panel-hotspot1"></div>
                 </div>
             </div>
 
@@ -3351,13 +3612,13 @@
                                 style="border-radius:60px;height:100px;width:100px;"" src=" img/btn-photo-contact.png">
                                 </div> <span id="formValidationerr" style="color:#be1e2d;" hidden>All fields are
                             required.</span>
-                            <p class="form-text" style="margin:0">First name</p>
+                            <p class="form-text" style="margin:0">First Name</p>
                             <input maxlength="20" class="form-textfield" type="text" maxlength="50" name="firstname"
                                 id="addContactFirstName">
 
                             <br>
                             <br>
-                            <p class="form-text" style="margin:0">Last name</p>
+                            <p class="form-text" style="margin:0">Last Name</p>
                             <input maxlength="20" class="form-textfield" type="text" name="lastname"
                                 id="addContactLastName">
                             <br>
@@ -3408,18 +3669,18 @@
 
             function successCallBack() {
                 console.log("DEBUGGING: success");
-                //alert('create');
+                //
 
             }
 
 
             function errorHandlerImage(transaction, error) {
-                alert('Error: ' + error.message + ' code: ' + error.code);
+                alert('***'+error);
             }
 
             function successCallBackImage() {
                 console.log("DEBUGGING: success");
-                alert('create');
+                
 
             }
 
@@ -3436,7 +3697,7 @@
                     return;
                 }
                 db.transaction(function (tx) {
-                    //tx.executeSql('DROP TABLE IF EXISTS Contacts');
+                    tx.executeSql('DROP TABLE IF EXISTS Contacts');
                     tx.executeSql(
                         'CREATE TABLE IF NOT EXISTS Contacts(UId INTEGER NOT NULL PRIMARY KEY, ContactName TEXT NOT NULL, ContactNumber TEXT NOT NULL,ProfilePic TEXT NOT NULL, ContactColor TEXT NOT NULL)',
                         [], nullHandler, errorHandler);
@@ -3445,14 +3706,15 @@
 
             function InsertValueInDB(ContactFullName, ContactNumber, ContactColor, ImageUrl) {
                 console.log("inside insert");
-                alert('insert');
+               // alert('herein');
+                
                 if (!window.openDatabase) {
                     console.log('Databases are not supported in this browser.');
                     return;
                 }
                 db.transaction(function (transaction) {
                     console.log("Inserting");
-                    alert('db');
+                    
                     transaction.executeSql(
                         'INSERT INTO Contacts(ContactName, ContactNumber, ContactColor, ProfilePic) VALUES (?,?, ?, ?)',
                         [
@@ -3460,12 +3722,12 @@
                         ],
                         function () {
                             console.log("DEBUGGING: success");
-                            alert('success');
+                            
                             var planCompleted = localStorage.getItem("planCompleted");
                             GetContactsValueFromDB11();
                             $('#ContactsAddPage1').hide();
                             if (planCompleted == "0" || planCompleted == 0) {
-                                alert('plan');
+                                
                                 //document.location.href='CreateMySafetyPlanQ4.html';  
                                 $('.contents').hide();
                                 $('#CreateMySafetyPlanQ4').show();
@@ -3474,27 +3736,14 @@
                                 $('.contents').hide();
                                 //  $("#myteam").load( document.URL +"#myteam");
                                 $('#myteam').show();
-                                alert('ten');
+                                
                             }
                         }, errorHandlerImage, successCallBackImage);
                 });
             }
 
 
-            function goBack() {
-                var planCompleted = localStorage.getItem("planCompleted");
-                if (planCompleted == "0" || planCompleted == 0) {
-                    // document.location.href='CreateMySafetyPlanQ4.html'; 
-                    $('.contents').hide();
-                    $('#CreateMySafetyPlanQ4').show();
-                } else {
-                    //document.location.href='myteam.html';
-                    $('.contents').hide();
-                    //  $("#myteam").load( document.URL +"#myteam");
-                    $('#myteam').show()
-                }
-
-            }
+            
 
             document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -3504,7 +3753,7 @@
                 db = openDatabase(shortName, version, displayName, maxSize);
                 createTable();
                 $("#addNewContactBtn").click(function () {
-                    alert('hereadd');
+                    //alert('here');
                     //ContactColor = selectedColor;
                     var ContactColor = colorArray[Math.floor(Math.random() * colorArray.length)];
                     console.log(document.getElementById("addContactFirstName").value);
@@ -3514,14 +3763,14 @@
                     ContactFullName = ContactFirstName.trim() + " " + ContactLastName.trim();
                     ImageUrl = $('#dummy-img').attr('src');
 
-                    alert(ContactFirstName + '-' + ContactLastName + '*' + ContactNumber + '--' + ImageUrl);
+                    
                     if (ContactFirstName.trim() != "" && ContactLastName.trim() != "" && ContactNumber.trim() !=
                         "" && ImageUrl != '') {
-                        alert('here-if');
+                        //alert('if');
                         $("#formValidation").hide();
                         InsertValueInDB(ContactFullName, ContactNumber.trim(), ContactColor.trim(), ImageUrl);
                     } else {
-                        alert('here-else');
+                       // alert('iwwf');
                         $("#formValidationerr").show();
                         console.log("Validation Faild");
                     }
@@ -3569,15 +3818,15 @@
             function successMoveProfilePic(entry) {
                 //I do my insert with "entry.fullPath" as for the path
                 console.log("successfull move");
-                alert
+                //alert
                 ImageUrl = entry.toURL();
                 $('#dummy-img').attr('src', ImageUrl);
                 // CheckThemeInDB(entry.toURL());
-                //alert(entry.toURL());
+                //
             }
 
             function resOnError(error) {
-                //alert(error.code);
+                //
                 console.log(error);
                 location.reload(true);
             }
@@ -3594,7 +3843,7 @@
 
             function onPhotoDataSuccessProfilePic(imageData) {
                 console.log(imageData);
-                alert('imgdata')
+                
                 //var image = document.getElementById('myImage'); 
                 //image.style.display = 'block'; 
                 //image.src =imageData; 
@@ -3709,7 +3958,7 @@
                         <h5>When should I use my plan?</h5>
                         <p class="question-p">Think about the situations, thoughts and feelings that may lead to you
                             feeling suicidal. List your warning signs so that you know when to activate your plan.</p>
-                        <div class="face-think-path"><img class="face-think-path-img" src="img/safety-plan-1.png"></div>
+                        <div class="face-think-path"><img class="face-think-path-img" style="width:100%;height:140px" src="img/safety-plan-1.png"></div>
                         <p class="question-p-under">I should activate my plan if...<br><span hidden
                                 id="formValidationQ1" class="question-p-under" style="font-size: 16px;">Please provide
                                 at least one answer.</span></p>
@@ -3871,7 +4120,7 @@
                     <div class="question">
                         <h5>What can you do to calm and comfort yourself when you are feeling suicidal?</h5>
                         <p class="question-p">List the activities that soothe and comfort you when you are upset.</p>
-                        <div class="face-think-path"><img class="face-think-path-img" src="img/safety-plan-2.png"></div>
+                        <div class="face-think-path"><img class="face-think-path-img" style="width:100%;height:140px" src="img/safety-plan-2.png"></div>
                         <p class="question-p-under">I can calm and comfort myself by...<br><span hidden
                                 id="formValidationQ2" class="question-p-under" style="font-size: 16px;">Please provide
                                 at least one answer.</span></p>
@@ -4037,7 +4286,7 @@
                         <p class="question-p">When you are feeling suicidal, it is easy to get caught up in the pain you
                             are feeling and forget the positives in your life. Your list may help you to refocus your
                             attention until the suicidal feelings pass.</p>
-                        <div class="face-think-path"><img class="face-think-path-img" src="img/safety-plan-3.png"></div>
+                        <div class="face-think-path"><img class="face-think-path-img" style="width:100%;height:140px" src="img/safety-plan-3.png"></div>
                         <p class="question-p-under">I have so many reasons to live...<br><span hidden
                                 id="formValidationQ3" class="question-p-under" style="font-size: 16px;">Please provide
                                 at least one answer.</span></p>
@@ -4179,35 +4428,55 @@
                             choice is unavailable. They are your team who will support you when you are feeling
                             distressed. Your team can include friends, family, mental health professionals and your
                             nearest hospital.</p>
-                        <div class="face-think-path"><img class="face-think-path-img" src="img/safety-plan-4-2.png">
+                        <div class="face-think-path"><img class="face-think-path-img" style="width:100%;height:140px" src="img/safety-plan-4-2.png">
                         </div>
                         <p class="question-p-under">I can talk to...</p>
                     </div>
                 </div>
                 <div id="Answer4">
-                    <div class="emergency-contact">
-                        <div class="contactname">Emergency <br> 000</div>
-                        <div><a class="callbtn"></a></div>
+                    <div class="main-div">
+                        <div class="img"><img style="width:90px;" src="img/logo-suicidecallback.png">	</div>
+                        <div class="head-num">
+                            <div class="heading"><span class="cus head">Suicide Call Back Service</span></div>
+                            <div class="num"><p>1300 659 467</p></div>
+                        </div>
+                        <div class="call-icon"><img style="width:60px;" src="img/icon-phone.png">	</div>
                     </div>
-                    <div class="emergency-contact">
-                        <div class="contactname">Suicide Call Back Service<br> 1300 659 467</div>
-                        <div><a href="#" class="callbtn"></a></div>
+
+                    <div class="main-div">
+                        <div class="img"><img style="width:90px;" src="img/logo-suicideline.png">	</div>
+                        <div class="head-num">
+                            <div class="heading"><span class="cus head">SuicideLine Victoria </span></div>
+                            <div class="num"><p>1300 651 251</p></div>
+                        </div>
+                        <div class="call-icon"><img style="width:60px;" src="img/icon-phone.png">	</div>
                     </div>
-                    <div class="emergency-contact">
-                        <div class="contactname">SuicideLine Victoria <br>1300 651 251</div>
-                        <div><a href="#" class="callbtn"></a></div>
+
+                    <div class="main-div">
+                        <div class="img"><img style="width:90px;" src="img/logo-mensline.png">	</div>
+                        <div class="head-num">
+                            <div class="heading"><span class="cus head">MensLine Australia </span></div>
+                            <div class="num"><p>1300 78 99 78</p></div>
+                        </div>
+                        <div class="call-icon"><img style="width:60px;" src="img/icon-phone.png">	</div>
                     </div>
-                    <div class="emergency-contact">
-                        <div class="contactname">MensLine Australia <br>1300 78 99 78</div>
-                        <div><a href="#" class="callbtn"></a></div>
+
+                    <div class="main-div">
+                        <div class="img"><img style="width:90px;" src="img/logo-lifeline.png">	</div>
+                        <div class="head-num">
+                            <div class="heading"><span class="cus head">Lifeline</span></div>
+                            <div class="num"><p>13 11 14</p></div>
+                        </div>
+                        <div class="call-icon"><img style="width:60px;" src="img/icon-phone.png">	</div>
                     </div>
-                    <div class="emergency-contact">
-                        <div class="contactname">Lifeline<br> 13 11 14</div>
-                        <div><a href="#" class="callbtn"></a></div>
-                    </div>
-                    <div class="emergency-contact">
-                        <div class="contactname">Kids Helpline <br>1800 55 1800</div>
-                        <div><a href="#" class="callbtn"></a></div>
+
+                    <div class="main-div">
+                        <div class="img"><img style="width:90px;" src="img/logo-kidshelpline.png">	</div>
+                        <div class="head-num">
+                            <div class="heading"><span class="cus head">Kids Helpline</span></div>
+                            <div class="num"><p>1800 55 1800</p></div>
+                        </div>
+                        <div class="call-icon"><img style="width:60px;" src="img/icon-phone.png">	</div>
                     </div>
                     <div id="contactsNumbers">
                     </div>
@@ -4276,7 +4545,7 @@
                         <p class="question-p">This may involve removing or securing any items that you are likely to use
                             to hurt yourself and not doing things that you know make your feelings stronger or longer
                             lasting.</p>
-                        <div class="face-think-path"><img class="face-think-path-img" src="img/safetyplan-4.png">
+                        <div class="face-think-path"><img class="face-think-path-img" style="width:100%;height:140px" src="img/safetyplan-4.png">
                             <p class="question-p-under">I can make my environment safe by...<br><span hidden
                                     id="formValidationQ5" class="question-p-under" style="font-size: 16px;">Please
                                     provide
@@ -4419,7 +4688,7 @@
                 </div>
                 <div class="q6-answer">I'm still not feeling safe;<br> I need to call emergency services on 000.
                 </div>
-                <div class="face-think-path"><img class="face-think-path-img" src="img/safetyplan-5.png">
+                <div class="face-think-path"><img class="face-think-path-img" style="width:100%;height:140px" src="img/safetyplan-5.png">
                     <button class="btn-next" type="" onclick="qnavigate('CreateMySafetyPlanQ7')">NEXT</button>
                 </div>
                 <div class="margin-bot-40p"></div>
@@ -4478,7 +4747,7 @@
                 GetContactsValueFromDB1();
                         $('.topnav').show();
                         $('.botnav-container').show();" Hidden>SAVE</button>
-                <div class="face-think-path"><img class="face-think-path-img" src="img/safetyplan-6.png">
+                <div class="face-think-path"><img class="face-think-path-img" style="width:100%;height:140px" src="img/safetyplan-6.png">
                     <div class="empty-space">&nbsp;</div>
                 </div>
 
@@ -5420,7 +5689,7 @@
             console.log("call")
         }
         $(document).on('click', '.cus-theme', function (e) {
-            //alert('herereerererrer');
+            //
             //e.preventDefault();
 
             id = $(this).attr('id');
@@ -5497,7 +5766,7 @@
                 var blobUrl5 = URL.createObjectURL(blob5)
                 document.getElementById('video_5').src = blobUrl5;
             } catch (err) {
-                //alert('videoBlob', err)
+                //
             }
             $('.panel-hotspot').click(function (e) {
                 e.preventDefault();
@@ -5541,7 +5810,7 @@
                 e.preventDefault();
                 $('.commonhide').hide();
                 page = $(this).data('href');
-                //alert($(this).data('href')+'-----'+$(this).data('id'));
+                //
                 localStorage.setItem('editContactId', $(this).data('id'));
                 $('.contents').hide();
                 $('#' + page).show();
@@ -5707,12 +5976,28 @@
                         console.log("Writing content to file");
                         fileWriter.write(DataBlob);
                     }, function () {
-                        alert('Unable to save file in path ' + folderpath);
+                        
                     });
                 });
             });
         }
         /*code snip*/
+        function goBack() {
+                var planCompleted = localStorage.getItem("planCompleted");
+                if (planCompleted == "0" || planCompleted == 0) {
+            //alert('here');
+                    // document.location.href='CreateMySafetyPlanQ4.html'; 
+                    $('.contents').hide();
+                    $('#CreateMySafetyPlanQ4').show();
+                } else {
+                    //document.location.href='myteam.html';
+                    $('.contents').hide();
+                    //alert('here999');
+                    //  $("#myteam").load( document.URL +"#myteam");
+                    $('#myteam').show();
+                }
+
+            }
     </script>
 
 </body>
