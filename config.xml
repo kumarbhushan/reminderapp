@@ -1,259 +1,33 @@
-<!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
-<widget xmlns     = "http://www.w3.org/ns/widgets"
-        xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.thebigcanvas.reminder"
-        versionCode = "3" 
-        version   = "1.0.3">
-
-    <name>ReMinder</name>
-
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.phonegap.helloworld" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Reminder</name>
     <description>
-        ReMinder application
+        A basic Framework7 template for PhoneGap.
     </description>
-
-    <author href="https://ontheline.org.au/" email="enquiries@ontheline.org.au">
-        On The Line
+    <author email="dev@cordova.apache.org" href="http://cordova.io">
+        Apache Cordova Team
     </author>
-
-    <!--
-        If you do not want any permissions to be added to your app, add the
-        following tag to your config.xml; you will still have the INTERNET
-        permission on your app, which PhoneGap requires.
-    -->
-    <preference name="permissions" value="none" />
-    <preference name="orientation" value="default" />
-    <preference name="target-device" value="universal" />
-    <preference name="fullscreen" value="true" />
-    <preference name="DisallowOverscroll" value="true" />
-    <preference name="prerendered-icon" value="true" />
-    <preference name="android-minSdkVersion" value="7" />
-    <preference name="android-targetSdkVersion" value="26" />
-    <preference name="android-installLocation" value="auto" />
-    <preference name="loadUrlTimeoutValue" value="70000000" />
-    <preference name="AllowInlineMediaPlayback" value="true" />
-
-    <splash src="img/splashscreen320.png" width="320" height="480"/>
-    <splash src="img/splashscreen640.png" width="640" height="960"/>
-    <splash src="img/splashscreen768.png" width="768" height="1024"/>
-    <splash src="img/splashscreen1536.png" width="1536" height="2048"/>
-    <splash src="img/splashscreen1024.png" width="1024" height="768"/>
-    <splash src="img/splashscreen2048.png" width="2048" height="1536"/>
-    <splash src="img/splashscreen6401136.png" width="640" height="1136"/>
-    <splash src="img/splashscreen750.png" width="750" height="1334"/>
-    <splash src="img/splashscreen1242.png" width="1242" height="2208"/>
-    <!-- Customize your app and platform with the preference element. -->
-    <!-- all: default means both landscape and portrait are enabled -->
-    <!-- all: possible values handset, tablet, or universal -->
-    <!-- all: hides the status bar at the top of the screen -->
-    <preference name="webviewbounce" value="true" />
-    <!-- ios: control whether the screen 'bounces' when scrolled beyond the top -->
-    <preference name="prerendered-icon" value="true" />
-    <!-- ios: if icon is prerendered, iOS will not apply it's gloss to the app's icon on the user's home screen -->
-    <preference name="stay-in-webview" value="false" />
-    <!-- ios: external links should open in the default browser, 'true' would use the webview the app lives in -->
-    <preference name="ios-statusbarstyle" value="black-opaque" />
-    <!-- ios: black-translucent will appear black because the PhoneGap webview doesn't go beneath the status bar -->
-    <preference name="detect-data-types" value="true" />
-    <!-- ios: controls whether data types (such as phone no. and dates) are automatically turned into links by the system -->
-    <preference name="exit-on-suspend" value="false" />
-    <!-- ios: if set to true, app will terminate when home button is pressed -->
-    <preference name="show-splash-screen-spinner" value="true" />
-    <!-- ios: if set to false, the spinner won't appear on the splash screen during app loading -->
-    <preference name="auto-hide-splash-screen" value="true" />
-    <!-- ios: if set to false, the splash screen must be hidden using a JavaScript API -->
-    <preference name="disable-cursor" value="false" />
-    <!-- blackberry: prevents a mouse-icon/cursor from being displayed on the app -->
-    <preference name="android-installLocation" value="auto" />
-    <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
-    <preference name="AndroidPersistentFileLocation" value="Internal" />
-    <preference name="iosPersistentFileLocation" value="Library" />
-
-
-    <preference name="orientation" value="portrait" />
-    <preference name="KeyboardShrinksView" value="false" />
-    <!--
-        Define a specific version of PhoneGap to build into your app.
-        <preference name="phonegap-version" value="3.5.0" />
-    -->
-
-    <platform name="ios">
-        <!-- iOS 8.0+ -->
-        <preference name="deployment-target" value="7.0" />
-        <preference name="target-device" value="handset" />
-        <!-- iPhone 6 Plus  -->
-        <icon src="img/iconlogo1024.png" width="1024" height="1024" />
-        <icon src="img/iconlogo180.png" width="180" height="180" />
-        <!-- iOS 7.0+ -->
-        <!-- iPhone / iPod Touch  -->
-        <icon src="img/iconlogo60.png" width="60" height="60" />
-        <icon src="img/iconlogo120.png" width="120" height="120" />
-        <!-- iPad -->
-        <icon src="img/iconlogo76.png" width="76" height="76" />
-        <icon src="img/iconlogo152.png" width="152" height="152" />
-        <!-- Spotlight Icon -->
-        <icon src="img/iconlogo40.png" width="40" height="40" />
-        <icon src="img/iconlogo80.png" width="80" height="80" />
-        <!-- iOS 6.1 -->
-        <!-- iPhone / iPod Touch -->
-        <icon src="img/iconlogo57.png" width="57" height="57" />
-        <icon src="img/iconlogo114.png" width="114" height="114" />
-        <!-- iPad -->
-        <icon src="img/iconlogo72.png" width="72" height="72" />
-        <icon src="img/iconlogo144.png" width="144" height="144" />
-        <!-- iPad Pro -->
-        <icon src="img/iconlogo167.png" width="167" height="167" />
-        <!-- iPhone Spotlight and Settings Icon -->
-        <icon src="img/iconlogo29.png" width="29" height="29" />
-        <icon src="img/iconlogo58.png" width="58" height="58" />
-        <!-- iPad Spotlight and Settings Icon -->
-        <icon src="img/iconlogo50.png" width="50" height="50" />
-        <icon src="img/iconlogo100.png" width="100" height="100" />
-        <!-- iPad Pro -->
-        <icon src="img/iconlogo167.png" width="167" height="167" />
-
-    </platform>
-
-    <platform name="android">
-        <!-- iOS 8.0+ -->
-        <!-- iPhone 6 Plus  -->
-        <!-- <icon src="img/iconLogo.png" width="192" height="192" /> -->
-
-        <!-- iOS 7.0+ -->
-        <!-- iPhone / iPod Touch  -->
-
-    </platform>
-
-    <!-- Plugins -->
-
-    <!-- Core plugins -->
-
-    <plugin name="cordova-plugin-contacts" spec="2.3.1" />
-    <plugin spec="https://github.com/chrisdurfee/cordova-android-camera-permissions" source="git" />
-    <plugin name="cordova-plugin-camera" spec="2.3.1">
-        <variable name="CAMERA_USAGE_DESCRIPTION" value="The app would like to access the camera when you attach photos to content." />
-        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="The app would like to access the photo library when you attach images to content." />
-    </plugin>
-    <plugin name="cordova-plugin-file" spec="4.0.0" />
-    <plugin name="cordova-plugin-filepath" spec="1.0.0" />
-
-    <plugin name="cordova-plugin-hidden-statusbar" spec="1.0.0" />
-
-    <plugin name="cordova-plugin-inappbrowser" spec="3.0.0" />
-
-    <plugin spec="https://github.com/apache/cordova-plugin-whitelist" source="git" />
-    <plugin name="cordova-plugin-device" spec="~2.0.2" />
-
-    <plugin name="cordova-plugin-ionic-keyboard" />
-
-    <plugin name="cordova-plugin-x-socialsharing" source="npm" spec="5.4.0" />
-
-    <plugin name="cordova-plugin-geolocation" version="2.1.0" />
-
-    <plugin name="cordova-pdf-generator" />
-    <!--
-        Define access to external domains.
-        <access />            - a blank access tag denies access to all external resources.
-        <access origin="*" /> - a wildcard access tag allows access to all external resource.
-        Otherwise, you can specify specific domains:
-        <access origin="http://phonegap.com" />                    - allow any secure requests to http://phonegap.com/
-        <access origin="http://phonegap.com" subdomains="true" />  - same as above, but including subdomains, such as http://build.phonegap.com/
-        <access origin="http://phonegap.com" browserOnly="true" /> - only allows http://phonegap.com to be opened by the child browser.
-    -->
-
-    <!-- Allow links to example.com -->
-    <allow-navigation href="http://twitter.com/*" />
-
-    <!-- Wildcards are allowed for the protocol, as a prefix
-     to the host, or as a suffix to the path -->
-    <allow-navigation href="*://*.twitter.com/*" />
-
-    <!-- A wildcard can be used to whitelist the entire network,
-     over HTTP and HTTPS.
-     *NOT RECOMMENDED* -->
-    <allow-navigation href="*" />
-
-    <!-- The above is equivalent to these three declarations -->
-    <allow-navigation href="http://*/*" />
-    <allow-navigation href="https://*/*" />
-    <allow-navigation href="data:*" />
-
-
-    <!-- Allow links to web pages to open in a browser -->
+    <content src="index.html" />
+    <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
-
-    <!-- Allow links to example.com to open in a browser -->
-    <allow-intent href="http://twitter.com/*" />
-
-    <!-- Wildcards are allowed for the protocol, as a prefix
-     to the host, or as a suffix to the path -->
-    <allow-intent href="*://*.twitter.com/*" />
-
-    <!-- Allow SMS links to open messaging app -->
-    <allow-intent href="sms:*" />
-
-    <!-- Allow tel: links to open the dialer -->
     <allow-intent href="tel:*" />
-
-    <!-- Allow geo: links to open maps -->
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-
-    <!-- Allow all unrecognized URLs to open installed apps
-     *NOT RECOMMENDED* -->
-    <allow-intent href="*" />
-
-    <!-- Allow images, xhrs, etc. to google.com -->
-    <access origin="http://google.com" />
-    <access origin="https://google.com" />
-    <access origin="http://aspiregenesis-test.com" />
-
-    <!-- Access to the subdomain maps.google.com -->
-    <access origin="http://maps.google.com" />
-
-    <!-- Access to all the subdomains on google.com -->
-    <access origin="http://*.google.com" />
-    <access origin="https://*.google.com" />
-
-    <!-- Enable requests to content: URLs -->
-    <access origin="content:///*" />
-
-    <!-- Enable requests to cdvfile: URLs -->
-    <access origin="cdvfile://*" />
-
-    <!-- Don't block any requests -->
-    <access origin="*" />
-    <feature name="Contacts">
-        <param name="ios-package" value="CDVContacts" />
-    </feature>
-    <feature name="Contacts">
-        <param name="android-package" value="org.apache.cordova.ContactManager" />
-    </feature>
-
-    <feature name="Camera">
-        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
-    </feature>
-    <feature name="Camera">
-        <param name="ios-package" value="CDVCamera" />
-    </feature>
-
-    <feature name="InAppBrowser">
-        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
-    </feature>
-
-    <feature name="InAppBrowser">
-        <param name="ios-package" value="CDVInAppBrowser" />
-    </feature>
-
-    <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
-        <string>ReMinder needs Camera access to take pictures.</string>
-    </edit-config>
-
-    <edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
-        <string>ReMinder needs Photo Library access.</string>
-    </edit-config>
-
-    <edit-config target="NSPhotoLibraryAddUsageDescription" file="*-Info.plist" mode="merge">
-        <string>ReMinder needs Photo Library access to save pictures.</string>
-    </edit-config>
-
+    <platform name="android">
+        <preference name="android-minSdkVersion" value="14" />
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+        <preference name="BackupWebStorage" value="none" />
+    </platform>
+    <preference name="DisallowOverscroll" value="true" />
+    <engine name="android" spec="~7.1.4" />
+    <plugin name="cordova-pdf-generator" />
+    <plugin name="cordova-plugin-whitelist" spec="~1.2.0" />
+    <plugin name="cordova-plugin-console" spec="~1.0.1" />
+    <plugin name="cordova-plugin-statusbar" spec="~1.0.1" />
 </widget>
