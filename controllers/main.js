@@ -1,4 +1,4 @@
-function navigate () {
+function navigate() {
   var planCompleted = localStorage.getItem('planCompleted')
   if (planCompleted == '1' || planCompleted == 1) {
     $('.contents').hide()
@@ -13,7 +13,7 @@ function navigate () {
     $('#inner-header').show()
   }
 }
-function qnavigate (que) {
+function qnavigate(que) {
   $('.contents').hide()
   $('#CreateMySafetyPlanQ1').hide()
   $('#CreateMySafetyPlanQ2').hide()
@@ -25,24 +25,24 @@ function qnavigate (que) {
   $('#' + que).show()
 }
 
-function errorHandler (transaction, error) {
+function errorHandler(transaction, error) {
   console.log('Error: ' + error.message + ' code: ' + error.code)
 }
-function successCallBack () {
+function successCallBack() {
   console.log('DEBUGGING: success')
 }
-function nullHandler () { };
+function nullHandler() { };
 document.addEventListener('deviceready', onDeviceReady, false)
 // PhoneGap is ready
 //
-function onDeviceReady () {
+function onDeviceReady() {
   var popuphome = true
   // StatusBar.hide();
 }
-function cancelCall () {
+function cancelCall() {
   document.getElementById('CallConfirm').style.display = 'none'
 }
-function call () {
+function call() {
   document.getElementById('CallConfirm').style.display = 'block'
 
   console.log('call')
@@ -73,38 +73,6 @@ $(document).on('click', '.cus-theme', function (e) {
 $(document).ready(function (e) {
   var page
   var prevPage
-  var contentType = 'video/mp4'
-  try {
-    document.getElementById('audio_1').play()
-    var blob = b64toBlob(v_flowers, contentType)
-    var blobUrl = URL.createObjectURL(blob)
-    document.getElementById('video_1').src = blobUrl
-    document.getElementById('video_1').play()
-    document.getElementById('video_1').oncanplay = function () {
-      try {
-        document.getElementById('video_1').play()
-      } catch (err) { }
-      setTimeout(function () {
-        try {
-          document.getElementById('video_1').play()
-        } catch (err) { }
-      }, 5000)
-    }
-    var blob2 = b64toBlob(v_ripples, contentType)
-    var blobUrl2 = URL.createObjectURL(blob2)
-    document.getElementById('video_2').src = blobUrl2
-    var blob3 = b64toBlob(v_shells, contentType)
-    var blobUrl3 = URL.createObjectURL(blob3)
-    document.getElementById('video_3').src = blobUrl3
-    var blob4 = b64toBlob(v_sunrise, contentType)
-    var blobUrl4 = URL.createObjectURL(blob4)
-    document.getElementById('video_4').src = blobUrl4
-    var blob5 = b64toBlob(v_tree, contentType)
-    var blobUrl5 = URL.createObjectURL(blob5)
-    document.getElementById('video_5').src = blobUrl5
-  } catch (err) {
-    //
-  }
   $('.panel-hotspot').click(function (e) {
     e.preventDefault()
     $('.commonhide').hide()
@@ -351,7 +319,7 @@ generate = function (writer) {
   savebase64AsPDF(folderpath, filename, myBase64, contentType)
 }
 
-function headerFooterFormatting (doc, totalPages) {
+function headerFooterFormatting(doc, totalPages) {
   for (var i = totalPages; i >= 1; i--) {
     doc.setPage(i)
     // header
@@ -362,7 +330,7 @@ function headerFooterFormatting (doc, totalPages) {
   }
 };
 
-function header (doc) {
+function header(doc) {
   doc.setFontSize(30)
   doc.setTextColor(40)
   doc.setFontStyle('normal')
@@ -371,7 +339,7 @@ function header (doc) {
   doc.line(3, 70, margins.width + 43, 70) // horizontal line
 };
 
-function imgToBase64 (url, callback, imgVariable) {
+function imgToBase64(url, callback, imgVariable) {
   if (!window.FileReader) {
     callback(null)
     return
@@ -390,14 +358,14 @@ function imgToBase64 (url, callback, imgVariable) {
   xhr.send()
 };
 
-function footer (doc, pageNumber, totalPages) {
+function footer(doc, pageNumber, totalPages) {
   var str = 'Page ' + pageNumber + ' of ' + totalPages
   doc.setFontSize(10)
   doc.text(str, margins.left, doc.internal.pageSize.height - 20)
 };
 
 /* load js dynamically */
-function loadjscssfile (filename, filetype) {
+function loadjscssfile(filename, filetype) {
   if (filetype == 'js') { // if filename is a external JavaScript file
     var fileref = document.createElement('script')
     fileref.setAttribute('type', 'text/javascript')
@@ -411,7 +379,7 @@ function loadjscssfile (filename, filetype) {
   if (typeof fileref !== 'undefined') { document.getElementsByTagName('head')[0].appendChild(fileref) }
 }
 
-function b64toBlob (b64Data, contentType, sliceSize) {
+function b64toBlob(b64Data, contentType, sliceSize) {
   contentType = contentType || ''
   sliceSize = sliceSize || 512
 
@@ -444,7 +412,7 @@ function b64toBlob (b64Data, contentType, sliceSize) {
  * @param filename {String} The name of the file that will be created
  * @param content {Base64 String} Important : The content can't contain the following string (data:application/pdf;base64). Only the base64 string is expected.
  */
-function savebase64AsPDF (folderpath, filename, content, contentType) {
+function savebase64AsPDF(folderpath, filename, content, contentType) {
   // Convert the base64 string in a Blob
   var DataBlob = b64toBlob(content, contentType)
   console.log('Starting to write the file :3')
@@ -464,13 +432,13 @@ function savebase64AsPDF (folderpath, filename, content, contentType) {
   })
 }
 /* code snip */
-function goBack1 () {
+function goBack1() {
   $('.contents').hide()
   $('#theme').show()
   $('#themeTitle').val('')
 }
 
-function goBack () {
+function goBack() {
   var planCompleted = localStorage.getItem('planCompleted')
   if (planCompleted == '0' || planCompleted == 0) {
     // alert('here');

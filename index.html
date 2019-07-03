@@ -37,13 +37,6 @@
     <script type="text/javascript" src="tweets/js/views/listings.js"></script>
     <script type="text/javascript" src="tweets/js/system/ready.js"></script>
     <script type="text/javascript" src="tweets/js/system/router.js"></script>
-
-    <script src='videos/v_flowers.js'></script>
-    <script src='videos/v_ripples.js'></script>
-    <script src='videos/v_shells.js'></script>
-    <script src='videos/v_sunrise.js'></script>
-    <script src='videos/v_tree.js'></script>
-
     <link rel="stylesheet" href="lib/onsen/css/onsenui.css">
     <link rel="stylesheet" type="text/css" href="lib/lightbox/simplelightbox.css" />
     <link rel="stylesheet" href="css/otl.css">
@@ -134,32 +127,32 @@
             <ons-carousel fullscreen swipeable auto-scroll auto-refresh overscrollable id="carousel" initial-index="0">
                 <ons-carousel-item id="ons-carousel-item1">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
-                        <img src='videos/sunsine.gif'>
-                        <audio id='audio_1' loop>
-                            <source src="audio/sunrise.mp3" type="audio/mpeg"></audio>
-
+                        <video webkit-playsinline playsinline id="video_1" class="gif" autoplay loop muted="muted">
+                            <source src="videos/flowers.mp4" type="video/mp4" poster="#">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                 </ons-carousel-item>
                 <ons-carousel-item id="ons-carousel-item2">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
-                        <img src='videos/ripples.gif'>
-                        <audio id='audio_2' loop>
-                            <source src="audio/ripples.mp3" type="audio/mpeg"></audio>
-
+                        <video webkit-playsinline playsinline id="video_2" class="gif" autoplay loop muted="muted">
+                            <source src="videos/ripples.mp4" type="video/mp4" poster="#">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                 </ons-carousel-item>
                 <ons-carousel-item id="ons-carousel-item3">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
-                        <img src='videos/shells.gif'>
-                        <audio id='audio_3' loop>
-                            <source src="audio/shells.mp3" type="audio/mpeg"></audio>
-
+                        <video webkit-playsinline playsinline id="video_3" class="gif" autoplay loop muted="muted">
+                            <source src="videos/tree.mp4" type="video/mp4" poster="#">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                 </ons-carousel-item>
                 <ons-carousel-item id="ons-carousel-item4">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
                         <video webkit-playsinline playsinline id="video_4" class="gif" autoplay loop muted="muted">
-                            <source src="videos/ripples.mp4" type="video/mp4" poster="#">
+                            <source src="videos/shells.mp4" type="video/mp4" poster="#">
                             Your browser does not support the video tag.
                         </video>
                     </div>
@@ -167,7 +160,7 @@
                 <ons-carousel-item id="ons-carousel-item5">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
                         <video webkit-playsinline playsinline id="video_5" class="gif" autoplay loop muted="muted">
-                            <source src="#" type="video/mp4" poster="#">
+                            <source src="videos/sunrise.mp4" type="video/mp4" poster="#">
                             Your browser does not support the video tag.
                         </video>
                     </div>
@@ -498,27 +491,27 @@
                 <div class="margin-top-180p"></div>
                 <div class="theme1">
                     <div class="contact-gradient"></div>
-                    <div class="contactname">Peaceful Water</div>
+                    <div class="contactname">Flowers</div>
                     <img src="img/btn-cross-white.png" class="btn-select-theme" id="add-theme-lake">
                 </div>
                 <div class="theme2">
                     <div class="contact-gradient"></div>
-                    <div class="contactname">Serene City</div>
+                    <div class="contactname">Ripples</div>
                     <img src="img/btn-cross-white.png" class="btn-select-theme" id="add-theme-sunset">
                 </div>
                 <div class="theme3">
                     <div class="contact-gradient"></div>
-                    <div class="contactname">Brilliant Bloom</div>
+                    <div class="contactname">Trees</div>
                     <img src="img/btn-cross-white.png" class="btn-select-theme" id="add-theme-flowers">
                 </div>
                 <div class="theme4">
                     <div class="contact-gradient"></div>
-                    <div class="contactname">Sunny Rays</div>
+                    <div class="contactname">Shells</div>
                     <img src="img/btn-cross-white.png" class="btn-select-theme" id="add-theme-rain">
                 </div>
                 <div class="theme5">
                     <div class="contact-gradient"></div>
-                    <div class="contactname">Ocean Waves</div>
+                    <div class="contactname">Sunrise</div>
                     <img src="img/btn-cross-white.png" class="btn-select-theme" id="add-theme-waves">
                 </div>
             </div>

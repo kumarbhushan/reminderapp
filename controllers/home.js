@@ -28,7 +28,8 @@ function newInit() {
   // document.addEventListener('init', function(event) {
   var selectedEmoji = localStorage.getItem('emoji')
   document.getElementById('emoji').src = 'img/' + selectedEmoji + '.png'
-
+  document.getElementById('video_1').muted = false
+  document.getElementById('video_1').play()
   var lakeTheme = localStorage.getItem('lake')
   if (lakeTheme != 'enabled') {
     //  $("#ons-carousel-item1").remove()
@@ -57,11 +58,6 @@ function newInit() {
 
     // $("#carousel").append('<ons-carousel-item id ="3"><div  class="video_contain" value="waves" style="text-align: center; font-size: 30px;  color: #fff;"><img class="gif" src="videos/tree.mp4"></div></ons-carousel-item>');
   }
-  var contentType = 'video/mp4'
-  var blob4 = b64toBlob(v_sunrise, contentType)
-  var blobUrl4 = URL.createObjectURL(blob4)
-  var v4 = document.getElementById('video_5')
-  v4.src = blobUrl4
   /* Images */
   var carousel = document.getElementById('carousel')
   var curr = carousel.getActiveIndex()
@@ -70,50 +66,44 @@ function newInit() {
       var curr = carousel.getActiveIndex()
       // document.getElementById("video" + curr).play();
       if (curr == 0) {
-        document.getElementById('audio_1').play()
-        document.getElementById('audio_2').pause()
-        document.getElementById('audio_3').pause()
-        document.getElementById('audio_4').pause()
-        document.getElementById('audio_5').pause()
+        document.getElementById('video_1').muted = false
+        document.getElementById('video_2').muted = true
+        document.getElementById('video_3').muted = true
+        document.getElementById('video_4').muted = true
+        document.getElementById('video_5').muted = true
       }
       if (curr == 1) {
-        document.getElementById('audio_1').pause()
-        document.getElementById('audio_2').play()
-        document.getElementById('audio_3').pause()
-        document.getElementById('audio_4').pause()
-        document.getElementById('audio_5').pause()
+        document.getElementById('video_1').muted = true
+        document.getElementById('video_2').muted = false
+        document.getElementById('video_3').muted = true
+        document.getElementById('video_4').muted = true
+        document.getElementById('video_5').muted = true
+        document.getElementById('video_2').play()
       }
       if (curr == 2) {
-        document.getElementById('audio_1').pause()
-        document.getElementById('audio_2').pause()
-        document.getElementById('audio_3').play()
-        document.getElementById('audio_4').pause()
-        document.getElementById('audio_5').pause()
+        document.getElementById('video_1').muted = true
+        document.getElementById('video_2').muted = true
+        document.getElementById('video_3').muted = false
+        document.getElementById('video_4').muted = true
+        document.getElementById('video_5').muted = true
+        document.getElementById('video_3').play()
       }
       if (curr == 3) {
-        var playPromise = document.getElementById('video_5').play()
-        if (playPromise !== undefined) {
-          playPromise.then(function () {
-            // Automatic playback started!
-          }).catch(function (error) {
-            console.log(error)
-          })
-        }
+        document.getElementById('video_1').muted = true
+        document.getElementById('video_2').muted = true
+        document.getElementById('video_3').muted = true
+        document.getElementById('video_4').muted = false
+        document.getElementById('video_5').muted = true
+        document.getElementById('video_4').play()
       }
-      // if (curr == 3) {
-      //     document.getElementById('audio_1').pause()
-      //     document.getElementById('audio_2').pause()
-      //     document.getElementById('audio_3').pause()
-      //     document.getElementById('audio_4').play()
-      //     document.getElementById('audio_5').pause()
-      // }
-      // if (curr == 4) {
-      //     document.getElementById('audio_1').pause()
-      //     document.getElementById('audio_2').pause()
-      //     document.getElementById('audio_3').pause()
-      //     document.getElementById('audio_4').pause()
-      //     document.getElementById('audio_5').play()
-      // }
+      if (curr == 4) {
+        document.getElementById('video_1').muted = true
+        document.getElementById('video_2').muted = true
+        document.getElementById('video_3').muted = true
+        document.getElementById('video_4').muted = true
+        document.getElementById('video_5').muted = false
+        document.getElementById('video_5').play()
+      }
     } catch (err) {
 
     }
