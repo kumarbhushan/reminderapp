@@ -91,7 +91,14 @@ function newInit() {
         document.getElementById('audio_5').pause()
       }
       if (curr == 3) {
-        document.getElementById('video_5').play()
+        var playPromise = document.getElementById('video_5').play()
+        if (playPromise !== undefined) {
+          playPromise.then(function () {
+            // Automatic playback started!
+          }).catch(function (error) {
+            console.log(error)
+          })
+        }
       }
       // if (curr == 3) {
       //     document.getElementById('audio_1').pause()
