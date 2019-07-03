@@ -92,7 +92,7 @@ html {
     height: 200px;
     width: 100%;
 }
-
+.check-note{padding-left: 10px; dis}
 /* CONTAINERS & PANELS */
 .grid-container {
     /*padding-right: 0rem;
@@ -200,6 +200,10 @@ h4 {
 
 }
 
+.height245_Contact{ 
+    height: 245px;
+}
+
 .top-overlay-high {
     position: fixed;
     overflow-y: visible;
@@ -220,7 +224,7 @@ h4 {
 
 .empty-space {
     width: 100%;
-    height: 430px;
+    height: 130px;
     margin-top: 100px
 }
 
@@ -580,7 +584,7 @@ h4 {
     position: fixed;
     width: 100%;
     vertical-align: bottom;
-    top: 0%;
+    top: 1%;
     left: 0%;
     transform: translate(0%, 190px);
     /*background-color: aqua; */
@@ -589,7 +593,7 @@ h4 {
     position: fixed;
     width: 100%;
     vertical-align: bottom;
-    top: 0%;
+    top: 1%;
     left: 0%;
     transform: translate(0%, 160px);
     /*background-color: aqua; */
@@ -628,14 +632,18 @@ h4 {
     /* text-indent: 40px; */
     line-height: 30px;
     color: #333;
-    margin: 0 25px;
+    margin: 4px 0px;
     padding: 0;
     float: center;
     overflow: inherit;
    /*border-bottom: 2px solid #9fcd5a;*/
     /*border-top: 2px solid #9fcd5a;*/
-    text-align: right;
+    float:  right;
+    width:35%;
 }
+
+
+
 .title3 {
     font-family: 'proxima_nova_condensedReg';
     font-size: 1.2rem;
@@ -643,7 +651,7 @@ h4 {
     /* text-indent: 40px; */
     line-height: 30px;
     color: #333;
-    margin: 0 86px;
+    margin: 0 auto;
     padding: 0;
     float: center;
     overflow: inherit;
@@ -652,15 +660,17 @@ h4 {
     width: 50%;
     background: #9FCD5A;
     border-radius: 30px;
-    padding: 2px 8px;
-    margin-top: 20px;
+    
+   
 }
 .srh-img{
-width: 30px; 
-    float: right;
-    position: absolute;
-    right: 30%;
-    top: 45%;
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+.flexContainer{
+    display: flex;
+    align-items: center;
 }
 .delete-icon {
     background: url(../img/btn-delete-white.png) no-repeat center;
@@ -1160,6 +1170,9 @@ button:focus {
 .margin-top-180p {
     margin-top: 180px;
 }
+.margin-top-260p {
+    margin-top: 260px;
+}
 
 .margin-bot-neg10p {
     margin-bottom: -10px;
@@ -1474,7 +1487,7 @@ a {
 
 .border-middle {
     border-bottom: 2px solid #9fcd5a;
-    width: 82%;
+    width: 72%;
     float: left;
     margin-top: 24px;
 }
@@ -2044,7 +2057,9 @@ div#notes-list {
 #AddUserImage h4,
 #AddUserImage1 h4,
 #MyStuffAddPage h4,
+#AddNewResourses h4,
 #CallConfirm h4,
+#locationPopup h4,
 #ContactsAddPage h4,
 #ContactsAddPage1 h4,
 #deleteConfirm h4,
@@ -2054,7 +2069,9 @@ div#notes-list {
 }
 
 #AddTheme,
-#AddUserImage,      
+#AddUserImage,
+#AddNewResourses,   
+#locationPopup,  
 #AddUserImage1,
 #MyStuffAddPage,
 #CallConfirm,
@@ -2073,7 +2090,114 @@ div#notes-list {
     left: 5%;
     bottom: 155px
 }
+.form-text1 {
+    color: #000 !important;
+    font-size: 18px;
+    margin-top: 5px; 
+    margin-bottom: 0PX;
+    font-weight: bold;
+}
+.margin-bot-forty{margin-bottom: 40px;}
+.form-text2 {
+    color: #000 !important;
+    font-size: 18px;
+    margin-top: 18px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.btn-done2 {
+    width: 35%;
+    margin: 10px 10px;
+    border: 0;
+    background: #9fcd5a;
+    color: #000;
+    font-size: 18px;
+    position: initial;
+    font-family: 'proxima_nova_condensedReg';
+    text-align: center;
+    border-radius: 30px;
+    padding: 8px 9px;
+    text-transform: uppercase;
+    font-weight: bold;
+    float: left;
+}
 
+.btn-done3 {
+    width: 35%;
+   margin: 0 auto;
+    border: 0;
+    background: #9fcd5a;
+    color: #000;
+    font-size: 18px;
+    position: initial;
+    font-family: 'proxima_nova_condensedReg';
+    text-align: center;
+    border-radius: 30px;
+    padding: 8px 9px;
+    text-transform: uppercase;
+    font-weight: bold;
+   
+}
+.tag-tags{width: 35%;
+    margin: 10px 10px;
+    border: 0;
+    border:2px solid  #9fcd5a;
+    background:  #fff;
+    color: #000;
+    font-size: 18px;
+    position: initial;
+    font-family: 'proxima_nova_condensedReg';
+    text-align: center;
+    border-radius: 30px;
+    padding: 8px 9px;
+    
+    font-weight: bold;
+    text-align: center;
+}
+    .resourses-tags{width: 35%;
+        margin: 10px 10px;
+        border: 0;
+        background: #9fcd5a;
+        color: #000;
+        font-size: 18px;
+        position: initial;
+        font-family: 'proxima_nova_condensedReg';
+        text-align: center;
+        border-radius: 30px;
+        padding: 8px 9px;
+        
+        font-weight: bold;
+        text-align: center;}
+.itemsInMyStuff {object-fit: cover;}
+
+#add-tag, #add-resourses, #edit-resourses,#share-contacts-container {
+    position: fixed;
+    z-index: 9999;
+    color: #000;
+    background-color: #fff;
+    width: 90%;
+    height: 460px;
+    border-radius: 3px;
+    box-shadow: 2px 2px 10px #000;
+    left: 5%;
+    bottom: 80px;
+    overflow-x: hidden;   
+   
+}
+#shareSuccess{position: fixed;
+    z-index: 9999;
+    color: #000;
+    background-color: #fff;
+    width: 90%;
+    height: 120px;
+    border-radius: 3px;
+    box-shadow: 2px 2px 10px #000;
+    left: 5%;
+    bottom: 300px;
+    overflow-x: hidden;   
+   
+}}
+.contact-data-share{ overflow-x: hidden; overflow-y:scroll;}  
 .mystufftabs {
     position: absolute;
     width: 100%;
@@ -2302,9 +2426,28 @@ form {
     border-right: none;
     border-bottom: 2px solid #9fcd5a;
     font-family: 'proxima_nova_condensedReg';
-    font-size: 18px;
+    font-size: 20px;
     background-color: transparent;
-    color: 000 !important
+    color: 000 !important 
+}
+
+.Search_Importontact{ 
+    font-size: 20px;
+    text-align: center;
+    border: none;
+}
+
+.mt20_addnote{
+    margin-top: 24px;
+}
+
+.borderbtmO_addnote{
+border-bottom: none;
+}
+
+.paddingtop_addnote{
+    padding-top:7px;  
+    padding-left: 1px   
 }
 
 .grey {
@@ -2372,10 +2515,10 @@ form {
 
 @media only screen and (min-width: 100px) and (max-width: 341px) {
 
-    .btn-done {
+    /* .btn-done {
         margin-left: 35%;
         margin-right: 35%;
-    }
+    } */
 
     .form-text {
         font-size: 18px
@@ -2442,7 +2585,9 @@ form {
     height: 30px;background-size: cover;
     margin-left: 80%;
     margin-top: -35px;
-    border-radius:50%;}
+    border-radius:50%;
+z-index: 99999;
+}
 .addContactBtn {
     width: 25px;
     height: 25px;
@@ -2469,14 +2614,29 @@ form {
     border-radius:50%;
     border : 3px solid #9fcd5a;
 }
+.contactCheckedShare{background: url("../img/btn-deselectall.png"); width: 30px;
+    height: 30px;background-size: cover;
+    /*margin-left: 80%;*/
+    /*margin-top: -35px;*/
+    border-radius:50%;}
+.contactUncheckedShare {
+    width: 25px;
+    height: 25px;
+    /*background: url("../img/btn-addimportcontacts.png");*/
+    background-size: cover;
+    /*margin-left: 80%;*/
+    /*margin-top: -35px;*/
+    border-radius:50%;
+    border : 3px solid #9fcd5a;
+}
 .noteChecked{background: url("../img/btn-deselectall.png"); width: 30px;
     height: 30px;background-size: cover;
     /*margin-left: 80%;*/
     margin-top: -40px;
     border-radius:50%;}
 .noteUnchecked {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     /*background: url("../img/btn-addimportcontacts.png");*/
     background-size: cover;
     /*margin-left: 80%;*/
@@ -2498,11 +2658,30 @@ form {
     /* border-bottom: 2px solid #9fcd5a; */
     /* border-top: 2px solid #9fcd5a; */
     text-align: left;
+    width:35%;
+    display: flex;
+align-items: center;
 }
+
+
+
 .notes-label {
     text-align: left;
     font-family: 'proxima_nova_condensedSBd';
     font-size: 18px;
+    padding-left: 20px;
+    margin-top: 0px;
+}
+.notes-notes {text-align: left;
+font-family: 'proxima_nova_condensedSBd';
+font-size: 12px;
+padding-left: 20px;
+margin-top: 0px;
+}
+.resourses-url{
+    text-align: left;
+    font-family: 'proxima_nova_condensedSBd';
+    font-size: 10px;
     padding-left: 20px;
     margin-top: 0px;
 }
@@ -3356,7 +3535,7 @@ ons-carousel-item {
     }
 
     .icon-background {
-        background: #9fcd5a;
+        /*background: #9fcd5a;*/
         width: 80px;
         height: 80px;
         border-radius: 50%;
@@ -3365,7 +3544,7 @@ ons-carousel-item {
     }
 
     .icon-background-1 {
-        background: #9fcd5a;
+      
         width: 80px;
         height: 80px;
         border-radius: 50%;
@@ -3374,7 +3553,7 @@ ons-carousel-item {
     }
 
     .icon-background-2 {
-        background: #9fcd5a;
+       
         width: 80px;
         height: 80px;
         border-radius: 50%;
@@ -3564,4 +3743,36 @@ input:focus {
     transform: rotate(360deg);
   }
 }
+#contactsList{
+    margin-top: 80px;
+}
 /*loader*/
+
+
+
+.btn-holder_addtag{
+    padding-top: 115px;
+}
+
+.form_addtags{
+    width: 90%;
+    padding-left: 6%;
+}
+
+.Select_unselect{ 
+    display:flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.btn-holder{
+    display: flex;
+}
+.tag-list{
+    display: flex;
+    flex-wrap: wrap;
+}
+.delete-resourse{
+    display: inline-block;
+    margin-left: 10px;
+}

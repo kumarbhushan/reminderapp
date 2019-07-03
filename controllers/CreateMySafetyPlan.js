@@ -6,21 +6,11 @@ var maxSize = 4.9 * 1024 * 1024
 var selectedElement = ''
 var answers = []
 var editPlanMode
-$('#QQ1A1').focus();
+$('#QQ1A1').focus()
 if (!db) {
   db = openDatabase(shortName, version, displayName, maxSize)
   createTable()
 }
-function errorHandler (transaction, error) {
-  console.log('Error: ' + error.message + ' code: ' + error.code)
-}
-
-function successCallBack () {
-  console.log('DEBUGGING: success')
-}
-
-function nullHandler () { };
-
 function createTable () {
   console.log('DEBUGGING: we are in the onBodyLoad() function')
 
@@ -33,7 +23,6 @@ function createTable () {
     tx.executeSql('CREATE TABLE IF NOT EXISTS Plan(UId INTEGER NOT NULL PRIMARY KEY, QId INTEGER NOT NULL, AId INTEGER NOT NULL, Answer TEXT NOT NULL)', [], nullHandler, errorHandler)
   }, errorHandler, successCallBack)
 }
-
 function AddValueToDB (QId, AId) {
   var editPlanMode = localStorage.getItem('editPlanMode')
   console.log(QId)
@@ -51,21 +40,20 @@ function AddValueToDB (QId, AId) {
           // document.location.href='CreateMySafetyPlanQ'+(QId+1)+'.html';
           $('.contents').hide()
           $('#CreateMySafetyPlanQ' + (QId + 1)).show()
-          $('#QQ'+(QId + 1)+'A1').focus();
+          $('#QQ' + (QId + 1) + 'A1').focus()
         } else {
           // document.location.href='MySafetyPlan.html';
           $('.contents').hide()
           $('#MySafetyPlan').show()
           for (var i = 1; i < 7; i++) {
-            GetValueFromDB(QId, i);
+            GetValueFromDB(QId, i)
           }
-         // GetContactsValueFromDB1();
+          // GetContactsValueFromDB1();
         }
       }
     })
   })
 }
-
 function UpdateValueInDB (QId, AId) {
   var editPlanMode = localStorage.getItem('editPlanMode')
 
@@ -83,23 +71,22 @@ function UpdateValueInDB (QId, AId) {
           // document.location.href='CreateMySafetyPlanQ'+(QId+1)+'.html';
           $('.contents').hide()
           $('#CreateMySafetyPlanQ' + (QId + 1)).show()
-          $('#QQ'+(QId + 1)+'A1').focus();
+          $('#QQ' + (QId + 1) + 'A1').focus()
         } else {
           // document.location.href='MySafetyPlan.html';
           $('.contents').hide()
           $('#MySafetyPlan').show()
           for (var i = 1; i < 7; i++) {
-            GetValueFromDB(QId, i);
+            GetValueFromDB(QId, i)
           }
-          //GetContactsValueFromDB1();
+          // GetContactsValueFromDB1();
         }
       }
     })
   })
 }
-
-function GetValueFromDBPlan(QId, AId) {
-  //alert('in');
+function GetValueFromDBPlan (QId, AId) {
+  // alert('in');
   var answer = ''
   if (!window.openDatabase) {
     console.log('Databases are not supported in this browser.')
@@ -115,7 +102,7 @@ function GetValueFromDBPlan(QId, AId) {
         if (answer != null && answer != 'undefined' && answer != '') {
           // document.getElementById("Q"+QId+"AddField"+(AId+1)).style.display = "none";
           $('#QQ' + QId + 'A' + AId).show()
-          $('#QQ' + QId + 'A' + AId).focus();
+          $('#QQ' + QId + 'A' + AId).focus()
           // document.getElementById("Q"+QId+"A"+AId).style.display = "block";
           // document.getElementById("Q"+QId+"AddField"+(AId+2)).style.display = "block";
         } else {
@@ -128,7 +115,6 @@ function GetValueFromDBPlan(QId, AId) {
     })
   })
 }
-
 function CheckValueInDB (QId) {
   var answerRow = ''
   if (!window.openDatabase) {
@@ -198,12 +184,10 @@ function CheckValueInDB (QId) {
     })
   })
 }
-
 function selectElement (el) {
   console.log($(el)[0].id)
   return selectedElement = $(el)[0].id
 }
-
 function autoselectElement (elementId) {
   var field = document.getElementById(selectedElement)
   console.log(field)
@@ -217,7 +201,6 @@ function autoselectElement (elementId) {
     }
   }
 }
-
 function populateField (QId, selectedOption) {
   var field = document.getElementById(selectedElement)
   if (selectedElement == '') {
@@ -302,6 +285,7 @@ function submitAns (QId) {
         // document.location.href='CreateMySafetyPlanQ5.html';
         $('.contents').hide()
         $('#CreateMySafetyPlanQ5').show()
+        $('#QQ5A1').focus()
       } else {
         // document.location.href='MySafetyPlan.html';
         $('.contents').hide()
@@ -358,7 +342,6 @@ function openCloseOptions (options) {
     options.nextElementSibling.style.display = 'none'
   }
 }
-
 function validateField (selectedElement) {
   console.log(selectedElement.value)
   console.log(document.getElementById(selectedElement.id).nextElementSibling)
