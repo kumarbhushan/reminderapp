@@ -58,10 +58,10 @@ function newInit() {
     // $("#carousel").append('<ons-carousel-item id ="3"><div  class="video_contain" value="waves" style="text-align: center; font-size: 30px;  color: #fff;"><img class="gif" src="videos/tree.mp4"></div></ons-carousel-item>');
   }
   var contentType = 'video/mp4'
-  var blob4 = b64toBlob(v_sunrise, contentType)
-  var blobUrl4 = URL.createObjectURL(blob4)
+  // var blob4 = b64toBlob(v_sunrise, contentType)
+  // var blobUrl4 = URL.createObjectURL(blob4)
   var v4 = document.getElementById('video_5')
-  v4.src = blobUrl4
+  v4.src = 'data:video/mp4;base64,' + v_sunrise
   /* Images */
   var carousel = document.getElementById('carousel')
   var curr = carousel.getActiveIndex()
