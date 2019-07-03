@@ -2,7 +2,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.thebigcanvas.reminder"
-        versionCode = "3" 
+        versionCode = "3"
         version   = "1.0.3">
 
     <name>ReMinder</name>
@@ -135,21 +135,13 @@
     </plugin>
     <plugin name="cordova-plugin-file" spec="4.0.0" />
     <plugin name="cordova-plugin-filepath" spec="1.0.0" />
-
     <plugin name="cordova-plugin-hidden-statusbar" spec="1.0.0" />
-
     <plugin name="cordova-plugin-inappbrowser" spec="3.0.0" />
-
-    <plugin spec="https://github.com/apache/cordova-plugin-whitelist" source="git" />
     <plugin name="cordova-plugin-whitelist">
     <plugin name="cordova-plugin-device" spec="~2.0.2" />
-
     <plugin name="cordova-plugin-ionic-keyboard" />
-
     <plugin name="cordova-plugin-x-socialsharing" source="npm" spec="5.4.0" />
-
     <plugin name="cordova-plugin-geolocation" version="2.1.0" />
-
     <plugin name="cordova-pdf-generator" />
     <!--
         Define access to external domains.
