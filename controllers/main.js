@@ -24,38 +24,7 @@ function qnavigate (que) {
   $('#CreateMySafetyPlanQ7').hide()
   $('#' + que).show()
 }
-if ((localStorage.getItem('emoji') != 'emoji1') && (localStorage.getItem('emoji') != 'emoji2') && (
-  localStorage.getItem('emoji') != 'emoji3')) {
-  localStorage.setItem('emoji', 'emoji2')
-}
-localStorage.setItem('editPlanMode', 'off')
-if (localStorage.getItem('lake') != 'disabled') {
-  localStorage.setItem('lake', 'enabled')
-}
-if (localStorage.getItem('sunset') != 'disabled') {
-  localStorage.setItem('sunset', 'enabled')
-}
-if (localStorage.getItem('flowers') != 'disabled') {
-  localStorage.setItem('flowers', 'enabled')
-}
-if (localStorage.getItem('rain') != 'disabled') {
-  localStorage.setItem('rain', 'enabled')
-}
-if (localStorage.getItem('waves') != 'disabled') {
-  localStorage.setItem('waves', 'enabled')
-}
-if (localStorage.getItem('planCompleted') != '1' && localStorage.getItem('planCompleted') != 1) {
-  document.getElementById('btn-start').style.display = 'block'
-  localStorage.setItem('planCompleted', '0')
-}
-if (localStorage.getItem('planCompleted') == '1' || localStorage.getItem('planCompleted') == 1) {
-  // document.location.href = "home.html";
-  $('.contents').hide()
-  $('#Home').show()
-  $('#inner-header').show()
-  $('.topnav').show()
-  $('.botnav-container').show()
-}
+
 function errorHandler (transaction, error) {
   console.log('Error: ' + error.message + ' code: ' + error.code)
 }
@@ -73,7 +42,6 @@ function onDeviceReady () {
 function cancelCall () {
   document.getElementById('CallConfirm').style.display = 'none'
 }
-
 function call () {
   document.getElementById('CallConfirm').style.display = 'block'
 
@@ -325,8 +293,41 @@ $(document).ready(function (e) {
       }
     })
   })
+  if ((localStorage.getItem('emoji') != 'emoji1') && (localStorage.getItem('emoji') != 'emoji2') && (
+    localStorage.getItem('emoji') != 'emoji3')) {
+    localStorage.setItem('emoji', 'emoji2')
+  }
+  localStorage.setItem('editPlanMode', 'off')
+  if (localStorage.getItem('lake') != 'disabled') {
+    localStorage.setItem('lake', 'enabled')
+  }
+  if (localStorage.getItem('sunset') != 'disabled') {
+    localStorage.setItem('sunset', 'enabled')
+  }
+  if (localStorage.getItem('flowers') != 'disabled') {
+    localStorage.setItem('flowers', 'enabled')
+  }
+  if (localStorage.getItem('rain') != 'disabled') {
+    localStorage.setItem('rain', 'enabled')
+  }
+  if (localStorage.getItem('waves') != 'disabled') {
+    localStorage.setItem('waves', 'enabled')
+  }
+  if (localStorage.getItem('planCompleted') != '1' && localStorage.getItem('planCompleted') != 1) {
+    document.getElementById('btn-start').style.display = 'block'
+    localStorage.setItem('planCompleted', '0')
+  }
+  if (localStorage.getItem('planCompleted') == '1' || localStorage.getItem('planCompleted') == 1) {
+    // document.location.href = "home.html";
+    $('.contents').hide()
+    $('#Home').show()
+    $('#inner-header').show()
+    $('.topnav').show()
+    $('.botnav-container').show()
+  }
+  $('#QQ1A1').focus()
 })
-$('#QQ1A1').focus()
+
 var base64Img = null
 margins = {
   top: 70,
