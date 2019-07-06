@@ -1,3 +1,4 @@
+//localStorage.clear();
 // sets the format of returned value
 var gallery
 var pictureSource
@@ -27,9 +28,6 @@ function GetStuffFromDB () {
   db.transaction(function (transaction) {
     transaction.executeSql('SELECT ImageURI FROM MyStuff', [], function (transaction, results) {
       if (results.rows.length) {
-        console.log(results)
-
-        console.log(results)
         $('#myStuffItemscus').empty()
         for (var i = 0; i < results.rows.length; i++) {
           $('#myStuffItemscus').append($('<img class="itemsInMyStuff" src="' +
@@ -37,11 +35,21 @@ function GetStuffFromDB () {
             results.rows.item(i).ImageURI +
             '); background-size: cover;">'))
         }
-        openGallery()
+       // openGallery()
+       if(window.viewer){
+         window.viewer.update() 
+       }else{
+        ViewerSlider()
+       }
       } else {
         $('#myStuffItemscus').empty()
         console.log('GetStuffFromDB - no Image in db')
-        openGallery()
+       // openGallery()
+       if(window.viewer){
+        window.viewer.update() 
+      }else{
+       ViewerSlider()
+      }
       }
     })
   })
@@ -255,6 +263,7 @@ var onSuccessLoc = function (position) {
     position.coords.longitude
 }
 function onErrorMap (error) {
+  shareUrlMap = '';
   console.log('message: ' + error.message + '\n')
   // alert(error.code + 'message: ' + error.message + '\n');
   // $('#locationPopup').show();
@@ -294,6 +303,7 @@ function resOnError (error) {
   // location.reload(true);
 }
 function getPhotoFromCamera () {
+  //alert('here');
   navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
     quality: 50,
     correctOrientation: true,
@@ -313,6 +323,7 @@ function onPhotoDataSuccess (imageData) {
 function getPhotoFromAlbum () {
   console.log(pictureSource)
   console.log(destinationType)
+  //alert('phone');
   navigator.camera.getPicture(onPhotoURISuccess, onFail, {
     quality: 50,
     correctOrientation: true,
@@ -413,7 +424,8 @@ function myStuffInit () {
         $('#' + DefaultImageItems[key].id).show()
       }
     }
-  }
+  } 
+
   db = openDatabase(shortName, version, displayName, maxSize)
   window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSys) {
     fileSys.root.getDirectory('Re-Minder', {
@@ -427,10 +439,12 @@ function myStuffInit () {
   })
   createStuffTable()
   GetStuffFromDB()
-  createNotesTable()
+  createNotesTable() 
   GetNotesFromDB()
-  openGallery()
+  //ViewerSlider()
+ // openGallery()
   $('#btn-camera').click(function () {
+    //alert('here');
     getPhotoFromCamera()
   })
   $('#btn-library').click(function () {
@@ -523,6 +537,95 @@ function myStuffInit () {
     }
   })
 }
+
+
+function DeleteImage(Imageurl)
+{
+  $("#imageDeleteConfirm").hide(); 
+          
+          var isDefaultImage;
+          var db;
+          var shortName = 'WebSqlDB';
+          var version = '1.0';
+          var displayName = 'WebSqlDB';
+           var imageURI = Imageurl; 
+          db = openDatabase(shortName, version, displayName, maxSize);
+          console.log(imageURI);
+          var $currentImages = $("#myStuffItems")[0].children;
+          console.log($currentImages);
+          for (var i=0; i<$currentImages.length; i++){
+              if ( $currentImages[i].currentSrc == imageURI){
+                  
+                  console.log($currentImages[i].classList);
+                  $.each($currentImages[i].classList, function( index, value ) {
+                    if (value=="defaultImage"){
+                        isDefaultImage = "yes";
+                       localStorage.setItem($currentImages[i].id, "disabled"); 
+                        close(); 
+                    }  
+                  });  
+              }
+          }
+  
+  var DefaultImageItems = $("#myStuffItems")[0].children;
+          for (var key = 0; key < DefaultImageItems.length; key++) {
+               console.log(DefaultImageItems[key].id);
+              if (DefaultImageItems[key].id != "undefined" && DefaultImageItems[key].id != undefined) {
+                  if (localStorage.getItem(DefaultImageItems[key].id) == "disabled") {
+                      $("#" + DefaultImageItems[key--].id).remove();
+                      } else {
+                      $("#" + DefaultImageItems[key].id).show();
+                  }
+              }
+
+          }
+  $("#imageDeleteConfirm").hide();
+  $(".hideallimage").hide();
+                  if(isDefaultImage!="yes"){
+       if (!window.openDatabase) {
+                     console.log('Databases are not supported in this browser.');
+                     return;
+                  }
+                  db.transaction(function(transaction) {
+                  transaction.executeSql('DELETE FROM MyStuff WHERE ImageURI=?', [imageURI], function(){
+                       close();
+         $("#imageDeleteConfirm").hide();
+        GetStuffFromDB();
+                        });
+                  });
+                  }  
+}
+
+function ViewerSlider(){ 
+  var galley = document.getElementById('gallery');
+        window.viewer = new Viewer(galley, {
+          url: 'src', 
+          title:false, 
+          toolbar: {
+      zoomIn: true,
+      zoomOut: true, 
+      prev: true, 
+      next: true,
+      rotateLeft: true,
+      rotateRight: true,  
+      delete: function() { 
+        var button = document.createElement('button'); 
+        button.className="fa fa-trash"; 
+        // button.onclick = (confirm('Are you sure?'))? function(){ 
+        //   window.viewer.hide(); 
+        //   DeleteImage(window.viewer.image.src) 
+        //   window.viewer.update(); 
+        // }:''; 
+        button.onclick = $('#imageDeleteConfirmNew').show(); 
+        document.body.appendChild(button);
+        button.click();
+        document.body.removeChild(button);
+      }, 
+          } 
+      });
+      
+}
+
 document.addEventListener('deviceready', onDeviceReadyMyStuff, false)
 function onDeviceReadyMyStuff () {
   console.log('device Ready')
@@ -542,5 +645,21 @@ function onDeviceReadyMyStuff () {
 // Gallery codes come below
 $('document').ready(function () {
   var popuphome = true
-  myStuffInit()
+  //myStuffInit()
 })
+// function Viewerslider()
+//      {
+//       var galley = document.getElementById('gallery');
+//       var viewer = new Viewer(galley, {
+//         url: 'src',
+//         toolbar: {
+//           delete:true,
+//           zoomIn: true,
+//           zoomOut: true, 
+//           prev: true, 
+//           next: true,
+//           rotateLeft: true,
+//           rotateRight: true,  
+//               }
+//       });
+//     }

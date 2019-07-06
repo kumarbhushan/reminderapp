@@ -21,7 +21,11 @@
     <script src="cordova_plugins.js"></script>
     <script src="controllers/main.js"></script>
     <script src="controllers/CreateMySafetyPlan.js"></script>
+
+    <script src="controllers/viewer.js"></script>
+
     <script src="lib/lightbox/simple-lightbox.min.js"></script>
+    <script src="controllers/viewer.js"></script>
     <script type="text/javascript" src="tweets/js/lib/chui-3.5.0.min.js"></script>
     <script type="text/javascript" src="tweets/js/lib/underscore-1.4.4.min.js"></script>
     <script type="text/javascript" src="tweets/js/lib/backbone-1.0.0.min.js"></script>
@@ -40,13 +44,31 @@
     <link rel="stylesheet" href="lib/onsen/css/onsenui.css">
     <link rel="stylesheet" type="text/css" href="lib/lightbox/simplelightbox.css" />
     <link rel="stylesheet" href="css/otl.css">
+
+    <link rel="stylesheet" href="css/viewer.css">
+
+
+
+
     <script src="js/jspdf.min.js"></script>
     <script src="js/reportGenerator.js"></script>
     <title>ReMinder</title>
 </head>
 
 <body>
+
     <div class="loader" id="loader" style="display:none;"></div>
+    <div id="imageDeleteConfirmNew" hidden>
+        <h4>Are you sure?</h4>
+        <div class="btncall-btns">
+            <div class="btn-call-yes " onclick=" window.viewer.hide(); 
+            DeleteImage(window.viewer.image.src) 
+            window.viewer.update(); 
+            $('#imageDeleteConfirmNew').hide();
+            ">Yes</div>
+            <div class="btn-call-no " onclick="$('#imageDeleteConfirmNew').hide();">No</div>
+        </div>
+    </div>
     <div id="inner-header" style="display:none">
         <div id="CallConfirm" hidden>
             <h4>Are you sure you want to dial 000?</h4>
@@ -124,6 +146,7 @@
                 </a>
             </div>
             <div id="emoji-container" onclick="showPopUp();"><img id="emoji" src="img/icon-neutral.png"></div>
+            <div id="mute-container" onclick="MuteUnmute();"><img id="mute" src="img/icon-sound.png"></div>
             <ons-carousel fullscreen swipeable auto-scroll auto-refresh overscrollable id="carousel" initial-index="0">
                 <ons-carousel-item id="ons-carousel-item1">
                     <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
@@ -167,6 +190,7 @@
                 </ons-carousel-item>
             </ons-carousel>
         </ons-page>
+        <script src="controllers/addThemePage.js"></script>
         <script src="controllers/home.js"></script>
     </div>
     <div id="MyStuff" class="contents" style="display:none;">
@@ -182,16 +206,16 @@
             <div class="titlebar">
 
                 <div class="mystufftabs">
-                    <div class="btn-gallery tabs" data-tab="gallery">
+                    <div class="btn-gallery tabs activeTab" data-tab="gallery">
                         <h3>Gallery</h3>
                     </div>
-                    <div class="btn-theme">
-                        <a href="javascript:void(0);" data-href="theme" class="custom-btn">
-                            <h3>Theme</h3>
-                        </a>
+                    <div class="btn-theme tabs" id="theme-tab-nav" data-tab="theme-tab">
+                        <!--a href="javascript:void(0);" data-href="theme" class="custom-btn"-->
+                        <h3>Theme</h3>
+                        <!--/a-->
                     </div>
                     <div class="btn-theme tabs" data-tab="resourses">
-                        <h3>Resourses</h3>
+                        <h3>Resources</h3>
                     </div>
                     <div class="btn-theme tabs" data-tab="notes">
                         <h3>Notes</h3>
@@ -202,6 +226,12 @@
         </div>
         <div class="bot-overlay-high"></div>
         <div class="bot-container">
+
+            <div class="AddmyStuffItem" id="addThemePop" style="display:none;"
+                onclick="$('.contents').hide();$('#addThemePage').show();">
+                <p>+</p>
+            </div>
+
             <div class="btn-done" value="Done" id="addNewNoteBtn" style="display:none;">Done</div>
             <div class="btn-done" value="Done" id="editNewNoteBtn" style="display:none;">Done</div>
             <div class="AddmyStuffItem " id="add-image-btn" onclick="$('#MyStuffAddPage').show();">
@@ -251,35 +281,74 @@
             <h4>Add</h4>
             <div class="btn-camera" id="btn-camera" onclick="">Camera</div>
             <div class="btn-library" id="btn-library" onclick="">Photo Library</div>
-            <!--<img hidden id="myImage" style="width:50px; height:50px;"/>-->
-            <!--<div class="btn-save" onclick="saveImage();">Save</div>-->
+        </div>
+        <div class="grid-container tab-content" id="theme-tab">
+            <div class="margin-top-180p" style="margin-top: 200px;"></div>
+            <div class="theme-container">
+                <div class="margin-top-180p"></div>
+                <div class="theme1">
+                    <div class="contact-gradient"></div>
+                    <div class="contactname">Flowers</div>
+                    <img src="img/btn-cross-white.png" class="btn-select-theme" id="add-theme-lake">
+                </div>
+                <div class="theme2">
+                    <div class="contact-gradient"></div>
+                    <div class="contactname">Ripples</div>
+                    <img src="img/btn-cross-white.png" class="btn-select-theme" id="add-theme-sunset">
+                </div>
+                <div class="theme3">
+                    <div class="contact-gradient"></div>
+                    <div class="contactname">Leaves</div>
+                    <img src="img/btn-cross-white.png" class="btn-select-theme" id="add-theme-flowers">
+                </div>
+                <div class="theme4">
+                    <div class="contact-gradient"></div>
+                    <div class="contactname">Beach</div>
+                    <img src="img/btn-cross-white.png" class="btn-select-theme" id="add-theme-rain">
+                </div>
+                <div class="theme5">
+                    <div class="contact-gradient"></div>
+                    <div class="contactname">Sunrise</div>
+                    <img src="img/btn-cross-white.png" class="btn-select-theme" id="add-theme-waves">
+                </div>
+            </div>
+            <div class="theme-container" id="themeItem">
+            </div>
+
+            <div class="margin-bot-150p"></div>
         </div>
         <div class="grid-container tab-content" id="gallery">
             <div class="margin-top-180p" style="margin-top: 200px;"></div>
             <div class="myStuffItems" id="myStuffItems">
-                <img class="itemsInMyStuff defaultImage item1" id="defaultImage1" src="img/gallery/1.jpg" hidden>
-                <img class="itemsInMyStuff defaultImage item2" id="defaultImage2" src="img/gallery/2.jpg" hidden>
-                <img class="itemsInMyStuff defaultImage item3" id="defaultImage3" src="img/gallery/3.jpg" hidden>
-                <img class="itemsInMyStuff defaultImage item4" id="defaultImage4" src="img/gallery/4.jpg" hidden>
-                <img class="itemsInMyStuff defaultImage item5" id="defaultImage5" src="img/gallery/5.jpg" hidden>
-                <img class="itemsInMyStuff defaultImage item6" id="defaultImage6" src="img/gallery/6.jpg" hidden>
-                <img class="itemsInMyStuff defaultImage item7" id="defaultImage7" src="img/gallery/7.jpg" hidden>
-                <img class="itemsInMyStuff defaultImage item8" id="defaultImage8" src="img/gallery/8.jpg" hidden>
-                <img class="itemsInMyStuff defaultImage item9" id="defaultImage9" src="img/gallery/9.jpg" hidden>
-                <img class="itemsInMyStuff defaultImage item10" id="defaultImage10" src="img/gallery/10.jpg" hidden>
-                <img class="itemsInMyStuff defaultImage item11" id="defaultImage11" src="img/gallery/11.jpg" hidden>
-                <img class="itemsInMyStuff defaultImage item12" id="defaultImage12" src="img/gallery/12.jpg" hidden>
-                <img class="itemsInMyStuff defaultImage item13" id="defaultImage13" src="img/gallery/13.jpg" hidden>
-                <img class="itemsInMyStuff defaultImage item14" id="defaultImage14" src="img/gallery/14.jpg" hidden>
-                <img class="itemsInMyStuff defaultImage item15" id="defaultImage15" src="img/gallery/15.jpg" hidden>
-                <img class="itemsInMyStuff defaultImage item16" id="defaultImage16" src="img/gallery/16.jpg" hidden>
+                <img class="itemsInMyStuff defaultImage item1" id="defaultImage1" src="img/gallery/1.jpg">
+                <img class="itemsInMyStuff defaultImage item2" id="defaultImage2" src="img/gallery/2.jpg">
+                <img class="itemsInMyStuff defaultImage item3" id="defaultImage3" src="img/gallery/3.jpg">
+                <img class="itemsInMyStuff defaultImage item4" id="defaultImage4" src="img/gallery/4.jpg">
+                <img class="itemsInMyStuff defaultImage item5" id="defaultImage5" src="img/gallery/5.jpg">
+                <img class="itemsInMyStuff defaultImage item6" id="defaultImage6" src="img/gallery/6.jpg">
+                <img class="itemsInMyStuff defaultImage item7" id="defaultImage7" src="img/gallery/7.jpg">
+                <img class="itemsInMyStuff defaultImage item8" id="defaultImage8" src="img/gallery/8.jpg">
+                <img class="itemsInMyStuff defaultImage item9" id="defaultImage9" src="img/gallery/9.jpg">
+                <img class="itemsInMyStuff defaultImage item10" id="defaultImage10" src="img/gallery/10.jpg">
+                <img class="itemsInMyStuff defaultImage item11" id="defaultImage11" src="img/gallery/11.jpg">
+                <img class="itemsInMyStuff defaultImage item12" id="defaultImage12" src="img/gallery/12.jpg">
+                <img class="itemsInMyStuff defaultImage item13" id="defaultImage13" src="img/gallery/13.jpg">
+                <img class="itemsInMyStuff defaultImage item14" id="defaultImage14" src="img/gallery/14.jpg">
+                <img class="itemsInMyStuff defaultImage item15" id="defaultImage15" src="img/gallery/15.jpg">
+                <img class="itemsInMyStuff defaultImage item16" id="defaultImage16" src="img/gallery/16.jpg">
             </div>
             <div class="myStuffItems" id="myStuffItemscus"> </div>
             <div class="margin-bot-180p" style="height: 80px; float:left"></div>
         </div>
         <div class="grid-container tab-content" id="resourses" style="display:none;">
-            <div class="margin-top-180p" style="margin-top: 200px;"></div>
-            <center><b>Tags</b></center>
+            <div class="margin-top-180p" style="margin-top: 250px;"></div>
+            <div class="titlebar25">
+                <div class="title3 flexContainer">
+                    <input type="text" class="form-textfield Search_Importontact" placeholder="Search" name="search"
+                        id="searchTags" />
+                    <img src="img/btn-search.png" class="srh-img" /></div>
+            </div>
+            <center style="padding: 10px;"><b>Tags</b></center>
             <div class='tag-list' id="tag-list">
             </div>
             <div id="resourses-list">
@@ -292,16 +361,20 @@
                         <div class="border-bot margin-bot-forty"></div>
                         <span id="formValidationResourses" style="color:#be1e2d;" hidden>All fields are
                             required.</span>
+                        <span id="validateResoursesUrl" style="color:#be1e2d;" hidden>Website Url must be a url.</span>
+
                         <p class="form-text1">Website url</p>
-                        <input maxlength="20" placeholder="Add Title of Note" class="form-textfield" type="text"
+                        <input placeholder="Copy and paste url here..." class="form-textfield" type="text"
                             name="addWeburl" id="addWeburl">
                         <br>
                         <br>
                         <p class="form-text1">Name the link</p>
-                        <input placeholder="Add notes" class="form-textfield" type="text" name="addName" id="addName">
+                        <input placeholder="Give the link a title..(optional)" class="form-textfield" type="text"
+                            name="addName" id="addName">
                         <br><br>
                         <p class="form-text1">Add the link to a tag</p>
-                        <input placeholder="Add notes" class="form-textfield" type="text" name="addTag" id="addTag">
+                        <input placeholder="Allocate the link to new or existing tag" class="form-textfield" type="text"
+                            name="addTag" id="addTag">
                         <br><br>
                         <div class="btn-holder">
                             <div class="btn-done2" value="Done" id="addNewResoursesBtn">Done</div>
@@ -360,9 +433,11 @@
                         <p class="form-text1">Add the link to a tag</p>
                         <input placeholder="Add notes" class="form-textfield" type="text" name="editTag" id="editTag">
                         <br><br>
+                        <div id="existingTags"></div>
                         <div class="btn-holder">
                             <div class="btn-done2" value="Done" id="editNewResoursesBtn">Done</div>
-                            <div class="btn-done2" value="Cancel" onclick="$('#edit-resourses').hide();">Cancel</div>
+                            <div class="btn-done2" value="Cancel"
+                                onclick="$('#edit-resourses').hide(); $('#editTag').val('')">Cancel</div>
                         </div>
                     </div>
 
@@ -800,11 +875,11 @@
             <div class="margin-top-180p"></div>
             <div class="panel-container" id="pdfData">
                 <div id="QSet1" class="panel">
-                    <div id="#ignorePDF" onclick="editQuestion(1);">
+                    <div id="ignorePDF" onclick="editQuestion(1);">
                         <div class="border-middle"></div>
                         <div class=""><img class="img-button-edit" src="img/btn-edit.png"></div>
                     </div>
-                    <p class="safety-label">I should activate my plan if...</p>
+                    <p id="que" class="safety-label">I should activate my plan if...</p>
                     <div id="Q1A1" hidden></div>
                     <div id="Q1A2" hidden></div>
                     <div id="Q1A3" hidden></div>
@@ -815,149 +890,155 @@
                         onclick="document.getElementById('QSet1').style.display = 'none'; document.getElementById('QSet2').style.display = 'initial';">
                     </div>
                 </div>
-                <div id="#ignorePDF" class="face-think-path"><img class="face-think-path-img" style="width:100%;"
-                        src="img/safety-plan-1.png"></div>
+                <div id="safetyPlanImage" class="face-think-path"><img class="face-think-path-img" style="width:100%;"
+                        src="img/safety-plan-1.jpg"></div>
                 <div id="QSet2" class="panel2">
-                    <div id="#ignorePDF" onclick="editQuestion(2);">
+                    <div id="ignorePDF" onclick="editQuestion(2);">
                         <div class="border-middle"></div>
                         <div class=""><img class="img-button-edit" src="img/btn-edit.png"></div>
                     </div>
-                    <p class="safety-label">I can calm and comfort myself by...</p>
+                    <p id="que" class="safety-label">I can calm and comfort myself by...</p>
                     <div id="Q2A1" hidden></div>
                     <div id="Q2A2" hidden></div>
                     <div id="Q2A3" hidden></div>
                     <div id="Q2A4" hidden></div>
                     <div id="Q2A5" hidden></div>
                     <div id="Q2A6" hidden></div>
-                    <div id="#ignorePDF" style="width:30px; height:10px; background-color: transparent;"
+                    <div id="ignorePDF" style="width:30px; height:10px; background-color: transparent;"
                         onclick="document.getElementById('QSet2').style.display = 'none'; document.getElementById('QSet3').style.display = 'initial';">
                     </div>
                 </div>
-                <div class="face-think-path"><img class="face-think-path-img" style="width:100%;"
-                        src="img/safety-plan-2.png"></div>
+                <div id="safetyPlanImage" class="face-think-path"><img class="face-think-path-img" style="width:100%;"
+                        src="img/safety-plan-2.jpg"></div>
                 <div id="QSet3" class="panel2">
-                    <div id="#ignorePDF" onclick="editQuestion(3);">
+                    <div id="ignorePDF" onclick="editQuestion(3);">
                         <div class="border-middle"></div>
                         <div class=""><img class="img-button-edit" src="img/btn-edit.png"></div>
                     </div>
-                    <p class="safety-label">I have so many reasons to live...</p>
+                    <p id="que" class="safety-label">I have so many reasons to live...</p>
                     <div id="Q3A1" hidden></div>
                     <div id="Q3A2" hidden></div>
                     <div id="Q3A3" hidden></div>
                     <div id="Q3A4" hidden></div>
                     <div id="Q3A5" hidden></div>
                     <div id="Q3A6" hidden></div>
-                    <div id="#ignorePDF" style="width:30px; height:10px; background-color: transparent;"
+                    <div id="ignorePDF" style="width:30px; height:10px; background-color: transparent;"
                         onclick="document.getElementById('QSet3').style.display = 'none'; document.getElementById('QSet4').style.display = 'initial';">
                     </div>
                 </div>
-                <div class="face-think-path"><img class="face-think-path-img" style="width:100%;"
-                        src="img/safety-plan-3.png"></div>
+                <div id="safetyPlanImage" class="face-think-path"><img class="face-think-path-img" style="width:100%;"
+                        src="img/safety-plan-3.jpg"></div>
                 <div id="QSet4" class="panel2">
-                    <div id="#ignorePDF" onclick="editQuestion(4);">
+                    <div id="ignorePDF" onclick="editQuestion(4);">
                         <div class="border-middle"></div>
                         <div class=""><img class="img-button-edit" src="img/btn-edit.png"></div>
                     </div>
-                    <p class="safety-label">I can talk to...</p>
+                    <p id="que" class="safety-label">I can talk to...</p>
                     <div class="main-div">
-                        <div class="img"><img style="width:90px;" src="img/logo-suicidecallback.png"> </div>
-                        <div class="head-num">
-                            <div class="heading"><span class="cus head">Suicide Call Back Service</span></div>
+                        <div id="main-emer-logo" class="img"><img id="emer-logo" style="width:90px;"
+                                src="img/logo-suicidecallback.jpg"> </div>
+                        <div id="head-num-pdf" class="head-num">
+                            <div class="heading"><span id="name-font" class="cus head">Suicide Call Back Service</span>
+                            </div>
                             <div class="num">
-                                <p>1300 659 467</p>
+                                <p id="num-font">1300 659 467</p>
                             </div>
                         </div>
-                        <div class="call-icon"><a href="tel:1300659467"><img style="width:60px;"
-                                    src="img/icon-phone.png"></a> </div>
+                        <div id="main-phn-logo" class="call-icon"><a href="tel:1300659467"><img id="phn-logo"
+                                    style="width:60px;" src="img/icon-phone.jpg"></a> </div>
                     </div>
 
                     <div class="main-div">
-                        <div class="img"><img style="width:90px;" src="img/logo-suicideline.png"> </div>
-                        <div class="head-num">
-                            <div class="heading"><span class="cus head">SuicideLine Victoria </span></div>
+                        <div id="main-emer-logo" class="img"><img id="emer-logo" style="width:90px;"
+                                src="img/logo-suicideline.jpg"> </div>
+                        <div id="head-num-pdf" class="head-num">
+                            <div class="heading"><span id="name-font" class="cus head">SuicideLine Victoria </span>
+                            </div>
                             <div class="num">
-                                <p>1300 651 251</p>
+                                <p id="num-font">1300 651 251</p>
                             </div>
                         </div>
-                        <div class="call-icon"><a href="tel:1300651251"><img style="width:60px;"
-                                    src="img/icon-phone.png"></a> </div>
+                        <div id="main-phn-logo" class="call-icon"><a href="tel:1300651251"><img id="phn-logo"
+                                    style="width:60px;" src="img/icon-phone.jpg"></a> </div>
                     </div>
 
                     <div class="main-div">
-                        <div class="img"><img style="width:90px;" src="img/logo-mensline.png"> </div>
-                        <div class="head-num">
-                            <div class="heading"><span class="cus head">MensLine Australia </span></div>
+                        <div id="main-emer-logo" class="img"><img id="emer-logo" style="width:90px;"
+                                src="img/logo-mensline.jpg"> </div>
+                        <div id="head-num-pdf" class="head-num">
+                            <div class="heading"><span id="name-font" class="cus head">MensLine Australia </span></div>
                             <div class="num">
-                                <p>1300 78 99 78</p>
+                                <p id="num-font">1300 78 99 78</p>
                             </div>
                         </div>
-                        <div class="call-icon"><a href="tel:1300789978"><img style="width:60px;"
-                                    src="img/icon-phone.png"></a> </div>
+                        <div id="main-phn-logo" class="call-icon"><a href="tel:1300789978"><img id="phn-logo"
+                                    style="width:60px;" src="img/icon-phone.jpg"></a> </div>
                     </div>
 
                     <div class="main-div">
-                        <div class="img"><img style="width:90px;" src="img/logo-lifeline.png"> </div>
+                        <div class="img"><img id="emer-logo" style="width:90px;" src="img/logo-lifeline.jpg"> </div>
                         <div class="head-num">
-                            <div class="heading"><span class="cus head">Lifeline</span></div>
+                            <div class="heading"><span id="name-font" class="cus head">Lifeline</span></div>
                             <div class="num">
-                                <p>13 11 14</p>
+                                <p id="num-font">13 11 14</p>
                             </div>
                         </div>
-                        <div class="call-icon"><a href="tel:131114"><img style="width:60px;"
-                                    src="img/icon-phone.png"></a> </div>
+                        <div class="call-icon"><a href="tel:131114"><img id="phn-logo" style="width:60px;"
+                                    src="img/icon-phone.jpg"></a> </div>
                     </div>
 
                     <div class="main-div">
-                        <div class="img"><img style="width:90px;" src="img/logo-kidshelpline.png"> </div>
+                        <div class="img"><img id="emer-logo" style="width:90px;" src="img/logo-kidshelpline.jpg"> </div>
                         <div class="head-num">
-                            <div class="heading"><span class="cus head">Kids Helpline</span></div>
+                            <div class="heading"><span id="name-font" class="cus head">Kids Helpline</span></div>
                             <div class="num">
-                                <p>1800 55 1800</p>
+                                <p id="num-font">1800 55 1800</p>
                             </div>
                         </div>
-                        <div class="call-icon"><a href="tel:1800551800"><img style="width:60px;"
-                                    src="img/icon-phone.png"></a> </div>
+                        <div class="call-icon"><a href="tel:1800551800"><img id="phn-logo" style="width:60px;"
+                                    src="img/icon-phone.jpg"></a> </div>
                     </div>
                     <div id="contactsNumbers1"></div>
-                    <div id="#ignorePDF" style="width:30px; height:10px; background-color: transparent"
+                    <div id="ignorePDF" style="width:30px; height:10px; background-color: transparent"
                         onclick="document.getElementById('QSet4').style.display = 'none'; document.getElementById('QSet5').style.display = 'initial';">
                     </div>
                 </div>
-                <div id="#ignorePDF" class="face-think-path"><img class="face-think-path-img" style="width:100%;"
-                        src="img/safety-plan-4-2.png"></div>
+                <div id="safetyPlanImage" class="face-think-path"><img id="backgroundColor" class="face-think-path-img"
+                        style="width:100%;background-color: #fff;" src="img/safety-plan-4-2.jpg"></div>
                 <div id="QSet5" class="panel2">
-                    <div id="#ignorePDF" onclick="editQuestion(5);">
+                    <div id="ignorePDF" onclick="editQuestion(5);">
                         <div class="border-middle"></div>
                         <div class=""><img class="img-button-edit" src="img/btn-edit.png"></div>
                     </div>
-                    <p class="safety-label">I can make my environment safe by...</p>
+                    <p id="que" class="safety-label">I can make my environment safe by...</p>
                     <div id="Q5A1" hidden></div>
                     <div id="Q5A2" hidden></div>
                     <div id="Q5A3" hidden></div>
                     <div id="Q5A4" hidden></div>
                     <div id="Q5A5" hidden></div>
                     <div id="Q5A6" hidden></div>
-                    <div id="#ignorePDF" style="width:30px; height:10px;background-color: transparent"
+                    <div id="ignorePDF" style="width:30px; height:10px;background-color: transparent"
                         onclick="document.getElementById('QSet5').style.display = 'none'; document.getElementById('QSet6').style.display = 'initial';">
                     </div>
                 </div>
-                <div id="#ignorePDF" class="face-think-path"><img class="face-think-path-img" style="width:100%;"
-                        src="img/safetyplan-4.png"></div>
+                <div id="safetyPlanImage" class="face-think-path"><img class="face-think-path-img" style="width:100%;"
+                        src="img/safetyplan-4.jpg"></div>
                 <div id="QSet6" class="panel2">
-                    <p class="safety-label">I’m still not feeling safe; <br>I need to call emergency services on 000.
+                    <p id="que" class="safety-label">I’m still not feeling safe; <br>I need to call emergency services
+                        on 000.
                     </p>
-                    <div id="#ignorePDF" style="width:30px; height:10px; background-color: transparent;"
+                    <div id="ignorePDF" style="width:30px; height:10px; background-color: transparent;"
                         onclick="document.getElementById('QSet6').style.display = 'none'; document.getElementById('QSet7').style.display = 'initial';">
                     </div>
                 </div>
-                <div class="face-think-path"><img class="face-think-path-img" style="width:100%;"
-                        src="img/safetyplan-5.png"></div>
+                <div id="safetyPlanImage" class="face-think-path"><img class="face-think-path-img" style="width:100%;"
+                        src="img/safetyplan-5.jpg"></div>
                 <div id="QSet7" class="">
                     <div class="safetyplan-end-p">Make a safety plan commitment</div>
                     <div class="safetyplan-end-p">I commit to my safety plan<br> when the need arises.</div>
                 </div>
-                <div id="#ignorePDF" class="face-think-path"><img class="face-think-path-img" style="width:100%;"
-                        src="img/safetyplan-6.png"></div>
+                <div id="safetyPlanImage" class="face-think-path"><img class="face-think-path-img" style="width:100%;"
+                        src="img/safetyplan-6.jpg"></div>
             </div>
             <div class="margin-bot-100p"></div>
         </div>
@@ -1601,7 +1682,7 @@
         <div class="bot-overlay"></div>
         <div class="grid-container-whitebg">
             <div class="margin-top-180p"></div>
-            <div class="contacts-container" id="contacts-container">
+            <div class="contacts-container">
                 <div class="main-div">
                     <div class="img"><img style="width:90px;" src="img/logo-suicidecallback.png"> </div>
                     <div class="head-num">
@@ -1662,6 +1743,7 @@
                                 src="img/icon-phone.png"></a> </div>
                 </div>
             </div>
+            <div class="contacts-container" id="contacts-container-emergency"></div>
             <div class="margin-bot-70p"></div>
         </div>
     </div>
@@ -1839,7 +1921,7 @@
             </div>
             <div class="margin-bot-150p"></div>
         </div>
-        <script src="controllers/addThemePage.js"></script>
+
     </div>
     <div id="addcontacts" class="contents" style="display:none;">
         <!-- panel overlays -->

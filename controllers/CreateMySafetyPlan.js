@@ -25,8 +25,6 @@ function createTable () {
 }
 function AddValueToDB (QId, AId) {
   var editPlanMode = localStorage.getItem('editPlanMode')
-  console.log(QId)
-  console.log(answers)
   if (!window.openDatabase) {
     console.log('Databases are not supported in this browser.')
     return
@@ -132,7 +130,6 @@ function CheckValueInDB (QId) {
       }
     },
       function (transaction, results) {
-        console.log(transaction); console.log(results)
       })
 
     transaction.executeSql('SELECT * FROM Plan WHERE AId=? AND QId=?', [2, QId], function (transaction, results) {
@@ -185,16 +182,12 @@ function CheckValueInDB (QId) {
   })
 }
 function selectElement (el) {
-  console.log($(el)[0].id)
   return selectedElement = $(el)[0].id
 }
 function autoselectElement (elementId) {
   var field = document.getElementById(selectedElement)
-  console.log(field)
   if (field == null || field == 'null') {
     var textFields = document.getElementById(elementId)
-
-    console.log(textFields.value)
     if (textFields.value.trim() == '') {
       $('#' + elementId).show()
       return selectedElement = textFields.id

@@ -61,7 +61,20 @@ function GetResoursesValueFromDB (resoursesUId) {
 
         document.getElementById('editWeburl').value = editWeburl
         document.getElementById('editName').value = editName
-        document.getElementById('editTag').value = editTag
+        // document.getElementById('editTag').value = editTag
+        var tags = editTag.split('~')
+        $('#existingTags').empty()
+        var htmlData = ''
+        for (var k = 0; k < tags.length; k++) {
+          if (k == 0) {
+            htmlData += `<div class='tag-list'>`
+          }
+          htmlData += '<p class="resourses-tags edit-tags-list ">' + tags[k] + '<span class="close-it"></span></p>'
+          if (k == tags.length - 1) {
+            htmlData += `</div'>`
+          }
+        }
+        $('#existingTags').append(htmlData)
         document.getElementById('resoursesUId').value = resoursesUId
       })
   })
@@ -95,7 +108,7 @@ function GetResoursesFromDB () {
           for (var j = 0; j < resoursesWeburl.length; j++) {
             var htmlData = '<div  class="custom-resourses-edit" data-id="' + contactIds[j] + '">' +
               '<div class="border-middle"></div>' +
-              '<div class=""><img class="img-button-edit" src="img/btn-edit.png"><div class="delete-resourse" id="' + contactIds[j] + '"><img style="width:40px;height:40px;"src="img/btn-delete-dark-white.png" /></div></div>' +
+              '<div class=""><img class="img-button-edit" src="img/btn-edit.png"><div class="delete-resourse" id="res_' + contactIds[j] + '"><img style="width:40px;height:40px;"src="img/btn-delete-dark-white.png" /></div></div>' +
               '</div>' +
               '<p class="notes-label">' + resoursesName[j] + '</p>' +
               '<p class="resourses-url">' + resoursesWeburl[j] + '</p>'
@@ -197,7 +210,12 @@ function registerEventsAndInit () {
     resoursesTag = document.getElementById('addTag').value
     if (resoursesWeburl.trim() != '' && resoursesName.trim() != '' && resoursesTag.trim() != '') {
       $('#formValidationResourses').hide()
-      InsertResoursesInDB(resoursesWeburl.trim(), resoursesName.trim(), resoursesTag.trim())
+      if (!isUrlValid(resoursesWeburl)) {
+        $('#validateResoursesUrl').show()
+      } else {
+        $('#validateResoursesUrl').hide()
+        InsertResoursesInDB(resoursesWeburl.trim(), resoursesName.trim(), resoursesTag.trim())
+      }
     } else {
       $('#formValidationResourses').show()
     }
@@ -219,6 +237,7 @@ function registerEventsAndInit () {
 
   $(document).on('click', '.delete-resourse', function (e) {
     var id = $(this).attr('id')
+    id = id.replace('res_', '')
     DeleteResoursesFromDB(id)
     GetResoursesFromDB()
   })
@@ -233,15 +252,64 @@ function registerEventsAndInit () {
     GetResoursesValueFromDB($(this).data('id'))
     return false
   })
-
+  $(document).on('click', '.close-it', function () {
+    $(this).parent().remove()
+  })
   $('#editNewResoursesBtn').click(function () {
     editWeburl = document.getElementById('editWeburl').value
     editName = document.getElementById('editName').value
     editTag = document.getElementById('editTag').value
+    var tags = ''
+    $('.edit-tags-list').each(function () {
+      // alert($(this).text());
+      if (editTag == $(this).text()) {
+        editTag = ''
+      }
+      if (tags == '') {
+        tags = $(this).text()
+      } else {
+        tags += '~' + $(this).text()
+      }
+    })
+    if (editTag.trim() != '') {
+      if (tags != '') {
+        var finalTag = editTag + '~' + tags
+      } else {
+        var finalTag = editTag
+      }
+    } else {
+      if (tags != '') {
+        var finalTag = tags
+      } else {
+        var finalTag = ''
+      }
+    }
+
     resoursesUId = document.getElementById('resoursesUId').value
-    if (editWeburl.trim() != '' && editName.trim() != '' && editTag.trim() != '') {
+    if (editWeburl.trim() != '' && editName.trim() != '' && finalTag != '') {
       $('#formValidationEditResourses').hide()
-      UpdateResoursesValueInDB(editWeburl.trim(), editName.trim(), editTag.trim(), resoursesUId)
+      if (editTag.trim() != '') {
+        db.transaction(function (transaction) {
+          transaction.executeSql(
+            'SELECT  Name FROM Tags WHERE Name=?', [
+              editTag
+            ],
+            function (transaction, results) {
+              if (results.rows.length) {
+                // alert('here');
+              } else {
+                // alert('her-fe');
+                InsertTagInDB(editTag)
+              }
+              GetTagsFromDB()
+              document.getElementById('editTag').value = ''
+              UpdateResoursesValueInDB(editWeburl.trim(), editName.trim(), finalTag, resoursesUId)
+            })
+        })
+      } else {
+        document.getElementById('editTag').value = ''
+        UpdateResoursesValueInDB(editWeburl.trim(), editName.trim(), finalTag, resoursesUId)
+      }
     } else {
       $('#formValidationEditResourses').show()
       console.log('Validation Faild')

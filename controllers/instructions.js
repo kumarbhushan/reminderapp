@@ -4,7 +4,7 @@ var dot1 = document.getElementById('dots11')
 var dot2 = document.getElementById('dots21')
 var dot3 = document.getElementById('dots31')
 var dot4 = document.getElementById('dots41')
-function next1 () {
+function next1() {
   var carousel = document.getElementById('carousel1')
   var curr = carousel.getActiveIndex()
   if (curr == 3) {
@@ -16,20 +16,15 @@ function next1 () {
     document.getElementById('carousel1').setActiveIndex(curr + 1)
   }
 }
-function onDeviceReadyIntruction () {
+function onDeviceReadyIntruction() {
   //
   StatusBar.hide()
   document.getElementById('dots11').style.backgroundColor = 'rgba(0,0,0,1)'
   var carousel = document.getElementById('carousel1')
   var curr = carousel.getActiveIndex()
-  // console.log(curr)
-  console.log(finInstruc)
-  // document.getElementById('video').setAttribute("id", curr);
   carousel.addEventListener('postchange', function () {
     finInstruc++
     var curr = carousel.getActiveIndex()
-    // var videoID = "video";
-    // console.log(curr);
     if (curr == 0) {
       finInstruc++
       document.getElementById('dots11').style.backgroundColor = 'rgba(0,0,0,1)'
@@ -69,19 +64,15 @@ function onDeviceReadyIntruction () {
 }
 document.getElementById('dots1').addEventListener('click', function () {
   document.getElementById('carousel1').setActiveIndex(0)
-  console.log('clicked')
 })
 document.getElementById('dots2').addEventListener('click', function () {
   document.getElementById('carousel1').setActiveIndex(1)
-  console.log('clicked')
 })
 document.getElementById('dots3').addEventListener('click', function () {
   document.getElementById('carousel1').setActiveIndex(2)
-  console.log('clicked')
 })
 document.getElementById('dots4').addEventListener('click', function () {
   document.getElementById('carousel1').setActiveIndex(3)
-  console.log('clicked')
 })
 ons.disableAutoStyling()
 var eventName =

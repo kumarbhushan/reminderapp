@@ -14,7 +14,6 @@ var maxSize = 4.9 * 1024 * 1024
 var colorArray = ['#bcbec0', '#be1e2d', '#f15a29', '#1b75bc', '#009444']
 
 function selectColor (el) {
-  console.log(el)
   return selectedColor = el.value
 }
 

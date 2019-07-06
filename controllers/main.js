@@ -1,4 +1,4 @@
-function navigate() {
+function navigate () {
   var planCompleted = localStorage.getItem('planCompleted')
   if (planCompleted == '1' || planCompleted == 1) {
     $('.contents').hide()
@@ -13,7 +13,7 @@ function navigate() {
     $('#inner-header').show()
   }
 }
-function qnavigate(que) {
+function qnavigate (que) {
   $('.contents').hide()
   $('#CreateMySafetyPlanQ1').hide()
   $('#CreateMySafetyPlanQ2').hide()
@@ -25,32 +25,29 @@ function qnavigate(que) {
   $('#' + que).show()
 }
 
-function errorHandler(transaction, error) {
+function errorHandler (transaction, error) {
   console.log('Error: ' + error.message + ' code: ' + error.code)
 }
-function successCallBack() {
+function successCallBack () {
   console.log('DEBUGGING: success')
 }
-function nullHandler() { };
+function nullHandler () { };
 document.addEventListener('deviceready', onDeviceReady, false)
 // PhoneGap is ready
 //
-function onDeviceReady() {
+function onDeviceReady () {
   var popuphome = true
   // StatusBar.hide();
 }
-function cancelCall() {
+function cancelCall () {
   document.getElementById('CallConfirm').style.display = 'none'
 }
-function call() {
+function call () {
   document.getElementById('CallConfirm').style.display = 'block'
 
   console.log('call')
 }
 $(document).on('click', '.cus-theme', function (e) {
-  //
-  // e.preventDefault();
-
   id = $(this).attr('id')
   cusTheme = localStorage.getItem(id)
   if (cusTheme && cusTheme == 'disabled') {
@@ -125,6 +122,16 @@ $(document).ready(function (e) {
     if (page == 'MyStuff') {
       $('.tab-content').hide()
       $('#gallery').show()
+      $('#add-notes-btn').hide()
+      $('#add-image-btn').show()
+      $('#add-resourses-btn').hide()
+      $('#delete-selected-notes').hide()
+      $('#addNewNoteBtn').hide();
+      $('#editNewNoteBtn').hide();
+      $('.tabs').removeClass('activeTab');
+    $('.btn-gallery').addClass('activeTab');
+    $('#addThemePop').hide()
+      
     }
     $('.commonhide').hide()
     $('.contents').hide()
@@ -141,7 +148,10 @@ $(document).ready(function (e) {
 
   $('.tabs').click(function (e) {
     e.preventDefault()
-    tab = $(this).data('tab')
+    tab = $(this).data('tab');
+    $('.tabs').removeClass('activeTab');
+    $(this).addClass('activeTab');
+    
     $('.commonhide').hide()
     if (tab == 'notes') {
       $('#add-notes-btn').show()
@@ -158,25 +168,56 @@ $(document).ready(function (e) {
       $('#show-notes-list').show()
       $('#delete-icon-black-notes').hide()
       $('#notes-list').show()
+      $('#addThemePop').hide()
+      
     }
     if (tab == 'resourses') {
       $('#add-resourses-btn').show()
       $('#add-notes-btn').hide()
       $('#add-image-btn').hide()
       $('#delete-selected-notes').hide()
-      $('#add-resoures').hide()
+      $('#add-resourses').hide()
       $('#edit-resourses').hide()
       // $('#delete-notes').hide();
-      // $('#addNewResoursesBtn').hide();
+       $('#addNewResoursesBtn').show();
       // $('#editNewResoursesBtn').hide();
+      $('#addNewNoteBtn').hide()
+      $('#editNewNoteBtn').hide()
       $('#resourses-list').show()
       $('#tag-list').show()
+      $('#addThemePop').hide()
     }
     if (tab == 'gallery') {
       $('#add-notes-btn').hide()
       $('#add-image-btn').show()
       $('#add-resourses-btn').hide()
       $('#delete-selected-notes').hide()
+      $('#addNewNoteBtn').hide();
+      $('#editNewNoteBtn').hide();
+      $('#addThemePop').hide()
+    }
+    if (tab == 'theme-tab') {
+      $('#add-resoures').hide()
+      $('#edit-resourses').hide()
+      $('#addNewResoursesBtn').hide();
+      $('#editNewResoursesBtn').hide();
+      $('#resourses-list').show()
+      $('#tag-list').show()
+      $('#add-notes').hide()
+      $('#edit-notes').hide()
+      $('#delete-notes').hide()
+      $('#select-all-notes').hide()
+      $('#deselect-all-notes').hide()
+      $('#show-notes-list').hide()
+      $('#delete-icon-black-notes').hide()
+      $('#notes-list').hide()
+      $('#add-notes-btn').hide()
+      $('#add-image-btn').hide()
+      $('#add-resourses-btn').hide()
+      $('#delete-selected-notes').hide()
+      $('#addNewNoteBtn').hide();
+      $('#editNewNoteBtn').hide();
+      $('#addThemePop').show()
     }
     $('.tab-content').hide()
     $('#' + tab).show()
@@ -261,9 +302,39 @@ $(document).ready(function (e) {
       }
     })
   })
-  if ((localStorage.getItem('emoji') != 'emoji1') && (localStorage.getItem('emoji') != 'emoji2') && (
-    localStorage.getItem('emoji') != 'emoji3')) {
-    localStorage.setItem('emoji', 'emoji2')
+
+  $('#searchTags').keyup(function () {
+    var filter = this.value.toLowerCase()  // no need to call jQuery here
+
+    $('.resourses-tags').each(function () {
+      var _this = $(this)
+     var title = _this.text().toLowerCase()
+     if (title.indexOf(filter) < 0) {
+        _this.parent().hide()
+        _this.parent().prev().hide()
+        _this.parent().prev().prev().hide()
+        _this.parent().prev().prev().prev().hide()
+      } else {
+        _this.parent().show()
+        _this.parent().prev().show()
+        _this.parent().prev().prev().show()
+        _this.parent().prev().prev().prev().show()
+      }
+    })
+    $('.tag-tags').each(function () {
+      var _this = $(this)
+     var title = _this.text().toLowerCase()
+     if (title.indexOf(filter) < 0) {
+        _this.hide()
+      } else {
+        _this.show()
+      }
+    })
+    
+  })
+  if ((localStorage.getItem('emoji') != 'icon-sad') && (localStorage.getItem('emoji') != 'icon-neutral') && (
+    localStorage.getItem('emoji') != 'icon-smile')) {
+    localStorage.setItem('emoji', 'icon-neutral')
   }
   localStorage.setItem('editPlanMode', 'off')
   if (localStorage.getItem('lake') != 'disabled') {
@@ -319,7 +390,7 @@ generate = function (writer) {
   savebase64AsPDF(folderpath, filename, myBase64, contentType)
 }
 
-function headerFooterFormatting(doc, totalPages) {
+function headerFooterFormatting (doc, totalPages) {
   for (var i = totalPages; i >= 1; i--) {
     doc.setPage(i)
     // header
@@ -330,7 +401,7 @@ function headerFooterFormatting(doc, totalPages) {
   }
 };
 
-function header(doc) {
+function header (doc) {
   doc.setFontSize(30)
   doc.setTextColor(40)
   doc.setFontStyle('normal')
@@ -339,7 +410,7 @@ function header(doc) {
   doc.line(3, 70, margins.width + 43, 70) // horizontal line
 };
 
-function imgToBase64(url, callback, imgVariable) {
+function imgToBase64 (url, callback, imgVariable) {
   if (!window.FileReader) {
     callback(null)
     return
@@ -358,14 +429,14 @@ function imgToBase64(url, callback, imgVariable) {
   xhr.send()
 };
 
-function footer(doc, pageNumber, totalPages) {
+function footer (doc, pageNumber, totalPages) {
   var str = 'Page ' + pageNumber + ' of ' + totalPages
   doc.setFontSize(10)
   doc.text(str, margins.left, doc.internal.pageSize.height - 20)
 };
 
 /* load js dynamically */
-function loadjscssfile(filename, filetype) {
+function loadjscssfile (filename, filetype) {
   if (filetype == 'js') { // if filename is a external JavaScript file
     var fileref = document.createElement('script')
     fileref.setAttribute('type', 'text/javascript')
@@ -379,7 +450,7 @@ function loadjscssfile(filename, filetype) {
   if (typeof fileref !== 'undefined') { document.getElementsByTagName('head')[0].appendChild(fileref) }
 }
 
-function b64toBlob(b64Data, contentType, sliceSize) {
+function b64toBlob (b64Data, contentType, sliceSize) {
   contentType = contentType || ''
   sliceSize = sliceSize || 512
 
@@ -412,7 +483,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
  * @param filename {String} The name of the file that will be created
  * @param content {Base64 String} Important : The content can't contain the following string (data:application/pdf;base64). Only the base64 string is expected.
  */
-function savebase64AsPDF(folderpath, filename, content, contentType) {
+function savebase64AsPDF (folderpath, filename, content, contentType) {
   // Convert the base64 string in a Blob
   var DataBlob = b64toBlob(content, contentType)
   console.log('Starting to write the file :3')
@@ -432,13 +503,21 @@ function savebase64AsPDF(folderpath, filename, content, contentType) {
   })
 }
 /* code snip */
-function goBack1() {
+function goBack1 () {
+  
+  $('#AddTheme').hide()
   $('.contents').hide()
-  $('#theme').show()
+  $('.tab-content').hide()
+  GetThemeFromDB()
+  $('#theme-tab').show()
+  $('#MyStuff').show()
+  $('.tabs').removeClass('activeTab');
+  $('#theme-tab-nav').addClass('activeTab');
+ 
   $('#themeTitle').val('')
 }
 
-function goBack() {
+function goBack () {
   var planCompleted = localStorage.getItem('planCompleted')
   if (planCompleted == '0' || planCompleted == 0) {
     // alert('here');
@@ -456,4 +535,8 @@ function goBack() {
     $('#dummy-img').attr('src', 'img/btn-photo-contact.png')
     $('#myteam').show()
   }
-}
+} 
+
+     
+     
+  

@@ -16,14 +16,10 @@ function onDeviceReadyInstruction2 () {
 
   var carousel = document.getElementById('carousel22')
   var curr = carousel.getActiveIndex()
-  // console.log(curr)
-  console.log(finInstruc)
   // document.getElementById('video').setAttribute("id", curr);
   carousel.addEventListener('postchange', function () {
     finInstruc++
     var curr = carousel.getActiveIndex()
-    // var videoID = "video";
-    // console.log(curr);
     if (curr == 0) {
       finInstruc++
       document.getElementById('dots1').style.backgroundColor = 'rgba(225,225,225,1)'
@@ -62,20 +58,16 @@ function onDeviceReadyInstruction2 () {
 }
 document.getElementById('dots1').addEventListener('click', function () {
   document.getElementById('carousel22').setActiveIndex(0)
-  console.log('clicked')
 })
 document.getElementById('dots2').addEventListener('click', function () {
   document.getElementById('carousel22').setActiveIndex(1)
-  console.log('clicked')
 })
 document.getElementById('dots3').addEventListener('click', function () {
   document.getElementById('carousel22').setActiveIndex(2)
-  console.log('clicked')
 })
 
 document.getElementById('dots4').addEventListener('click', function () {
   document.getElementById('carousel22').setActiveIndex(3)
-  console.log('clicked')
 })
 
 ons.disableAutoStyling()

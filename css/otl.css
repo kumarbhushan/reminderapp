@@ -596,6 +596,16 @@ h4 {
     /*background-color: aqua; */
 }
 
+.titlebar25 {
+    position: fixed;
+    width: 100%;
+    vertical-align: bottom;
+    top: 0%;
+    left: 0%;
+    transform: translate(0%, 205px);
+    /*background-color: aqua; */
+}
+
 .titlebar1 {
     position: fixed;
     width: 100%;
@@ -1551,7 +1561,8 @@ a {
     z-index: 6 !important
 }
 
-#imageDeleteConfirm {
+#imageDeleteConfirm,
+#imageDeleteConfirmNew {
     z-index: 20000 !important
 }
 
@@ -1616,9 +1627,28 @@ a {
     display: block;
 }
 
+#mute-container {
+    position: absolute;
+    z-index: 5;
+    height: 49px;
+    width: 49px;
+    background-color: rgba(0, 0, 0, 0.4);
+    text-align: center;
+    margin-left: 45%;
+    margin-right: 45%;
+    margin-top: 500px;
+    border-radius: 50%;
+    display: block;
+}
+
 #emoji-container img {
     width: 80px;
     margin-top: 16px
+}
+
+img#mute {
+    width: 40px;
+    margin-top: 5px;
 }
 
 .btn-k10-assessment img {
@@ -1652,7 +1682,7 @@ a {
     border-radius: 20px;
     margin-left: 7%;
     margin-right: 7%;
-    margin-top: 250px;
+    margin-top: 200px;
     font-size: 24px;
     text-align: center;
     display: none
@@ -1961,7 +1991,38 @@ div#notes-list {
 .btn-theme {
     width: 25%;
     float: left;
-    height: 30px
+    height: 40px
+}
+
+.viewer-toolbar>ul>li::before {
+    margin: 10px auto !important;
+}
+
+.viewer-toolbar>ul>li {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    float: left;
+    height: 40px !important;
+    overflow: hidden;
+    -webkit-transition: background-color 0.15s;
+    transition: background-color 0.15s;
+    width: 40px !important;
+}
+
+.viewer-delete::before {
+    content: "\f014" !important;
+}
+
+.viewer-toolbar>ul>li+li {
+    margin-left: 4px !important;
+}
+
+.viewer-toolbar>ul {
+    display: inline-block;
+    margin: 0 auto 5px;
+    overflow: hidden;
+    padding: 2px 30px !important;
 }
 
 .itemsInMyStuff {
@@ -1985,6 +2046,11 @@ div#notes-list {
     font-weight: bold;
 }
 
+.viewer-delete {
+    line-height: 2.5rem !important;
+
+}
+
 #AddTheme,
 #AddUserImage,
 #AddNewResourses,
@@ -1995,7 +2061,8 @@ div#notes-list {
 #ContactsAddPage,
 #ContactsAddPage1,
 #deleteConfirm,
-#imageDeleteConfirm {
+#imageDeleteConfirm,
+#imageDeleteConfirmNew {
     position: fixed;
     z-index: 3;
     color: #000;
@@ -2097,8 +2164,24 @@ div#notes-list {
     text-align: center;
 }
 
+.resourses-tags.edit-tags-list {
+    display: flex;
+    justify-content: center;
+}
+
+.resourses-tags.edit-tags-list .close-it {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-left: 10px;
+}
+
 .itemsInMyStuff {
     object-fit: cover;
+}
+
+#add-resourses {
+    overflow-y: scroll;
 }
 
 #add-tag,
@@ -2165,6 +2248,11 @@ div#notes-list {
 .btn-save {
     padding-left: 10px;
     margin: 10px 10px;
+}
+
+.tabs.activeTab {
+    border-bottom: 2px solid limegreen;
+    margin: 0px;
 }
 
 .common-theme,
@@ -3753,4 +3841,10 @@ input:focus {
 .delete-resourse {
     display: inline-block;
     margin-left: 10px;
+    width: 10%;
+}
+
+.close-it {
+    background: url("../img/btn-delete-dark.png") no-repeat center;
+    background-size: 30px 30px;
 }

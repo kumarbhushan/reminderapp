@@ -64,14 +64,13 @@ reportGenerator.generate = function (content, folderPath, fileName, callback) {
   var debugModeOn = false
 
   if (content && folderPath) { // check is content and file type available
-    var report = new jsPDF('p', 'pt', [184, getContentHeight(content, 184)]), // Create jsPDF api instance, with potrait mode, inches unit, and A4 paper size
+    var report = new jsPDF('p', 'pt', [184, getContentHeight(content, 184) - 300]), // Create jsPDF api instance, with potrait mode, inches unit, and A4 paper size
       margin = {
         top: 10,
         bottom: 10,
         left: 10,
         width: 322
       },
-      pageHeight = report.internal.pageSize.height - (margin.bottom + margin.top),
       pages = null
 
     // content = report.splitTextToSize(content, margin.width); // Set content max width

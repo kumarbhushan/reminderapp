@@ -55,7 +55,11 @@ function GetContactsValueFromDB11 () {
           //
           $('#contacts-container').empty()
           $('#delete-contacts-container').empty()
-          $('#contact-data-share').empty()
+          $('#contact-data-share').empty();
+          $('#contacts-container-emergency').empty()
+          $('#contactsNumbers').empty()
+          $('#contactsNumbers1').empty()
+          
           for (var j = 0; j < contacts.length; j++) {
             // alert(j +"----" +contactIds[j]);
             /* $("#contacts-container").append(
@@ -69,6 +73,7 @@ function GetContactsValueFromDB11 () {
                 ');" data-id = "' + contactIds[j] +
                 '" data-href="editcontacts" href="javascript:void();" class="editcontact custom-btn-edit"></a></div></div>'
             ); */
+           
             $('#contacts-container').append(
               '<div class="main-div">' +
 
@@ -84,6 +89,45 @@ function GetContactsValueFromDB11 () {
               '<div class="call-icon"><a href ="tel:' + contactNumbers[j] +
               '" ><img style="width:60px;" src="img/icon-phone.png"></a><br>' +
               '<img  class="shareloc" style="width:60px;" src="img/btn-location.png">	</div>' +
+              '</div>'
+            )
+            $('#contactsNumbers').append(
+              '<div class="main-div">' +
+              '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+              '<div class="head-num">' +
+              '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
+              '<div class="num"><p>' + contactNumbers[j] +
+              '</p></div>' +
+              '</div>' +
+              '<div class="call-icon"><a href ="tel:' + contactNumbers[j] +
+              '" ><img style="width:60px;" src="img/icon-phone.png"></a><br>' +
+              '</div>' +
+              '</div>'
+            )
+            $('#contactsNumbers1').append(
+              '<div class="main-div">' +
+              '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+              '<div class="head-num">' +
+              '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
+              '<div class="num"><p>' + contactNumbers[j] +
+              '</p></div>' +
+              '</div>' +
+              '<div class="call-icon"><a href ="tel:' + contactNumbers[j] +
+              '" ><img style="width:60px;" src="img/icon-phone.png"></a><br>' +
+              '</div>' +
+              '</div>'
+            )
+            $('#contacts-container-emergency').append(
+              '<div class="main-div">' +
+              '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+              '<div class="head-num">' +
+              '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
+              '<div class="num"><p>' + contactNumbers[j] +
+              '</p></div>' +
+              '</div>' +
+              '<div class="call-icon"><a href ="tel:' + contactNumbers[j] +
+              '" ><img style="width:60px;" src="img/icon-phone.png"></a><br>' +
+              '</div>' +
               '</div>'
             )
             $('#delete-contacts-container').append(
@@ -163,6 +207,8 @@ function myTeamInit () {
 
   $(document).on('click', '#closeShare', function () {
     $('#share-contacts-container').hide()
+    $('#shareValidation').hide()
+    $('#locValidation').hide()
   })
   $(document).on('click', '.checkContactShare', function () {
     var id = $(this).attr('id')
@@ -233,8 +279,12 @@ function myTeamInit () {
     } else {
       $('#shareValidation').hide()
       if (shareUrlMap !== '') {
+        $('#locValidation').hide()
         window.plugins.socialsharing.shareViaSMS(shareUrlMap, numbers, function (msg) { $('#share-contacts-container').hide(); $('#shareSuccess').hide(); console.log('ok: ' + msg) }, function (msg) { alert('error: ' + msg) })
       } else {
+        navigator.geolocation.getCurrentPosition(onSuccessLoc, onErrorMap, {
+          timeout: 30000
+        })
         // $('#share-contacts-container').hide();
         $('#locValidation').show()
       }
