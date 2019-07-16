@@ -133,6 +133,7 @@
         <variable name="CAMERA_USAGE_DESCRIPTION" value="The app would like to access the camera when you attach photos to content." />
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="The app would like to access the photo library when you attach images to content." />
     </plugin>
+    <plugin name="cordova-pdf-generator" spec="1.0.0" />
     <plugin name="cordova-plugin-file" spec="4.0.0" />
     <plugin name="cordova-plugin-filepath" spec="1.0.0" />
 
@@ -149,7 +150,6 @@
 
     <plugin name="cordova-plugin-geolocation" version="2.1.0" />
 
-    <plugin name="cordova-pdf-generator" />
     <!--
         Define access to external domains.
         <access />            - a blank access tag denies access to all external resources.
