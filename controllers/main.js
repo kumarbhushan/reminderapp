@@ -128,7 +128,7 @@ $(document).ready(function (e) {
       $('#addContactFirstName').val('')
       $('#addContactLastName').val('')
       $('#addContactNumber').val('')
-      $('#dummy-img').attr('src', 'img/btn-photo-contact.png')
+      $('#dummy-img').attr('src', 'img/btn-photo-contact.jpg')
       $('.contactList').show()
       $('#searchContact').val('')
       $('#deselect-all-import').hide()
@@ -207,7 +207,6 @@ $(document).ready(function (e) {
       $('#edit-resourses').hide()
       // $('#delete-notes').hide();
       $('#addNewResoursesBtn').show()
-      // $('#editNewResoursesBtn').hide();
       $('#addNewNoteBtn').hide()
       $('#editNewNoteBtn').hide()
       $('#resourses-list').show()
@@ -227,7 +226,6 @@ $(document).ready(function (e) {
       $('#add-resoures').hide()
       $('#edit-resourses').hide()
       $('#addNewResoursesBtn').hide()
-      $('#editNewResoursesBtn').hide()
       $('#resourses-list').show()
       $('#tag-list').show()
       $('#add-notes').hide()
@@ -560,7 +558,7 @@ function goBack() {
     $('#addContactFirstName').val('')
     $('#addContactLastName').val('')
     $('#addContactNumber').val('')
-    $('#dummy-img').attr('src', 'img/btn-photo-contact.png')
+    $('#dummy-img').attr('src', 'img/btn-photo-contact.jpg')
     $('#myteam').show()
   }
 }

@@ -92,7 +92,7 @@ function GetContactsValueFromDB1 () {
                    '"></a></div></div>'); */
               $('#contactsNumbers').append(
                 '<div class="main-div">' +
-                '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+                '<div class="img" id="main-emer-logo" ><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
                 '<div class="head-num">' +
                 '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
                 '<div class="num"><p>' + contactNumbers[j] +
@@ -104,11 +104,11 @@ function GetContactsValueFromDB1 () {
               )
               $('#contactsNumbers1').append(
                 '<div class="main-div">' +
-                '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+                '<img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	' +
                 '<div class="head-num">' +
                 '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
-                '<div class="num"><p>' + contactNumbers[j] +
-                '</p> </div>' +
+                '<div class="num"><span>' + contactNumbers[j] +
+                '</span> </div>' +
                 '</div>' +
                 '<div class="call-icon"><a href ="tel:' + contactNumbers[j] + '" ><img style="width:60px;" src="img/icon-phone.png"></a></div>' +
                 '</div>'
@@ -159,78 +159,65 @@ $(document).on('click', '#sharethis', function () {
   var _data = $('<div style="width:185px">' + $('#pdfData').html() + '</div>')
   _data.find('#ignorePDF').remove()
   _data.find('#safetyPlanImage').css({ 'width': '170px', 'margin-top': '20px' })
-  // _data.find('#emer-logo').remove()
+  _data.find('#emer-logo').remove()
   // _data.find('#head-num-pdf').remove()
-  _data.find('#emer-logo').css('border-radius', '50%')
   _data.find('#phn-logo').remove()
-
-  _data.find('#main-emer-logo').css({
-    'float': 'left',
-    'width': '40px',
-    'padding': '0px'
-
-  })
-  _data.find('#main-phn-logo').css({
-    'float': 'left',
-    'width': '40px',
-    'padding': '0px'
-
-  })
+  _data.find('#main-phn-logo').remove()
+  // _data.find('#emer-logo').css({
+  //   'display': 'inline-block',
+  //   'float': 'left',
+  //   'width': '40px',
+  //   'height': '35px',
+  //   'padding': '0px'
+  // })
   _data.find('#head-num-pdf').css({
+    'display': 'inline-block',
     'float': 'left',
-    'width': '90px',
-    'padding': '40px 0px'
+    'width': '120px',
+    'height': '45px',
+    'padding': '5px 5px'
 
   })
 
-  // _data.find('.num').remove();
-  // _data.find('.heading').remove();
-
-  _data.find('#emer-logo').css('width', '40px')
   _data.find('#emer-logo1').css('width', '40px')
   _data.find('#emer-logo1').css('height', '40px')
-  // _data.find('.heading').css('float', 'left');
-  _data.find('#emer-logo').css('float', 'left')
-  _data.find('#emer-logo1').css('float', 'left')
-  // _data.find('.num').css('float', 'left');
-  _data.find('#num-font').css('float', 'left')
-  // _data.find('#name-font').css('float', 'left');
-
-  _data.find('#phn-logo').css('float', 'left')
-  _data.find('#phn-logo').css('width', '20px')
-  // _data.find('#head-num-pdf').css('display', 'inline-block')
-  // _data.find('#head-num-pdf').css('width', '100px')
-  // _data.find('#head-num-pdf').append("Here")
-  // _data.find('#name-font').css('border-bottom', '3px solid #9fcd5a')
-  // _data.find('#phn-logo').remove()
   _data.find('#Q1A1').css('font-size', '10px')
   _data.find('#Q1A2').css('font-size', '10px')
   _data.find('#Q1A3').css('font-size', '10px')
   _data.find('#Q1A4').css('font-size', '10px')
   _data.find('#Q1A5').css('font-size', '10px')
   _data.find('#Q1A6').css('font-size', '10px')
+  _data.find('#Q1A1').css('padding-right', '10px')
+  _data.find('#Q1A2').css('padding-right', '10px')
+  _data.find('#Q1A3').css('padding-right', '10px')
+  _data.find('#Q1A4').css('padding-right', '10px')
+  _data.find('#Q1A5').css('padding-right', '10px')
+  _data.find('#Q1A6').css('padding-right', '10px')
+  _data.find('#que').css('padding-right', '12px')
   _data.find('#que').css('font-size', '12px')
   _data.find('#name-font').css('font-size', '10px')
+  _data.find('#name-font').css('height', '10px')
   _data.find('#num-font').css('font-size', '10px')
-  _data.find('#main-div-pdf').css('display', 'inline-block')
-
+  _data.find('#num-font').css('height', '10px')
+  _data.find('#name-font').css('border-bottom', '1px solid #9ecd59')
+  _data.find('#main-div-pdf').css('display', 'block')
   _data.find('#main-div-pdf').css('width', '185px')
-  // _data.find('.main-div').css('align-items', 'center')
-
+  _data.find('#main-div-pdf').css('height', '50px')
+  _data.find('#main-div-pdf').css('min-height', '50px')
+  _data.find('#main-div-pdf').css('max-height', '50px')
+  _data.find('#main-div-pdf').css('overflow', 'hidden')
   _data.find('#Q2A1').css('font-size', '10px')
   _data.find('#Q2A2').css('font-size', '10px')
   _data.find('#Q2A3').css('font-size', '10px')
   _data.find('#Q2A4').css('font-size', '10px')
   _data.find('#Q2A5').css('font-size', '10px')
   _data.find('#Q2A6').css('font-size', '10px')
-
   _data.find('#Q3A1').css('font-size', '10px')
   _data.find('#Q3A2').css('font-size', '10px')
   _data.find('#Q3A3').css('font-size', '10px')
   _data.find('#Q3A4').css('font-size', '10px')
   _data.find('#Q3A5').css('font-size', '10px')
   _data.find('#Q3A6').css('font-size', '10px')
-
   _data.find('#Q5A1').css('font-size', '10px')
   _data.find('#Q5A2').css('font-size', '10px')
   _data.find('#Q5A3').css('font-size', '10px')
@@ -239,12 +226,10 @@ $(document).on('click', '#sharethis', function () {
   _data.find('#Q5A6').css('font-size', '10px')
   _data.find('#QSet7').css('font-size', '12px')
 
-  var data = _data.html(),
-    folderPath = cordova.file.cacheDirectory,
-    fileName = 'safetyPlan.pdf'
-  // $('#pdfOutput').html(data)
+  let data = _data.html()
+  let folderPath = cordova.file.cacheDirectory
+  let fileName = 'safetyPlan.pdf'
   try {
-    // alert(data);
     reportGenerator.generate(data, folderPath, fileName, function (fileUrl) {
       // alert(fileUrl);
       var options = {

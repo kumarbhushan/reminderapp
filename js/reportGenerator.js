@@ -1,10 +1,3 @@
-/*
-    Report Generator JavaScript API
-    A JavaScript API, used to generate PDF or Text file report, from HTML input.
-    Author: Rohit Kumar Mighwal
-    Created On: 19-March-2015
-*/
-
 // Namespace for reportGenerator
 var reportGenerator = reportGenerator || {}
 
@@ -95,7 +88,7 @@ reportGenerator.generate = function (content, folderPath, fileName, callback) {
     report.fromHTML(content, margin.left, margin.top, {
       'width': margin.width, 'elementHandlers': elementHandler
     }, function (bla) {
-       //report.save('test.pdf')
+      // report.save('test.pdf')
       var blobContent = report.output('blob')
       window.resolveLocalFileSystemURL(folderPath, function (dir) {
         dir.getFile(fileName, { create: true }, function (file) {

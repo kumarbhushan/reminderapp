@@ -1,9 +1,9 @@
 
-function getContactId (contactId) {
+function getContactId(contactId) {
   localStorage.setItem('editContactId', contactId)
   return true
 }
-function createContactsTable () {
+function createContactsTable() {
   if (!window.openDatabase) {
     console.log('Databases are not supported in this browser.')
     return
@@ -19,7 +19,7 @@ function createContactsTable () {
   }
 }
 
-function GetContactsValueFromDB11 () {
+function GetContactsValueFromDB11() {
   //
 
   var contacts = []
@@ -90,11 +90,11 @@ function GetContactsValueFromDB11 () {
               )
               $('#contactsNumbers').append(
                 '<div class="main-div">' +
-                '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+                '<div class="img" id="main-emer-logo" ><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
                 '<div class="head-num">' +
                 '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
-                '<div class="num"><p>' + contactNumbers[j] +
-                '</p></div>' +
+                '<div class="num"><span>' + contactNumbers[j] +
+                '</span></div>' +
                 '</div>' +
                 '<div class="call-icon"><a href ="tel:' + contactNumbers[j] +
                 '" ><img style="width:60px;" src="img/icon-phone.png"></a><br>' +
@@ -103,11 +103,11 @@ function GetContactsValueFromDB11 () {
               )
               $('#contactsNumbers1').append(
                 '<div id="main-div-pdf" class="main-div">' +
-                '<div class="img"><img id="emer-logo1" style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+                '<img id="emer-logo" style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">' +
                 '<div id="head-num-pdf"  class="head-num">' +
                 '<div class="heading"><span id="name-font" class="cus head">' + contacts[j] + '</span></div>' +
-                '<div id="num-font" class="num"><p>' + contactNumbers[j] +
-                '</p></div>' +
+                '<div id="num-font" class="num"><span>' + contactNumbers[j] +
+                '</span></div>' +
                 '</div>' +
                 '<div  id="main-phn-logo"  class="call-icon"><a href ="tel:' + contactNumbers[j] +
                 '" ><img id="phn-logo"  style="width:60px;" src="img/icon-phone.png"></a><br>' +
@@ -181,7 +181,7 @@ function GetContactsValueFromDB11 () {
   }
 }
 
-function DeleteContactFromDB (ContactUId) {
+function DeleteContactFromDB(ContactUId) {
   // alert(ContactUId);
   try {
     db.transaction(function (transaction) {
@@ -194,7 +194,7 @@ function DeleteContactFromDB (ContactUId) {
     console.log('transaction_failed', error)
   }
 }
-function myTeamInit () {
+function myTeamInit() {
   localStorage.setItem('editPlanMode', 'off')
   createContactsTable()
   GetContactsValueFromDB11()
@@ -299,7 +299,7 @@ function myTeamInit () {
   })
 }
 document.addEventListener('deviceready', onDeviceReadyMyTheme, false)
-function onDeviceReadyMyTheme () {
+function onDeviceReadyMyTheme() {
   StatusBar.hide()
   myTeamInit()
 }

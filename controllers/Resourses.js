@@ -349,10 +349,7 @@ function UpdateResoursesValueInDB (editWeburl, editName, editTag, resoursesUId) 
         [editWeburl, editName, editTag, resoursesUId],
         function () {
           console.log('DEBUGGING: success')
-
-          // $('#resourses-list').show();
           $('#edit-resourses').hide()
-          // $('#editNewResoursesBtn').hide();
           $('#add-resourses-btn').show()
           GetResoursesFromDB()
         })

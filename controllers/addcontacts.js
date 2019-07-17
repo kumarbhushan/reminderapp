@@ -9,34 +9,34 @@ var ContactUId = ''
 
 var colorArray = ['#bcbec0', '#be1e2d', '#f15a29', '#1b75bc', '#009444']
 
-function selectColor (el) {
+function selectColor(el) {
   return selectedColor = el.value
 }
 
-function errorHandler (transaction, error) {
+function errorHandler(transaction, error) {
   console.log('Error: ' + error.message + ' code: ' + error.code)
 }
 
-function successCallBack () {
+function successCallBack() {
   console.log('DEBUGGING: success')
   //
 }
 
-function errorHandlerImage (transaction, error) {
+function errorHandlerImage(transaction, error) {
   alert('***' + error)
 }
 
-function successCallBackImage () {
+function successCallBackImage() {
   console.log('DEBUGGING: success')
 }
 
-function InsertDBSuccessCallBack () {
+function InsertDBSuccessCallBack() {
 
 }
 
-function nullHandler () { };
+function nullHandler() { };
 
-function createTable () {
+function createTable() {
   if (!window.openDatabase) {
     console.log('Databases are not supported in this browser.')
     return
@@ -53,7 +53,7 @@ function createTable () {
   }
 }
 
-function InsertValueInDB (ContactFullName, ContactNumber, ContactColor, ImageUrl) {
+function InsertValueInDB(ContactFullName, ContactNumber, ContactColor, ImageUrl) {
   console.log('inside insert')
   // alert('herein');
 
@@ -75,7 +75,7 @@ function InsertValueInDB (ContactFullName, ContactNumber, ContactColor, ImageUrl
           document.getElementById('addContactFirstName').value = ''
           document.getElementById('addContactLastName').value = ''
           document.getElementById('addContactNumber').value = ''
-          $('#dummy-img').attr('src', 'img/btn-photo-contact.png')
+          $('#dummy-img').attr('src', 'img/btn-photo-contact.jpg')
           var planCompleted = localStorage.getItem('planCompleted')
           GetContactsValueFromDB11()
           $('#ContactsAddPage1').hide()
@@ -107,7 +107,7 @@ function InsertValueInDB (ContactFullName, ContactNumber, ContactColor, ImageUrl
 
 document.addEventListener('deviceready', onDeviceReadyAddContacts, false)
 
-function onDeviceReadyAddContacts () {
+function onDeviceReadyAddContacts() {
   var ImageUrl = ''
   createTable()
   $('#addNewContactBtn').click(function () {
@@ -120,7 +120,7 @@ function onDeviceReadyAddContacts () {
     ContactNumber = document.getElementById('addContactNumber').value
     ContactFullName = ContactFirstName.trim() + ' ' + ContactLastName.trim()
     ImageUrl = $('#dummy-img').attr('src')
-    if (ImageUrl == 'img/btn-photo-contact.png') {
+    if (ImageUrl == 'img/btn-photo-contact.jpg') {
       ImageUrl == 'img/dummy.png'
     }
 
@@ -144,11 +144,11 @@ function onDeviceReadyAddContacts () {
   })
 }
 
-function moveProfilePic (file) {
+function moveProfilePic(file) {
   window.resolveLocalFileSystemURL(file, resolveOnSuccessProfilePic, resOnError)
 }
 
-function resolveOnSuccessProfilePic (entry) {
+function resolveOnSuccessProfilePic(entry) {
   var d = new Date()
   var n = d.getTime()
   // new file name
@@ -169,7 +169,7 @@ function resolveOnSuccessProfilePic (entry) {
     resOnError)
 }
 
-function successMoveProfilePic (entry) {
+function successMoveProfilePic(entry) {
   // I do my insert with "entry.fullPath" as for the path
   console.log('successfull move')
   // alert
@@ -179,13 +179,13 @@ function successMoveProfilePic (entry) {
   //
 }
 
-function resOnError (error) {
+function resOnError(error) {
   //
   console.log(error)
   location.reload(true)
 }
 
-function getPhotoFromCameraProfilePic () {
+function getPhotoFromCameraProfilePic() {
   $('#AddUserImage').hide()
   navigator.camera.getPicture(onPhotoDataSuccessProfilePic, onFailProfilePic, {
     quality: 50,
@@ -195,7 +195,7 @@ function getPhotoFromCameraProfilePic () {
   })
 }
 
-function onPhotoDataSuccessProfilePic (imageData) {
+function onPhotoDataSuccessProfilePic(imageData) {
   console.log(imageData)
 
   // var image = document.getElementById('myImage');
@@ -206,7 +206,7 @@ function onPhotoDataSuccessProfilePic (imageData) {
   moveProfilePic(imageData)
 }
 
-function getPhotoFromAlbumProfilePic () {
+function getPhotoFromAlbumProfilePic() {
   $('#AddUserImage').hide()
   console.log(pictureSource)
   console.log(destinationType)
@@ -218,7 +218,7 @@ function getPhotoFromAlbumProfilePic () {
   })
 }
 
-function onPhotoURISuccessProfilePic (imageURI) {
+function onPhotoURISuccessProfilePic(imageURI) {
   // var image = document.getElementById('myImage');
   // image.style.display = 'block';
   // image.src = imageURI;
@@ -237,14 +237,14 @@ function onPhotoURISuccessProfilePic (imageURI) {
   }
 }
 
-function errorCallback () { }
+function errorCallback() { }
 
-function onFailProfilePic (message) {
+function onFailProfilePic(message) {
   console.log('Failed because:' + message)
   location.reload(true)
 }
 
-function getPhoto (pictureSource) {
+function getPhoto(pictureSource) {
   // Retrieve image file location from specified source
   navigator.camera.getPicture(onPhotoURISuccessProfilePic, onFailProfilePic, {
     quality: 50,

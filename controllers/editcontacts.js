@@ -16,7 +16,7 @@ function selectColor (el) {
 function UpdateValueInDBContact (ContactFullName, ContactNumber, ContactColor, ContactUId) {
   // alert(ContactUId);
   var ProfilePic = $('#dummy-img-edit').attr('src')
-  if (ProfilePic == 'img/btn-photo-contact.png') {
+  if (ProfilePic == 'img/btn-photo-contact.jpg') {
     ProfilePic == 'img/dummy.png'
   }
   if (!window.openDatabase) {
