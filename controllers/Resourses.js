@@ -1,8 +1,4 @@
 // localStorage.clear();
-var shortName = 'WebSqlDB'
-var version = '1.0'
-var displayName = 'WebSqlDB'
-var maxSize = 4.9 * 1024 * 1024
 
 function successCallBackTags () {
   console.log('DEBUGGING: success')
@@ -26,12 +22,16 @@ function createTagTable () {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (tx) {
-    // tx.executeSql('DROP TABLE IF EXISTS Tags');
-    tx.executeSql(
-      'CREATE TABLE IF NOT EXISTS Tags(UId INTEGER NOT NULL PRIMARY KEY, Name TEXT NOT NULL)',
-      [], nullHandler, errorHandler)
-  }, errorHandler, successCallBack)
+  try {
+    db.transaction(function (tx) {
+      tx.executeSql('DROP TABLE IF EXISTS Tags')
+      tx.executeSql(
+        'CREATE TABLE IF NOT EXISTS Tags(UId INTEGER NOT NULL PRIMARY KEY, Name TEXT NOT NULL)',
+        [], nullHandler, errorHandler)
+    }, errorHandler, successCallBack)
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 function isUrlValid (url) {
   return /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url)
@@ -43,41 +43,45 @@ function GetResoursesValueFromDB (resoursesUId) {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    transaction.executeSql(
-      'SELECT Weburl, Name, Tag FROM Resourses WHERE UId=?', [
-        resoursesUId
-      ],
-      function (transaction, results) {
-        if (results.rows.length) {
-          console.log(results.rows.item(0).ContactName)
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql(
+        'SELECT Weburl, Name, Tag FROM Resourses WHERE UId=?', [
+          resoursesUId
+        ],
+        function (transaction, results) {
+          if (results.rows.length) {
+            console.log(results.rows.item(0).ContactName)
 
-          editWeburl = results.rows.item(0).Weburl
-          editName = results.rows.item(0).Name
-          editTag = results.rows.item(0).Tag
-        } else {
-          console.log('error: contact not found')
-        }
+            editWeburl = results.rows.item(0).Weburl
+            editName = results.rows.item(0).Name
+            editTag = results.rows.item(0).Tag
+          } else {
+            console.log('error: contact not found')
+          }
 
-        document.getElementById('editWeburl').value = editWeburl
-        document.getElementById('editName').value = editName
-        // document.getElementById('editTag').value = editTag
-        var tags = editTag.split('~')
-        $('#existingTags').empty()
-        var htmlData = ''
-        for (var k = 0; k < tags.length; k++) {
-          if (k == 0) {
-            htmlData += `<div class='tag-list'>`
+          document.getElementById('editWeburl').value = editWeburl
+          document.getElementById('editName').value = editName
+          // document.getElementById('editTag').value = editTag
+          var tags = editTag.split('~')
+          $('#existingTags').empty()
+          var htmlData = ''
+          for (var k = 0; k < tags.length; k++) {
+            if (k == 0) {
+              htmlData += '<div class="tag-list">'
+            }
+            htmlData += '<p class="resourses-tags edit-tags-list ">' + tags[k] + '<span class="close-it"></span></p>'
+            if (k == tags.length - 1) {
+              htmlData += '</div>'
+            }
           }
-          htmlData += '<p class="resourses-tags edit-tags-list ">' + tags[k] + '<span class="close-it"></span></p>'
-          if (k == tags.length - 1) {
-            htmlData += `</div'>`
-          }
-        }
-        $('#existingTags').append(htmlData)
-        document.getElementById('resoursesUId').value = resoursesUId
-      })
-  })
+          $('#existingTags').append(htmlData)
+          document.getElementById('resoursesUId').value = resoursesUId
+        })
+    })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 function GetResoursesFromDB () {
   // alert('hhh');
@@ -89,58 +93,62 @@ function GetResoursesFromDB () {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    transaction.executeSql('SELECT UId, Weburl, Name, Tag  FROM Resourses',
-      [],
-      function (transaction, results) {
-        if (results.rows.length) {
-          for (var i = 0; i < results.rows.length; i++) {
-            resoursesWeburl.push(results.rows.item(i).Weburl)
-            resoursesName.push(results.rows.item(i).Name)
-            resoursesTag.push(results.rows.item(i).Tag)
-            contactIds.push(results.rows.item(i).UId)
-          }
-
-          //
-          $('#resourses-list').empty()
-          $('#addLinkTag').empty()
-
-          for (var j = 0; j < resoursesWeburl.length; j++) {
-            var htmlData = '<div  class="custom-resourses-edit" data-id="' + contactIds[j] + '">' +
-              '<div class="border-middle"></div>' +
-              '<div class=""><img class="img-button-edit" src="img/btn-edit.png"><div class="delete-resourse" id="res_' + contactIds[j] + '"><img style="width:40px;height:40px;"src="img/btn-delete-dark-white.png" /></div></div>' +
-              '</div>' +
-              '<p class="notes-label">' + resoursesName[j] + '</p>' +
-              '<p class="resourses-url">' + resoursesWeburl[j] + '</p>'
-
-            var tags = resoursesTag[j].split('~')
-            for (var k = 0; k < tags.length; k++) {
-              if (k == 0) {
-                htmlData += `<div class='tag-list'>`
-              }
-              htmlData += '<p class="resourses-tags">' + tags[k] + '</p>'
-              if (k == tags.length - 1) {
-                htmlData += `</div'>`
-              }
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql('SELECT UId, Weburl, Name, Tag  FROM Resourses',
+        [],
+        function (transaction, results) {
+          if (results.rows.length) {
+            for (var i = 0; i < results.rows.length; i++) {
+              resoursesWeburl.push(results.rows.item(i).Weburl)
+              resoursesName.push(results.rows.item(i).Name)
+              resoursesTag.push(results.rows.item(i).Tag)
+              contactIds.push(results.rows.item(i).UId)
             }
 
-            $('#resourses-list').append(htmlData)
-            $('#addLinkTag').append(
+            //
+            $('#resourses-list').empty()
+            $('#addLinkTag').empty()
 
-              '<option value="' + resoursesWeburl[j] + '">' + resoursesWeburl[j] + '</option>'
+            for (var j = 0; j < resoursesWeburl.length; j++) {
+              var htmlData = ' <div class="main-edit-delete"><div  class="custom-resourses-edit" data-id="' + contactIds[j] + '">' +
+                '<div class="border-middle-res"></div>' +
+                '<div class="edit-res"><img class="img-button-edit" src="img/btn-edit.png"></div></div><div class="delete-resourse" id="res_' + contactIds[j] + '"><img style="width:40px;height:40px;"src="img/btn-delete-dark-white.png" /></div></div>' +
+
+                '<p class="notes-label">' + resoursesName[j] + '</p>' +
+                '<p class="resourses-url">' + resoursesWeburl[j] + '</p>'
+
+              var tags = resoursesTag[j].split('~')
+              for (var k = 0; k < tags.length; k++) {
+                if (k == 0) {
+                  htmlData += '<div class="tag-list">'
+                }
+                htmlData += '<p class="resourses-tags">' + tags[k] + '</p>'
+                if (k == tags.length - 1) {
+                  htmlData += '</div>'
+                }
+              }
+
+              $('#resourses-list').append(htmlData)
+              $('#addLinkTag').append(
+
+                '<option value="' + resoursesWeburl[j] + '">' + resoursesWeburl[j] + '</option>'
+              )
+            }
+            $('#resourses-list').append('<div class="empty-space"></div>')
+          } else {
+            $('#resourses-list').empty()
+            // $("#delete-notes").empty();
+            contacts = []
+            $('#resourses-list').append(
+              '<div style="text-align: center;" class="empty-space">Add your first Resourses.</div>'
             )
           }
-          $('#resourses-list').append('<div class="empty-space"></div>')
-        } else {
-          $('#resourses-list').empty()
-          // $("#delete-notes").empty();
-          contacts = []
-          $('#resourses-list').append(
-            '<div style="text-align: center;" class="empty-space">Add your first Resourses.</div>'
-          )
-        }
-      })
-  })
+        })
+    })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 function GetTagsFromDB () {
   // alert('hhh');
@@ -151,41 +159,49 @@ function GetTagsFromDB () {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    transaction.executeSql('SELECT UId,  Name  FROM Tags',
-      [],
-      function (transaction, results) {
-        if (results.rows.length) {
-          for (var i = 0; i < results.rows.length; i++) {
-            resoursesTagName.push(results.rows.item(i).Name)
-            tagIds.push(results.rows.item(i).UId)
-          }
-          $('#tag-list').empty()
-          for (var j = 0; j < resoursesTagName.length; j++) {
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql('SELECT UId,  Name  FROM Tags',
+        [],
+        function (transaction, results) {
+          if (results.rows.length) {
+            for (var i = 0; i < results.rows.length; i++) {
+              resoursesTagName.push(results.rows.item(i).Name)
+              tagIds.push(results.rows.item(i).UId)
+            }
+            $('#tag-list').empty()
+            for (var j = 0; j < resoursesTagName.length; j++) {
+              $('#tag-list').append(
+
+                '<p class="tag-tags">' + resoursesTagName[j] + '</p>'
+
+              )
+            }
+            // $("#tag-list").append('<div class="empty-space"></div>');
+          } else {
+            $('#tag-list').empty()
+            // contacts = [];
             $('#tag-list').append(
-
-              '<p class="tag-tags">' + resoursesTagName[j] + '</p>'
-
+              '<div style="text-align: center;" class="empty-space">Add your first tag.</div>'
             )
           }
-          // $("#tag-list").append('<div class="empty-space"></div>');
-        } else {
-          $('#tag-list').empty()
-          // contacts = [];
-          $('#tag-list').append(
-            '<div style="text-align: center;" class="empty-space">Add your first tag.</div>'
-          )
-        }
-      })
-  })
+        })
+    })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 function DeleteResoursesFromDB (ContactUId) {
   // alert(ContactUId);
-  db.transaction(function (transaction) {
-    transaction.executeSql('DELETE FROM Resourses WHERE UId=?', [ContactUId], function () {
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql('DELETE FROM Resourses WHERE UId=?', [ContactUId], function () {
 
+      })
     })
-  })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 document.addEventListener('deviceready', onDeviceReadyResourses, false)
 // PhoneGap is ready
@@ -195,10 +211,9 @@ function onDeviceReadyResourses () {
   registerEventsAndInit()
 }
 $(document).ready(function () {
-  registerEventsAndInit()
+  // registerEventsAndInit()
 })
 function registerEventsAndInit () {
-  db = openDatabase(shortName, version, displayName, maxSize)
   createResoursesTable()
   GetResoursesFromDB()
   createTagTable()
@@ -289,23 +304,27 @@ function registerEventsAndInit () {
     if (editWeburl.trim() != '' && editName.trim() != '' && finalTag != '') {
       $('#formValidationEditResourses').hide()
       if (editTag.trim() != '') {
-        db.transaction(function (transaction) {
-          transaction.executeSql(
-            'SELECT  Name FROM Tags WHERE Name=?', [
-              editTag
-            ],
-            function (transaction, results) {
-              if (results.rows.length) {
-                // alert('here');
-              } else {
-                // alert('her-fe');
-                InsertTagInDB(editTag)
-              }
-              GetTagsFromDB()
-              document.getElementById('editTag').value = ''
-              UpdateResoursesValueInDB(editWeburl.trim(), editName.trim(), finalTag, resoursesUId)
-            })
-        })
+        try {
+          db.transaction(function (transaction) {
+            transaction.executeSql(
+              'SELECT  Name FROM Tags WHERE Name=?', [
+                editTag
+              ],
+              function (transaction, results) {
+                if (results.rows.length) {
+                  // alert('here');
+                } else {
+                  // alert('her-fe');
+                  InsertTagInDB(editTag)
+                }
+                GetTagsFromDB()
+                document.getElementById('editTag').value = ''
+                UpdateResoursesValueInDB(editWeburl.trim(), editName.trim(), finalTag, resoursesUId)
+              })
+          })
+        } catch (error) {
+          console.log('transaction_failed', error)
+        }
       } else {
         document.getElementById('editTag').value = ''
         UpdateResoursesValueInDB(editWeburl.trim(), editName.trim(), finalTag, resoursesUId)
@@ -322,22 +341,25 @@ function UpdateResoursesValueInDB (editWeburl, editName, editTag, resoursesUId) 
     console.log('Databases are not supported in this browser.')
     return
   }
+  try {
+    db.transaction(function (transaction) {
+      console.log('Updating')
+      transaction.executeSql(
+        'UPDATE Resourses SET Weburl = ?, Name = ?, Tag = ? WHERE UId=?',
+        [editWeburl, editName, editTag, resoursesUId],
+        function () {
+          console.log('DEBUGGING: success')
 
-  db.transaction(function (transaction) {
-    console.log('Updating')
-    transaction.executeSql(
-      'UPDATE Resourses SET Weburl = ?, Name = ?, Tag = ? WHERE UId=?',
-      [editWeburl, editName, editTag, resoursesUId],
-      function () {
-        console.log('DEBUGGING: success')
-
-        // $('#resourses-list').show();
-        $('#edit-resourses').hide()
-        // $('#editNewResoursesBtn').hide();
-        $('#add-resourses-btn').show()
-        GetResoursesFromDB()
-      })
-  })
+          // $('#resourses-list').show();
+          $('#edit-resourses').hide()
+          // $('#editNewResoursesBtn').hide();
+          $('#add-resourses-btn').show()
+          GetResoursesFromDB()
+        })
+    })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 function UpdateResoursesLinksInDBByTag (Weburl, Tag) {
   // alert('here***');
@@ -345,28 +367,32 @@ function UpdateResoursesLinksInDBByTag (Weburl, Tag) {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    transaction.executeSql(
-      'SELECT  Tag FROM Resourses WHERE Weburl=?', [
-        Weburl
-      ],
-      function (transaction, results) {
-        if (results.rows.length) {
-          // alert('here');
-          var finalTag = results.rows.item(0).Tag + '~' + Tag
-          // alert(finalTag)
-          db.transaction(function (transaction) {
-            console.log('Updating')
-            transaction.executeSql(
-              'UPDATE Resourses SET Tag = ? WHERE Weburl=?',
-              [finalTag, Weburl],
-              function () {
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql(
+        'SELECT  Tag FROM Resourses WHERE Weburl=?', [
+          Weburl
+        ],
+        function (transaction, results) {
+          if (results.rows.length) {
+            // alert('here');
+            var finalTag = results.rows.item(0).Tag + '~' + Tag
+            // alert(finalTag)
+            db.transaction(function (transaction) {
+              console.log('Updating')
+              transaction.executeSql(
+                'UPDATE Resourses SET Tag = ? WHERE Weburl=?',
+                [finalTag, Weburl],
+                function () {
 
-              })
-          }, errorHandler, successCallBackTags)
-        }
-      })
-  }, errorHandler, successCallBack)
+                })
+            }, errorHandler, successCallBackTags)
+          }
+        })
+    }, errorHandler, successCallBack)
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 function InsertResoursesInDB (resoursesWeburl, resoursesName, resoursesTag) {
   console.log('inside insert')
@@ -376,41 +402,45 @@ function InsertResoursesInDB (resoursesWeburl, resoursesName, resoursesTag) {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    console.log('Inserting')
+  try {
+    db.transaction(function (transaction) {
+      console.log('Inserting')
 
-    transaction.executeSql(
-      'INSERT INTO Resourses(Weburl, Name, Tag) VALUES (?,?,?)',
-      [
-        resoursesWeburl, resoursesName, resoursesTag
-      ],
-      function () {
-        console.log('DEBUGGING: success')
-        document.getElementById('addWeburl').value = ''
-        document.getElementById('addName').value = ''
-        document.getElementById('addTag').value = ''
+      transaction.executeSql(
+        'INSERT INTO Resourses(Weburl, Name, Tag) VALUES (?,?,?)',
+        [
+          resoursesWeburl, resoursesName, resoursesTag
+        ],
+        function () {
+          console.log('DEBUGGING: success')
+          document.getElementById('addWeburl').value = ''
+          document.getElementById('addName').value = ''
+          document.getElementById('addTag').value = ''
 
-        db.transaction(function (transaction) {
-          transaction.executeSql(
-            'SELECT  Name FROM Tags WHERE Name=?', [
-              resoursesTag
-            ],
-            function (transaction, results) {
-              if (results.rows.length) {
+          db.transaction(function (transaction) {
+            transaction.executeSql(
+              'SELECT  Name FROM Tags WHERE Name=?', [
+                resoursesTag
+              ],
+              function (transaction, results) {
+                if (results.rows.length) {
 
-              } else {
-                InsertTagInDB(resoursesTag)
-              }
-              GetResoursesFromDB()
-              GetTagsFromDB()
-              $('#add-resourses').hide()
-              $('#resourses-list').show()
-              $('#tag-list').show()
-              $('#add-resourses-btn').show()
-            })
-        })
-      }, errorHandler, successCallBack)
-  })
+                } else {
+                  InsertTagInDB(resoursesTag)
+                }
+                GetResoursesFromDB()
+                GetTagsFromDB()
+                $('#add-resourses').hide()
+                $('#resourses-list').show()
+                $('#tag-list').show()
+                $('#add-resourses-btn').show()
+              })
+          })
+        }, errorHandler, successCallBack)
+    })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 
 function InsertTagInDB (resoursesTag) {
@@ -421,18 +451,22 @@ function InsertTagInDB (resoursesTag) {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    console.log('Inserting')
+  try {
+    db.transaction(function (transaction) {
+      console.log('Inserting')
 
-    transaction.executeSql(
-      'INSERT INTO Tags( Name) VALUES (?)',
-      [
-        resoursesTag
-      ],
-      function () {
-        console.log('Added')
-      }, errorHandler, successCallBack)
-  })
+      transaction.executeSql(
+        'INSERT INTO Tags( Name) VALUES (?)',
+        [
+          resoursesTag
+        ],
+        function () {
+          console.log('Added')
+        }, errorHandler, successCallBack)
+    })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 function InsertTagInDB2 (Tag, link) {
   console.log('inside insert')
@@ -442,24 +476,28 @@ function InsertTagInDB2 (Tag, link) {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    console.log('Inserting')
+  try {
+    db.transaction(function (transaction) {
+      console.log('Inserting')
 
-    transaction.executeSql(
-      'INSERT INTO Tags( Name) VALUES (?)',
-      [
-        Tag
-      ],
-      function () {
-        UpdateResoursesLinksInDBByTag(link, Tag)
-        console.log('Added')
+      transaction.executeSql(
+        'INSERT INTO Tags( Name) VALUES (?)',
+        [
+          Tag
+        ],
+        function () {
+          UpdateResoursesLinksInDBByTag(link, Tag)
+          console.log('Added')
 
-        GetResoursesFromDB()
-        GetTagsFromDB()
-        $('#add-tag').hide()
-        $('#resourses-list').show()
-        $('#tag-list').show()
-        $('#add-resourses-btn').show()
-      }, errorHandler, successCallBack)
-  })
+          GetResoursesFromDB()
+          GetTagsFromDB()
+          $('#add-tag').hide()
+          $('#resourses-list').show()
+          $('#tag-list').show()
+          $('#add-resourses-btn').show()
+        }, errorHandler, successCallBack)
+    })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }

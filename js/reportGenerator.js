@@ -95,7 +95,7 @@ reportGenerator.generate = function (content, folderPath, fileName, callback) {
     report.fromHTML(content, margin.left, margin.top, {
       'width': margin.width, 'elementHandlers': elementHandler
     }, function (bla) {
-      // report.save('test.pdf')
+       //report.save('test.pdf')
       var blobContent = report.output('blob')
       window.resolveLocalFileSystemURL(folderPath, function (dir) {
         dir.getFile(fileName, { create: true }, function (file) {

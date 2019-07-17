@@ -1,91 +1,103 @@
-//localStorage.clear();
+// localStorage.clear();
 // sets the format of returned value
 var gallery
 var pictureSource
 var destinationType
-var shortName = 'WebSqlDB'
-var version = '1.0'
-var displayName = 'WebSqlDB'
-var maxSize = 4.9 * 1024 * 1024
 function nullHandler () { };
 function createStuffTable () {
   if (!window.openDatabase) {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (tx) {
-    tx.executeSql(
-      'CREATE TABLE IF NOT EXISTS MyStuff(UId INTEGER NOT NULL PRIMARY KEY, ImageURI)',
-      [], nullHandler, errorHandler)
-  }, errorHandler, successCallBack)
-  console.log('table created')
+  try {
+    db.transaction(function (tx) {
+      tx.executeSql(
+        'CREATE TABLE IF NOT EXISTS MyStuff(UId INTEGER NOT NULL PRIMARY KEY, ImageURI)',
+        [], nullHandler, errorHandler)
+    }, errorHandler, successCallBack)
+    console.log('table created')
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 function GetStuffFromDB () {
   if (!window.openDatabase) {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    transaction.executeSql('SELECT ImageURI FROM MyStuff', [], function (transaction, results) {
-      if (results.rows.length) {
-        $('#myStuffItemscus').empty()
-        for (var i = 0; i < results.rows.length; i++) {
-          $('#myStuffItemscus').append($('<img class="itemsInMyStuff" src="' +
-            results.rows.item(i).ImageURI + '" style="background:url(' +
-            results.rows.item(i).ImageURI +
-            '); background-size: cover;">'))
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql('SELECT ImageURI FROM MyStuff', [], function (transaction, results) {
+        if (results.rows.length) {
+          $('#myStuffItemscus').empty()
+          for (var i = 0; i < results.rows.length; i++) {
+            $('#myStuffItemscus').append($('<img class="itemsInMyStuff" src="' +
+              results.rows.item(i).ImageURI + '" style="background:url(' +
+              results.rows.item(i).ImageURI +
+              '); background-size: cover;">'))
+          }
+          // openGallery()
+          if (window.viewer) {
+            window.viewer.update()
+          } else {
+            ViewerSlider()
+          }
+        } else {
+          $('#myStuffItemscus').empty()
+          console.log('GetStuffFromDB - no Image in db')
+          // openGallery()
+          if (window.viewer) {
+            window.viewer.update()
+          } else {
+            ViewerSlider()
+          }
         }
-       // openGallery()
-       if(window.viewer){
-         window.viewer.update() 
-       }else{
-        ViewerSlider()
-       }
-      } else {
-        $('#myStuffItemscus').empty()
-        console.log('GetStuffFromDB - no Image in db')
-       // openGallery()
-       if(window.viewer){
-        window.viewer.update() 
-      }else{
-       ViewerSlider()
-      }
-      }
+      })
     })
-  })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 function CheckImageInDB (imageURI) {
   if (!window.openDatabase) {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    transaction.executeSql('SELECT * FROM MyStuff WHERE ImageURI=?', [imageURI], function (
-      transaction, results) {
-      if (results.rows.length) {
-        //
-        $('#MyStuffAddPage').hide()
-      } else {
-        console.log('CheckImageInDB - no Image in db')
-        AddImageToDB(imageURI)
-      }
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql('SELECT * FROM MyStuff WHERE ImageURI=?', [imageURI], function (
+        transaction, results) {
+        if (results.rows.length) {
+          //
+          $('#MyStuffAddPage').hide()
+        } else {
+          console.log('CheckImageInDB - no Image in db')
+          AddImageToDB(imageURI)
+        }
+      })
     })
-  })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 function AddImageToDB (imageURI) {
   if (!window.openDatabase) {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    transaction.executeSql('INSERT INTO MyStuff(ImageURI) VALUES (?)', [imageURI], function (
-      imageURI) {
-      // $('#myStuffItems').append($('<img class="itemsInMyStuff" src="'+imageURI+'"  style="background:url('+imageURI+'); background-size: cover;">'));
-      $('#MyStuffAddPage').hide()
-      // location.reload(true);
-      GetStuffFromDB()
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql('INSERT INTO MyStuff(ImageURI) VALUES (?)', [imageURI], function (
+        imageURI) {
+        // $('#myStuffItems').append($('<img class="itemsInMyStuff" src="'+imageURI+'"  style="background:url('+imageURI+'); background-size: cover;">'));
+        $('#MyStuffAddPage').hide()
+        // location.reload(true);
+        GetStuffFromDB()
+      })
     })
-  })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
   // console.log("table populated");
   // openGallery();
 }
@@ -95,10 +107,14 @@ function DeleteImageFromDB (imageURI) {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    transaction.executeSql('DELETE FROM MyStuff WHERE ImageURI=?', [imageURI], nullHandler,
-      errorHandler, successCallBack)
-  }, errorHandler, successCallBack)
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql('DELETE FROM MyStuff WHERE ImageURI=?', [imageURI], nullHandler,
+        errorHandler, successCallBack)
+    }, errorHandler, successCallBack)
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
   // console.log("table populated");
   // GetStuffFromDB();
 }
@@ -107,11 +123,15 @@ function createNotesTable () {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (tx) {
-    tx.executeSql(
-      'CREATE TABLE IF NOT EXISTS Notes(UId INTEGER NOT NULL PRIMARY KEY, Title TEXT NOT NULL, Note TEXT NOT NULL)',
-      [], nullHandler, errorHandler)
-  }, errorHandler, successCallBack)
+  try {
+    db.transaction(function (tx) {
+      tx.executeSql(
+        'CREATE TABLE IF NOT EXISTS Notes(UId INTEGER NOT NULL PRIMARY KEY, Title TEXT NOT NULL, Note TEXT NOT NULL)',
+        [], nullHandler, errorHandler)
+    }, errorHandler, successCallBack)
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 function GetNotesValueFromDB (noteUId) {
   //
@@ -120,26 +140,30 @@ function GetNotesValueFromDB (noteUId) {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    transaction.executeSql(
-      'SELECT Title, Note FROM Notes WHERE UId=?', [
-        noteUId
-      ],
-      function (transaction, results) {
-        if (results.rows.length) {
-          console.log(results.rows.item(0).ContactName)
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql(
+        'SELECT Title, Note FROM Notes WHERE UId=?', [
+          noteUId
+        ],
+        function (transaction, results) {
+          if (results.rows.length) {
+            console.log(results.rows.item(0).ContactName)
 
-          editTitle = results.rows.item(0).Title
-          editNote = results.rows.item(0).Note
-        } else {
-          console.log('error: contact not found')
-        }
+            editTitle = results.rows.item(0).Title
+            editNote = results.rows.item(0).Note
+          } else {
+            console.log('error: contact not found')
+          }
 
-        document.getElementById('editTitle').value = editTitle
-        document.getElementById('editNote').value = editNote
-        document.getElementById('noteUId').value = noteUId
-      })
-  })
+          document.getElementById('editTitle').value = editTitle
+          document.getElementById('editNote').value = editNote
+          document.getElementById('noteUId').value = noteUId
+        })
+    })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 function GetNotesFromDB () {
   // alert('hhh');
@@ -150,56 +174,64 @@ function GetNotesFromDB () {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    transaction.executeSql('SELECT UId, Title, Note  FROM Notes',
-      [],
-      function (transaction, results) {
-        if (results.rows.length) {
-          for (var i = 0; i < results.rows.length; i++) {
-            noteTitles.push(results.rows.item(i).Title)
-            noteNotes.push(results.rows.item(i).Note)
-            contactIds.push(results.rows.item(i).UId)
-          }
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql('SELECT UId, Title, Note  FROM Notes',
+        [],
+        function (transaction, results) {
+          if (results.rows.length) {
+            for (var i = 0; i < results.rows.length; i++) {
+              noteTitles.push(results.rows.item(i).Title)
+              noteNotes.push(results.rows.item(i).Note)
+              contactIds.push(results.rows.item(i).UId)
+            }
 
-          //
-          $('#notes-list').empty()
-          $('#delete-notes').empty()
+            //
+            $('#notes-list').empty()
+            $('#delete-notes').empty()
 
-          for (var j = 0; j < noteTitles.length; j++) {
+            for (var j = 0; j < noteTitles.length; j++) {
+              $('#notes-list').append(
+                '<div  class="custom-notes-edit" data-id="' + contactIds[j] + '">' +
+                '<div class="border-middle"></div>' +
+                '<div class=""><img class="img-button-edit" src="img/btn-edit.png"></div>' +
+                '</div>' +
+                '<p class="notes-label">' + noteTitles[j] + '</p>' +
+                '<p class="notes-notes">' + noteNotes[j] + '</p>'
+              )
+              $('#delete-notes').append(
+
+                '<p class="notes-label1">' + noteTitles[j] + '</p>' +
+
+                '<div class="check-contact"><div id="note_' + contactIds[j] + '" class=" checkNote noteUnchecked"></div></div>'
+              )
+            }
+            $('#notes-list').append('<div class="empty-space"></div>')
+          } else {
+            $('#notes-list').empty()
+            $('#delete-notes').empty()
+            contacts = []
             $('#notes-list').append(
-              '<div  class="custom-notes-edit" data-id="' + contactIds[j] + '">' +
-              '<div class="border-middle"></div>' +
-              '<div class=""><img class="img-button-edit" src="img/btn-edit.png"></div>' +
-              '</div>' +
-              '<p class="notes-label">' + noteTitles[j] + '</p>' +
-              '<p class="notes-notes">' + noteNotes[j] + '</p>'
-            )
-            $('#delete-notes').append(
-
-              '<p class="notes-label1">' + noteTitles[j] + '</p>' +
-
-              '<div class="check-contact"><div id="note_' + contactIds[j] + '" class=" checkNote noteUnchecked"></div></div>'
+              '<div style="text-align: center;" class="empty-space">Add your first Note.</div>'
             )
           }
-          $('#notes-list').append('<div class="empty-space"></div>')
-        } else {
-          $('#notes-list').empty()
-          $('#delete-notes').empty()
-          contacts = []
-          $('#notes-list').append(
-            '<div style="text-align: center;" class="empty-space">Add your first Note.</div>'
-          )
-        }
-      })
-  })
+        })
+    })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 function DeleteNotesFromDB (ContactUId) {
   // alert(ContactUId);
-  db.transaction(function (transaction) {
-    transaction.executeSql('DELETE FROM Notes WHERE UId=?', [ContactUId], function () {
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql('DELETE FROM Notes WHERE UId=?', [ContactUId], function () {
 
+      })
     })
-  })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 
 var NoteUId = ''
@@ -209,22 +241,25 @@ function UpdateNotesValueInDB (editTitle, editNote, noteUId) {
     console.log('Databases are not supported in this browser.')
     return
   }
+  try {
+    db.transaction(function (transaction) {
+      console.log('Updating')
+      transaction.executeSql(
+        'UPDATE Notes SET Title = ?, Note = ? WHERE UId=?',
+        [editTitle, editNote, noteUId],
+        function () {
+          console.log('DEBUGGING: success')
 
-  db.transaction(function (transaction) {
-    console.log('Updating')
-    transaction.executeSql(
-      'UPDATE Notes SET Title = ?, Note = ? WHERE UId=?',
-      [editTitle, editNote, noteUId],
-      function () {
-        console.log('DEBUGGING: success')
-
-        $('#notes-list').show()
-        $('#edit-notes').hide()
-        $('#editNewNoteBtn').hide()
-        $('#add-notes-btn').show()
-        GetNotesFromDB()
-      })
-  })
+          $('#notes-list').show()
+          $('#edit-notes').hide()
+          $('#editNewNoteBtn').hide()
+          $('#add-notes-btn').show()
+          GetNotesFromDB()
+        })
+    })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 function InsertNoteInDB (noteTitle, noteNote) {
   console.log('inside insert')
@@ -234,26 +269,30 @@ function InsertNoteInDB (noteTitle, noteNote) {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    console.log('Inserting')
+  try {
+    db.transaction(function (transaction) {
+      console.log('Inserting')
 
-    transaction.executeSql(
-      'INSERT INTO Notes(Title, Note) VALUES (?,?)',
-      [
-        noteTitle, noteNote
-      ],
-      function () {
-        console.log('DEBUGGING: success')
-        document.getElementById('addTitle').value = ''
-        document.getElementById('addNote').value = ''
+      transaction.executeSql(
+        'INSERT INTO Notes(Title, Note) VALUES (?,?)',
+        [
+          noteTitle, noteNote
+        ],
+        function () {
+          console.log('DEBUGGING: success')
+          document.getElementById('addTitle').value = ''
+          document.getElementById('addNote').value = ''
 
-        GetNotesFromDB()
-        $('#add-notes').hide()
-        $('#notes-list').show()
-        $('#addNewNoteBtn').hide()
-        $('#add-notes-btn').show()
-      }, errorHandlerImage, successCallBackImage)
-  })
+          GetNotesFromDB()
+          $('#add-notes').hide()
+          $('#notes-list').show()
+          $('#addNewNoteBtn').hide()
+          $('#add-notes-btn').show()
+        }, errorHandlerImage, successCallBackImage)
+    })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 
 var shareUrlMap = ''
@@ -263,7 +302,7 @@ var onSuccessLoc = function (position) {
     position.coords.longitude
 }
 function onErrorMap (error) {
-  shareUrlMap = '';
+  shareUrlMap = ''
   console.log('message: ' + error.message + '\n')
   // alert(error.code + 'message: ' + error.message + '\n');
   // $('#locationPopup').show();
@@ -303,7 +342,7 @@ function resOnError (error) {
   // location.reload(true);
 }
 function getPhotoFromCamera () {
-  //alert('here');
+  // alert('here');
   navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
     quality: 50,
     correctOrientation: true,
@@ -323,7 +362,7 @@ function onPhotoDataSuccess (imageData) {
 function getPhotoFromAlbum () {
   console.log(pictureSource)
   console.log(destinationType)
-  //alert('phone');
+  // alert('phone');
   navigator.camera.getPicture(onPhotoURISuccess, onFail, {
     quality: 50,
     correctOrientation: true,
@@ -424,9 +463,8 @@ function myStuffInit () {
         $('#' + DefaultImageItems[key].id).show()
       }
     }
-  } 
+  }
 
-  db = openDatabase(shortName, version, displayName, maxSize)
   window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSys) {
     fileSys.root.getDirectory('Re-Minder', {
       create: true,
@@ -439,12 +477,12 @@ function myStuffInit () {
   })
   createStuffTable()
   GetStuffFromDB()
-  createNotesTable() 
+  createNotesTable()
   GetNotesFromDB()
-  //ViewerSlider()
- // openGallery()
+  // ViewerSlider()
+  // openGallery()
   $('#btn-camera').click(function () {
-    //alert('here');
+    // alert('here');
     getPhotoFromCamera()
   })
   $('#btn-library').click(function () {
@@ -538,92 +576,88 @@ function myStuffInit () {
   })
 }
 
+function DeleteImage (Imageurl) {
+  $('#imageDeleteConfirm').hide()
 
-function DeleteImage(Imageurl)
-{
-  $("#imageDeleteConfirm").hide(); 
-          
-          var isDefaultImage;
-          var db;
-          var shortName = 'WebSqlDB';
-          var version = '1.0';
-          var displayName = 'WebSqlDB';
-           var imageURI = Imageurl; 
-          db = openDatabase(shortName, version, displayName, maxSize);
-          console.log(imageURI);
-          var $currentImages = $("#myStuffItems")[0].children;
-          console.log($currentImages);
-          for (var i=0; i<$currentImages.length; i++){
-              if ( $currentImages[i].currentSrc == imageURI){
-                  
-                  console.log($currentImages[i].classList);
-                  $.each($currentImages[i].classList, function( index, value ) {
-                    if (value=="defaultImage"){
-                        isDefaultImage = "yes";
-                       localStorage.setItem($currentImages[i].id, "disabled"); 
-                        close(); 
-                    }  
-                  });  
-              }
-          }
-  
-  var DefaultImageItems = $("#myStuffItems")[0].children;
-          for (var key = 0; key < DefaultImageItems.length; key++) {
-               console.log(DefaultImageItems[key].id);
-              if (DefaultImageItems[key].id != "undefined" && DefaultImageItems[key].id != undefined) {
-                  if (localStorage.getItem(DefaultImageItems[key].id) == "disabled") {
-                      $("#" + DefaultImageItems[key--].id).remove();
-                      } else {
-                      $("#" + DefaultImageItems[key].id).show();
-                  }
-              }
+  var isDefaultImage
 
-          }
-  $("#imageDeleteConfirm").hide();
-  $(".hideallimage").hide();
-                  if(isDefaultImage!="yes"){
-       if (!window.openDatabase) {
-                     console.log('Databases are not supported in this browser.');
-                     return;
-                  }
-                  db.transaction(function(transaction) {
-                  transaction.executeSql('DELETE FROM MyStuff WHERE ImageURI=?', [imageURI], function(){
-                       close();
-         $("#imageDeleteConfirm").hide();
-        GetStuffFromDB();
-                        });
-                  });
-                  }  
+  var imageURI = Imageurl
+
+  console.log(imageURI)
+  var $currentImages = $('#myStuffItems')[0].children
+  console.log($currentImages)
+  for (var i = 0; i < $currentImages.length; i++) {
+    if ($currentImages[i].currentSrc == imageURI) {
+      console.log($currentImages[i].classList)
+      $.each($currentImages[i].classList, function (index, value) {
+        if (value == 'defaultImage') {
+          isDefaultImage = 'yes'
+          localStorage.setItem($currentImages[i].id, 'disabled')
+          close()
+        }
+      })
+    }
+  }
+
+  var DefaultImageItems = $('#myStuffItems')[0].children
+  for (var key = 0; key < DefaultImageItems.length; key++) {
+    console.log(DefaultImageItems[key].id)
+    if (DefaultImageItems[key].id != 'undefined' && DefaultImageItems[key].id != undefined) {
+      if (localStorage.getItem(DefaultImageItems[key].id) == 'disabled') {
+        $('#' + DefaultImageItems[key--].id).remove()
+      } else {
+        $('#' + DefaultImageItems[key].id).show()
+      }
+    }
+  }
+  $('#imageDeleteConfirm').hide()
+  $('.hideallimage').hide()
+  if (isDefaultImage != 'yes') {
+    if (!window.openDatabase) {
+      console.log('Databases are not supported in this browser.')
+      return
+    }
+    try {
+      db.transaction(function (transaction) {
+        transaction.executeSql('DELETE FROM MyStuff WHERE ImageURI=?', [imageURI], function () {
+          close()
+          $('#imageDeleteConfirm').hide()
+          GetStuffFromDB()
+        })
+      })
+    } catch (error) {
+      console.log('transaction_failed', error)
+    }
+  }
 }
 
-function ViewerSlider(){ 
-  var galley = document.getElementById('gallery');
-        window.viewer = new Viewer(galley, {
-          url: 'src', 
-          title:false, 
-          toolbar: {
+function ViewerSlider () {
+  var galley = document.getElementById('gallery')
+  window.viewer = new Viewer(galley, {
+    url: 'src',
+    title: false,
+    toolbar: {
       zoomIn: true,
-      zoomOut: true, 
-      prev: true, 
+      zoomOut: true,
+      prev: true,
       next: true,
       rotateLeft: true,
-      rotateRight: true,  
-      delete: function() { 
-        var button = document.createElement('button'); 
-        button.className="fa fa-trash"; 
-        // button.onclick = (confirm('Are you sure?'))? function(){ 
-        //   window.viewer.hide(); 
-        //   DeleteImage(window.viewer.image.src) 
-        //   window.viewer.update(); 
-        // }:''; 
-        button.onclick = $('#imageDeleteConfirmNew').show(); 
-        document.body.appendChild(button);
-        button.click();
-        document.body.removeChild(button);
-      }, 
-          } 
-      });
-      
+      rotateRight: true,
+      delete: function () {
+        var button = document.createElement('button')
+        button.className = 'fa fa-trash'
+        // button.onclick = (confirm('Are you sure?'))? function(){
+        //   window.viewer.hide();
+        //   DeleteImage(window.viewer.image.src)
+        //   window.viewer.update();
+        // }:'';
+        button.onclick = $('#imageDeleteConfirmNew').show()
+        document.body.appendChild(button)
+        button.click()
+        document.body.removeChild(button)
+      }
+    }
+  })
 }
 
 document.addEventListener('deviceready', onDeviceReadyMyStuff, false)
@@ -645,7 +679,7 @@ function onDeviceReadyMyStuff () {
 // Gallery codes come below
 $('document').ready(function () {
   var popuphome = true
-  //myStuffInit()
+  // myStuffInit()
 })
 // function Viewerslider()
 //      {
@@ -655,11 +689,11 @@ $('document').ready(function () {
 //         toolbar: {
 //           delete:true,
 //           zoomIn: true,
-//           zoomOut: true, 
-//           prev: true, 
+//           zoomOut: true,
+//           prev: true,
 //           next: true,
 //           rotateLeft: true,
-//           rotateRight: true,  
+//           rotateRight: true,
 //               }
 //       });
 //     }

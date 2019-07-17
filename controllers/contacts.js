@@ -1,9 +1,4 @@
-
-var db
-var shortName = 'WebSqlDB'
-var version = '1.0'
-var displayName = 'WebSqlDB'
-var maxSize = 4.9 * 1024 * 1024
+// localStorage.clear();
 var contactAdded = 0
 var ContactName = ''
 var ContactNUmber = ''
@@ -29,25 +24,30 @@ function onDeviceReadyContacts () {
           AddValueToDB_new(ContactName, ContactNumber)
         }
       })
+      // setTimeout(function(){
       $('#loader').hide()
+      // }, 1000);
       $('#searchContact').val('')
       $('.contactList').show()
-
+      // alert('0ut');
       var planCompleted = localStorage.getItem('planCompleted')
       if (planCompleted == '0' || planCompleted == 0) {
         // document.location.href='CreateMySafetyPlanQ4.html';
+        // alert('0');
         $('.contents').hide()
-        $('#CreateMySafetyPlan4').show()
+        $('#CreateMySafetyPlanQ4').show()
         GetContactsValueFromDB11()
         GetValueFromDBContact()
       } else {
         if (localStorage.getItem('editPlanMode') == 'on') {
+          // alert('0n');
           // document.location.href='MySafetyPlan.html';
           $('.contents').hide()
           $('#MySafetyPlan').show()
           GetContactsValueFromDB11()
           GetValueFromDBContact()
         } else {
+          // alert('0ff');
           // document.location.href='myteam.html';
           $('.contents').hide()
           $('#myteam').show()
@@ -72,15 +72,18 @@ function createTable () {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db = openDatabase(shortName, version, displayName, maxSize)
-  db.transaction(function (tx) {
-    tx.executeSql('CREATE TABLE IF NOT EXISTS Contacts(UId INTEGER NOT NULL PRIMARY KEY, ContactName TEXT NOT NULL, ContactNumber TEXT NOT NULL, ContactColor TEXT NOT NULL)', [], nullHandler, errorHandler)
-  }, errorHandler, successCallBack)
+  try {
+    db.transaction(function (tx) {
+      tx.executeSql('CREATE TABLE IF NOT EXISTS Contacts(UId INTEGER NOT NULL PRIMARY KEY, ContactName TEXT NOT NULL, ContactNumber TEXT NOT NULL, ContactColor TEXT NOT NULL)', [], nullHandler, errorHandler)
+    }, errorHandler, successCallBack)
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 function AddValueToDB_new (ContactName, ContactNumber) {
   // alert('here');
   var ImageUrl = $('#dummy-img').attr('src')
-  if (ImageUrl == 'img/btn-photo-contact.png') {
+  if (ImageUrl == 'img/btn-photo-contact.jpg') {
     ImageUrl == 'img/dummy.png'
   }
   var ContactColor = colorArray[Math.floor(Math.random() * colorArray.length)]
@@ -88,20 +91,23 @@ function AddValueToDB_new (ContactName, ContactNumber) {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    transaction.executeSql(
-      'INSERT INTO Contacts(ContactName, ContactNumber, ContactColor, ProfilePic) VALUES (?,?, ?, ?)',
-      [
-        ContactName, ContactNumber, ContactColor, ImageUrl
-      ],
-      /* 'INSERT INTO Contacts(ContactName, ContactNumber, ContactColor) VALUES (?,?, ?)',
-        [ContactName, ContactNumber, ContactColor], */
-      nullHandler,
-      errorHandler,
-      successCallBack
-    )
-  }, errorHandlerContact, successCallBackContact)
-
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql(
+        'INSERT INTO Contacts(ContactName, ContactNumber, ContactColor, ProfilePic) VALUES (?,?, ?, ?)',
+        [
+          ContactName, ContactNumber, ContactColor, ImageUrl
+        ],
+        /* 'INSERT INTO Contacts(ContactName, ContactNumber, ContactColor) VALUES (?,?, ?)',
+          [ContactName, ContactNumber, ContactColor], */
+        nullHandler,
+        errorHandler,
+        successCallBack
+      )
+    }, errorHandlerContact, successCallBackContact)
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
   /* var contactFull = (ContactName + ContactNumber).replace(/\s+/, "") ;
   contactFull = contactFull.replace(/[\W_]+/g,"");
            console.log(contactFull);
@@ -119,23 +125,27 @@ function GetValueFromDBContact () {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    transaction.executeSql('SELECT ContactName, ContactNumber FROM Contacts', [], function (transaction, results) {
-      if (results.rows.length) {
-        console.log(results)
-        for (i = 0; i < results.rows.length; i++) {
-          var contactFull = (results.rows.item(i).ContactName + results.rows.item(i).ContactNumber).replace(/\s+/, '')
-          contactFull = contactFull.replace(/[\W_]+/g, '')
-          console.log(contactFull)
-          $('#add' + contactFull).addClass('addContactBtn')
-          $('#add' + contactFull).removeClass('selectedContact')
-          $('#rowId' + contactFull).hide()
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql('SELECT ContactName, ContactNumber FROM Contacts', [], function (transaction, results) {
+        if (results.rows.length) {
+          console.log(results)
+          for (i = 0; i < results.rows.length; i++) {
+            var contactFull = (results.rows.item(i).ContactName + results.rows.item(i).ContactNumber).replace(/\s+/, '')
+            contactFull = contactFull.replace(/[\W_]+/g, '')
+            console.log(contactFull)
+            $('#add' + contactFull).addClass('addContactBtn')
+            $('#add' + contactFull).removeClass('selectedContact')
+            $('#rowId' + contactFull).hide()
+          }
+        } else {
+          contactAdded = 0
         }
-      } else {
-        contactAdded = 0
-      }
-    }, errorHandlerContact, successCallBackContact)
-  })
+      }, errorHandlerContact, successCallBackContact)
+    })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 function onSuccessContact (contacts) {
   createTable()
@@ -176,37 +186,46 @@ function onSuccessContact (contacts) {
   }
 
   $('#select-all-import').click(function () {
-    alert('here')
-    $('.loader').show()
-    // $('.loader').css('display', 'block');
+    // alert('here')
+    $('#loader').show()
+    $('#loader').css('display', 'inline-block')
     // $('.loader').style('display', 'block');
-    $('.clickable').each(function (index) {
-      var ContactName = $(this).prev().prev()[0].innerText.trim()
-      var ContactNumber = $(this).prev()[0].innerText.trim()
-      var contactFull = (ContactName + ContactNumber).replace(/\s+/, '')
-      contactFull = contactFull.replace(/[\W_]+/g, '')
-      $('#add' + contactFull).removeClass('addContactBtn')
-      $('#add' + contactFull).addClass('selectedContact')
-    })
-    $('#deselect-all-import').show()
-    $('#select-all-import').hide()
-    $('.loader').hide()
+    setTimeout(function () {
+      $('.clickable').each(function (index) {
+        var ContactName = $(this).prev().prev()[0].innerText.trim()
+        var ContactNumber = $(this).prev()[0].innerText.trim()
+        var contactFull = (ContactName + ContactNumber).replace(/\s+/, '')
+        contactFull = contactFull.replace(/[\W_]+/g, '')
+        $('#add' + contactFull).removeClass('addContactBtn')
+        $('#add' + contactFull).addClass('selectedContact')
+
+        // alert('here');
+      })
+      $('#deselect-all-import').show()
+      $('#select-all-import').hide()
+      $('#loader').hide()
+      $('#loader').css('display', 'none')
+    }, 2000)
+
     //  $('.loader').css('display', 'none');
     // $('.loader').style('display', 'none');
   })
   $('#deselect-all-import').click(function () {
     $('#loader').show()
-    $('.clickable').each(function (index) {
-      var ContactName = $(this).prev().prev()[0].innerText.trim()
-      var ContactNumber = $(this).prev()[0].innerText.trim()
-      var contactFull = (ContactName + ContactNumber).replace(/\s+/, '')
-      contactFull = contactFull.replace(/[\W_]+/g, '')
-      $('#add' + contactFull).addClass('addContactBtn')
-      $('#add' + contactFull).removeClass('selectedContact')
-    })
-    $('#deselect-all-import').hide()
-    $('#select-all-import').show()
-    $('#loader').hide()
+    setTimeout(function () {
+      $('.clickable').each(function (index) {
+        var ContactName = $(this).prev().prev()[0].innerText.trim()
+        var ContactNumber = $(this).prev()[0].innerText.trim()
+        var contactFull = (ContactName + ContactNumber).replace(/\s+/, '')
+        contactFull = contactFull.replace(/[\W_]+/g, '')
+        $('#add' + contactFull).addClass('addContactBtn')
+        $('#add' + contactFull).removeClass('selectedContact')
+      })
+      $('#deselect-all-import').hide()
+      $('#select-all-import').show()
+      $('#loader').hide()
+      $('#loader').css('display', 'none')
+    }, 2000)
   })
 
   $(document).on('click', '.clickable', function () {
@@ -242,7 +261,7 @@ function onErrorContact (contactError) {
   if (planCompleted == '0' || planCompleted == 0) {
     // document.location.href='CreateMySafetyPlan4.html';
     $('.contents').hide()
-    $('#CreateMySafetyPlan4').show()
+    $('#CreateMySafetyPlanQ4').show()
     GetContactsValueFromDB11()
     GetValueFromDBContact()
   } else {

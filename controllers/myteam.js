@@ -1,12 +1,4 @@
 
-// var contacts = [];
-// var contactColors = [];
-// var contactIds = [];
-// var contactNumbers = [];
-var shortName = 'WebSqlDB'
-var version = '1.0'
-var displayName = 'WebSqlDB'
-var maxSize = 4.9 * 1024 * 1024
 function getContactId (contactId) {
   localStorage.setItem('editContactId', contactId)
   return true
@@ -16,11 +8,15 @@ function createContactsTable () {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (tx) {
-    tx.executeSql(
-      'CREATE TABLE IF NOT EXISTS Contacts(UId INTEGER NOT NULL PRIMARY KEY, ContactName TEXT NOT NULL, ContactNumber TEXT NOT NULL, ContactColor TEXT NOT NULL)',
-      [], nullHandler, errorHandler)
-  }, errorHandler, successCallBack)
+  try {
+    db.transaction(function (tx) {
+      tx.executeSql(
+        'CREATE TABLE IF NOT EXISTS Contacts(UId INTEGER NOT NULL PRIMARY KEY, ContactName TEXT NOT NULL, ContactNumber TEXT NOT NULL, ContactColor TEXT NOT NULL)',
+        [], nullHandler, errorHandler)
+    }, errorHandler, successCallBack)
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 
 function GetContactsValueFromDB11 () {
@@ -35,160 +31,171 @@ function GetContactsValueFromDB11 () {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    transaction.executeSql('SELECT UId, ProfilePic, ContactName, ContactNumber, ContactColor FROM Contacts',
-      [],
-      function (transaction, results) {
-        if (results.rows.length) {
-          // alert(JSON.stringify(results.rows));
-          for (var i = 0; i < results.rows.length; i++) {
-            console.log(results.rows.item(i).ContactName)
-            contacts.push(results.rows.item(i).ContactName)
-            contactNumbers.push(results.rows.item(i).ContactNumber)
-            contactColors.push(results.rows.item(i).ContactColor)
-            contactIds.push(results.rows.item(i).UId)
-            conactPic.push(results.rows.item(i).ProfilePic)
-            // alert(results.rows.item(i).UId);
-          }
-          console.log(contacts)
-          console.log(contactColors)
-          //
-          $('#contacts-container').empty()
-          $('#delete-contacts-container').empty()
-          $('#contact-data-share').empty();
-          $('#contacts-container-emergency').empty()
-          $('#contactsNumbers').empty()
-          $('#contactsNumbers1').empty()
-          
-          for (var j = 0; j < contacts.length; j++) {
-            // alert(j +"----" +contactIds[j]);
-            /* $("#contacts-container").append(
-                '<div class="callcard-contact1" style="background-color:' +
-                contactColors[j] +
-                '"><div class="contact-gradient"></div><div class="contactname">' +
-                contacts[j] + '<br>' + contactNumbers[j] +
-                '</div><div><a href="tel:' + contactNumbers[j] +
-                '" class="callbtn"></a></div><div><a onclick=" return getContactId(' +
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql('SELECT UId, ProfilePic, ContactName, ContactNumber, ContactColor FROM Contacts',
+        [],
+        function (transaction, results) {
+          if (results.rows.length) {
+            // alert(JSON.stringify(results.rows));
+            for (var i = 0; i < results.rows.length; i++) {
+              console.log(results.rows.item(i).ContactName)
+              contacts.push(results.rows.item(i).ContactName)
+              contactNumbers.push(results.rows.item(i).ContactNumber)
+              contactColors.push(results.rows.item(i).ContactColor)
+              contactIds.push(results.rows.item(i).UId)
+              conactPic.push(results.rows.item(i).ProfilePic)
+              // alert(results.rows.item(i).UId);
+            }
+            console.log(contacts)
+            console.log(contactColors)
+            //
+            $('#contacts-container').empty()
+            $('#delete-contacts-container').empty()
+            $('#contact-data-share').empty()
+            $('#contacts-container-emergency').empty()
+            $('#contactsNumbers').empty()
+            $('#contactsNumbers1').empty()
+
+            for (var j = 0; j < contacts.length; j++) {
+              // alert(j +"----" +contactIds[j]);
+              /* $("#contacts-container").append(
+                  '<div class="callcard-contact1" style="background-color:' +
+                  contactColors[j] +
+                  '"><div class="contact-gradient"></div><div class="contactname">' +
+                  contacts[j] + '<br>' + contactNumbers[j] +
+                  '</div><div><a href="tel:' + contactNumbers[j] +
+                  '" class="callbtn"></a></div><div><a onclick=" return getContactId(' +
+                  contactIds[j] +
+                  ');" data-id = "' + contactIds[j] +
+                  '" data-href="editcontacts" href="javascript:void();" class="editcontact custom-btn-edit"></a></div></div>'
+              ); */
+
+              $('#contacts-container').append(
+                '<div class="main-div">' +
+
+                '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+                '<div class="head-num">' +
+                '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
+                '<div class="num"><p>' + contactNumbers[j] +
+                '</p> <a onclick=" return getContactId(' +
                 contactIds[j] +
                 ');" data-id = "' + contactIds[j] +
-                '" data-href="editcontacts" href="javascript:void();" class="editcontact custom-btn-edit"></a></div></div>'
-            ); */
-           
+                '" data-href="editcontacts" href="javascript:void();" class="custom-btn-edit"><img style="width:40px;" src="img/btn-edit.png"></a></div>' +
+                '</div>' +
+                '<div class="call-icon"><a href ="tel:' + contactNumbers[j] +
+                '" ><img style="width:60px;" src="img/icon-phone.png"></a><br>' +
+                '<img  class="shareloc" style="width:60px;" src="img/btn-location.png">	</div>' +
+                '</div>'
+              )
+              $('#contactsNumbers').append(
+                '<div class="main-div">' +
+                '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+                '<div class="head-num">' +
+                '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
+                '<div class="num"><p>' + contactNumbers[j] +
+                '</p></div>' +
+                '</div>' +
+                '<div class="call-icon"><a href ="tel:' + contactNumbers[j] +
+                '" ><img style="width:60px;" src="img/icon-phone.png"></a><br>' +
+                '</div>' +
+                '</div>'
+              )
+              $('#contactsNumbers1').append(
+                '<div id="main-div-pdf" class="main-div">' +
+                '<div class="img"><img id="emer-logo1" style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+                '<div id="head-num-pdf"  class="head-num">' +
+                '<div class="heading"><span id="name-font" class="cus head">' + contacts[j] + '</span></div>' +
+                '<div id="num-font" class="num"><p>' + contactNumbers[j] +
+                '</p></div>' +
+                '</div>' +
+                '<div  id="main-phn-logo"  class="call-icon"><a href ="tel:' + contactNumbers[j] +
+                '" ><img id="phn-logo"  style="width:60px;" src="img/icon-phone.png"></a><br>' +
+                '</div>' +
+                '</div>'
+              )
+              $('#contacts-container-emergency').append(
+                '<div class="main-div">' +
+                '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+                '<div class="head-num">' +
+                '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
+                '<div class="num"><p>' + contactNumbers[j] +
+                '</p></div>' +
+                '</div>' +
+                '<div class="call-icon"><a href ="tel:' + contactNumbers[j] +
+                '" ><img style="width:60px;" src="img/icon-phone.png"></a><br>' +
+                '</div>' +
+                '</div>'
+              )
+              $('#delete-contacts-container').append(
+                '<div class="main-div">' +
+                '<div class="check-contact"><div id="' + contactIds[j] + '" class=" checkContact contactUnchecked"></div></div>' +
+                '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+                '<div class="head-num">' +
+                '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
+                '<div class="num"><p>' + contactNumbers[j] +
+                '</p> </div>' +
+                '</div>' +
+
+                '</div>'
+              )
+              $('#contact-data-share').append(
+                '<div class="main-div">' +
+                '<div class="check-contact"><div id="' + contactNumbers[j].replace('+', '') + '" data-href ="' + contactNumbers[j] + '" class=" checkContactShare contactUncheckedShare"></div></div>' +
+                '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+                '<div class="head-num">' +
+                '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
+                '<div class="num"><p>' + contactNumbers[j] +
+                '</p> </div>' +
+                '</div>' +
+
+                '</div>'
+              )
+            }
+            //         $("#contact-data-share").append(
+            //         '<div class="btn-done2" value="Done" id="sharelocationWithusers"  >Done</div>'+
+            // '<div class="btn-done2" value="Cancel" id="closeShare" >Cancel</div>'
+
+            //         );
+            $('#contacts-container').append('<div class="empty-space"></div>')
+            $('#delete-contacts-container').append('<div class="empty-space"></div>')
+            // $("#contacts-container").append('<div class="empty-space"></div>');
+          } else {
+            // alert('``````````');
+
+            $('#contacts-container').empty()
+            $('#delete-contacts-container').empty()
+            $('#contact-data-share').empty()
+            $('#contacts-container-emergency').empty()
+            $('#contactsNumbers').empty()
+            $('#contactsNumbers1').empty()
+            contacts = []
             $('#contacts-container').append(
-              '<div class="main-div">' +
-
-              '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
-              '<div class="head-num">' +
-              '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
-              '<div class="num"><p>' + contactNumbers[j] +
-              '</p> <a onclick=" return getContactId(' +
-              contactIds[j] +
-              ');" data-id = "' + contactIds[j] +
-              '" data-href="editcontacts" href="javascript:void();" class="custom-btn-edit"><img style="width:40px;" src="img/btn-edit.png"></a></div>' +
-              '</div>' +
-              '<div class="call-icon"><a href ="tel:' + contactNumbers[j] +
-              '" ><img style="width:60px;" src="img/icon-phone.png"></a><br>' +
-              '<img  class="shareloc" style="width:60px;" src="img/btn-location.png">	</div>' +
-              '</div>'
-            )
-            $('#contactsNumbers').append(
-              '<div class="main-div">' +
-              '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
-              '<div class="head-num">' +
-              '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
-              '<div class="num"><p>' + contactNumbers[j] +
-              '</p></div>' +
-              '</div>' +
-              '<div class="call-icon"><a href ="tel:' + contactNumbers[j] +
-              '" ><img style="width:60px;" src="img/icon-phone.png"></a><br>' +
-              '</div>' +
-              '</div>'
-            )
-            $('#contactsNumbers1').append(
-              '<div class="main-div">' +
-              '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
-              '<div class="head-num">' +
-              '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
-              '<div class="num"><p>' + contactNumbers[j] +
-              '</p></div>' +
-              '</div>' +
-              '<div class="call-icon"><a href ="tel:' + contactNumbers[j] +
-              '" ><img style="width:60px;" src="img/icon-phone.png"></a><br>' +
-              '</div>' +
-              '</div>'
-            )
-            $('#contacts-container-emergency').append(
-              '<div class="main-div">' +
-              '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
-              '<div class="head-num">' +
-              '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
-              '<div class="num"><p>' + contactNumbers[j] +
-              '</p></div>' +
-              '</div>' +
-              '<div class="call-icon"><a href ="tel:' + contactNumbers[j] +
-              '" ><img style="width:60px;" src="img/icon-phone.png"></a><br>' +
-              '</div>' +
-              '</div>'
-            )
-            $('#delete-contacts-container').append(
-              '<div class="main-div">' +
-              '<div class="check-contact"><div id="' + contactIds[j] + '" class=" checkContact contactUnchecked"></div></div>' +
-              '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
-              '<div class="head-num">' +
-              '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
-              '<div class="num"><p>' + contactNumbers[j] +
-              '</p> </div>' +
-              '</div>' +
-
-              '</div>'
-            )
-            $('#contact-data-share').append(
-              '<div class="main-div">' +
-              '<div class="check-contact"><div id="' + contactNumbers[j].replace('+', '') + '" data-href ="' + contactNumbers[j] + '" class=" checkContactShare contactUncheckedShare"></div></div>' +
-              '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
-              '<div class="head-num">' +
-              '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
-              '<div class="num"><p>' + contactNumbers[j] +
-              '</p> </div>' +
-              '</div>' +
-
-              '</div>'
+              '<div style="text-align: center;" class="empty-space">Add your first team member.</div>'
             )
           }
-          //         $("#contact-data-share").append(
-          //         '<div class="btn-done2" value="Done" id="sharelocationWithusers"  >Done</div>'+
-          // '<div class="btn-done2" value="Cancel" id="closeShare" >Cancel</div>'
-
-          //         );
-          $('#contacts-container').append('<div class="empty-space"></div>')
-          $('#delete-contacts-container').append('<div class="empty-space"></div>')
-          // $("#contacts-container").append('<div class="empty-space"></div>');
-        } else {
-          // alert('``````````');
-          $('#contacts-container').empty()
-          $('#delete-contacts-container').empty()
-          $('#contact-data-share').empty()
-          contacts = []
-          $('#contacts-container').append(
-            '<div style="text-align: center;" class="empty-space">Add your first team member.</div>'
-          )
-        }
-      })
-  })
+        })
+    })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 
 function DeleteContactFromDB (ContactUId) {
   // alert(ContactUId);
-  db.transaction(function (transaction) {
-    transaction.executeSql('DELETE FROM Contacts WHERE UId=?', [ContactUId], function () {
-      // document.getElementById("deleteConfirm").style.display = "none";
-      // goBack();
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql('DELETE FROM Contacts WHERE UId=?', [ContactUId], function () {
+        // document.getElementById("deleteConfirm").style.display = "none";
+        // goBack();
+      })
     })
-  })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 function myTeamInit () {
   localStorage.setItem('editPlanMode', 'off')
-  db = openDatabase(shortName, version, displayName, maxSize)
   createContactsTable()
   GetContactsValueFromDB11()
   $(document).on('click', '.checkContact', function () {
@@ -292,7 +299,7 @@ function myTeamInit () {
   })
 }
 document.addEventListener('deviceready', onDeviceReadyMyTheme, false)
-async function onDeviceReadyMyTheme () {
+function onDeviceReadyMyTheme () {
   StatusBar.hide()
   myTeamInit()
 }

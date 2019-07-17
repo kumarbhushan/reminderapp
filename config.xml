@@ -134,6 +134,7 @@
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="The app would like to access the photo library when you attach images to content." />
     </plugin>
     <plugin name="cordova-pdf-generator" spec="1.0.0" />
+
     <plugin name="cordova-plugin-file" spec="4.0.0" />
     <plugin name="cordova-plugin-filepath" spec="1.0.0" />
 
@@ -255,5 +256,10 @@
     <edit-config target="NSPhotoLibraryAddUsageDescription" file="*-Info.plist" mode="merge">
         <string>ReMinder needs Photo Library access to save pictures.</string>
     </edit-config>
-
+    <edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
+    <string>ReMinder need location access to find things nearby</string>
+</edit-config>
+ <edit-config target="NSContactsUsageDescription" file="*-Info.plist" mode="merge">
+    <string>ReMinder need contact access to sync</string> 
+</edit-config>
 </widget>

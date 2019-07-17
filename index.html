@@ -14,9 +14,9 @@
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
       script-src 'self' 'unsafe-inline' 'unsafe-eval' *;
       connect-src 'self' data: blob: ws: *;">
+    <script src="js/jquery.min.js"></script>
     <script src="lib/onsen/js/onsenui.js"></script>
     <script src="lib/onsen/js/onsenui.min.js"></script>
-    <script src="js/jquery.min.js"></script>
     <script src="cordova.js"></script>
     <script src="cordova_plugins.js"></script>
     <script src="controllers/main.js"></script>
@@ -121,10 +121,10 @@
     </div>
     <!-- CONTENT -->
     <div id="Home" class="contents" style="display:none;">
-        <ons-page>
+        <!-- <ons-page>
             <div class="grad-top"></div>
-            <div class="grad-bot"></div>
-            <!--div id="CallConfirm" hidden>
+            <div class="grad-bot"></div> -->
+        <!--div id="CallConfirm" hidden>
                 <h4>Are you sure you want to dial 000?</h4>
                 <div class="btncall-btns">
                     <a href="tel:000">
@@ -133,63 +133,63 @@
                     <div class="btn-call-no" id="btn-call-no" onclick="cancelCall()">No</div>
                 </div>
             </div-->
-            <div id="popup" hidden>
-                <p class="popup-text">How are you feeling?</p>
+        <div id="popup" hidden>
+            <p class="popup-text">How are you feeling?</p>
 
-                <img src="img/icon-sad.png" id="emoji1" class="emoji1" onclick="changeto1()">
-                <img src="img/icon-neutral.png" id="emoji2" class="emoji2" onclick="changeto2()">
-                <img src="img/icon-smile.png" id="emoji3" class="emoji3" onclick="changeto3()">
-                <a href="javascript:void(0);" data-href="k10assessment" class="custom-btn">
-                    <div class="btn-k10-assessment"><img src="img/icon-k10.png">
-                        <p>K10 Assessment</p>
-                    </div>
-                </a>
-            </div>
-            <div id="emoji-container" onclick="showPopUp();"><img id="emoji" src="img/icon-neutral.png"></div>
-            <div id="mute-container" onclick="MuteUnmute();"><img id="mute" src="img/icon-sound.png"></div>
-            <ons-carousel fullscreen swipeable auto-scroll auto-refresh overscrollable id="carousel" initial-index="0">
-                <ons-carousel-item id="ons-carousel-item1">
-                    <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
-                        <video webkit-playsinline playsinline id="video_1" class="gif" autoplay loop muted="muted">
-                            <source src="videos/flowers.mp4" type="video/mp4" poster="#">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </ons-carousel-item>
-                <ons-carousel-item id="ons-carousel-item2">
-                    <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
-                        <video webkit-playsinline playsinline id="video_2" class="gif" autoplay loop muted="muted">
-                            <source src="videos/ripples.mp4" type="video/mp4" poster="#">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </ons-carousel-item>
-                <ons-carousel-item id="ons-carousel-item3">
-                    <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
-                        <video webkit-playsinline playsinline id="video_3" class="gif" autoplay loop muted="muted">
-                            <source src="videos/tree.mp4" type="video/mp4" poster="#">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </ons-carousel-item>
-                <ons-carousel-item id="ons-carousel-item4">
-                    <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
-                        <video webkit-playsinline playsinline id="video_4" class="gif" autoplay loop muted="muted">
-                            <source src="videos/shells.mp4" type="video/mp4" poster="#">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </ons-carousel-item>
-                <ons-carousel-item id="ons-carousel-item5">
-                    <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
-                        <video webkit-playsinline playsinline id="video_5" class="gif" autoplay loop muted="muted">
-                            <source src="videos/sunrise.mp4" type="video/mp4" poster="#">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </ons-carousel-item>
-            </ons-carousel>
-        </ons-page>
+            <img src="img/icon-sad.png" id="emoji1" class="emoji1" onclick="changeto1()">
+            <img src="img/icon-neutral.png" id="emoji2" class="emoji2" onclick="changeto2()">
+            <img src="img/icon-smile.png" id="emoji3" class="emoji3" onclick="changeto3()">
+            <a href="javascript:void(0);" data-href="k10assessment" class="custom-btn">
+                <div class="btn-k10-assessment"><img src="img/icon-k10.png">
+                    <p>K10 Assessment</p>
+                </div>
+            </a>
+        </div>
+        <div id="emoji-container" onclick="showPopUp();"><img id="emoji" src="img/icon-neutral.png"></div>
+        <div id="mute-container" onclick="MuteUnmute();"><img id="mute" src="img/icon-sound.png"></div>
+        <ons-carousel fullscreen swipeable auto-scroll auto-refresh overscrollable id="carousel" initial-index="0">
+            <ons-carousel-item id="ons-carousel-item1">
+                <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
+                    <video playsinline id="video_1" class="gif" autoplay loop muted="muted">
+                        <source src="videos/flowers.mp4" type="video/mp4" poster="#">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-item id="ons-carousel-item2">
+                <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
+                    <video playsinline id="video_2" class="gif" autoplay loop muted="muted">
+                        <source src="videos/ripples.mp4" type="video/mp4" poster="#">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-item id="ons-carousel-item3">
+                <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
+                    <video playsinline id="video_3" class="gif" autoplay loop muted="muted">
+                        <source src="videos/tree.mp4" type="video/mp4" poster="#">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-item id="ons-carousel-item4">
+                <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
+                    <video playsinline id="video_4" class="gif" autoplay loop muted="muted">
+                        <source src="videos/shells.mp4" type="video/mp4" poster="#">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-item id="ons-carousel-item5">
+                <div class="video_contain" value="lake" style="text-align: center; font-size: 30px;  color: #fff;">
+                    <video playsinline id="video_5" class="gif" autoplay loop muted="muted">
+                        <source src="videos/sunrise.mp4" type="video/mp4" poster="#">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </ons-carousel-item>
+        </ons-carousel>
+        <!-- </ons-page> -->
         <script src="controllers/addThemePage.js"></script>
         <script src="controllers/home.js"></script>
     </div>
@@ -247,6 +247,8 @@
             $('#add-notes-btn').hide();
             $('#addTitle').val('');
             $('#addNote').val('');
+            $('#formValidationResourses').hide();
+            $('#formValidationNote').hide();
             ">
                 <p>+</p>
             </div>
@@ -257,13 +259,16 @@
         </div>
         <div id="locationPopup" class="commonhide" hidden>
             <h4>Error</h4>
-            <p style="padding-left:20px;color:red;">Please turn ON your device location!</p>
+            <p style="padding-left:20px;color:red;">Please turn ON your device location and restart the App!</p>
             <div class="btn-done3" onclick="$('#locationPopup').hide();">Okay</div>
         </div>
         <div id="AddNewResourses" class="commonhide" hidden>
             <h4>Add</h4>
             <div class="btn-camera" onclick="  $('#add-tag').show();  $('#addLinkTag').val('');
-            $('#addTagName').val('');">New Tag</div>
+            $('#addTagName').val('');
+            $('#formValidationResourses').hide();
+            $('#formValidationTag').hide();
+            ">New Tag</div>
             <div class="btn-library" onclick="
                    // $('#resourses-list').hide();
                     $('#add-resourses').show();
@@ -273,6 +278,8 @@
                     $('#addWeburl').val('');
                     $('#addName').val('');
                     $('#addTag').val('');
+                    $('#formValidationResourses').hide();
+            $('#formValidationTag').hide();
             ">New Link</div>
             <!--<img hidden id="myImage" style="width:50px; height:50px;"/>-->
             <!--<div class="btn-save" onclick="saveImage();">Save</div>-->
@@ -352,6 +359,7 @@
             <div class='tag-list' id="tag-list">
             </div>
             <div id="resourses-list">
+
             </div>
             <div id="add-resourses" style="display:none;">
                 <form>
@@ -642,7 +650,7 @@
                 <form>
                     <div class="form-container">
                         <div class="img-container" onclick="$('#AddUserImage1').show();"><img id="dummy-img-edit"
-                                style="border-radius:60px;height:100px;width:100px;"" src=" img/btn-photo-contact.png">
+                                style="border-radius:60px;height:100px;width:100px;"" src=" img/btn-photo-contact.jpg">
                                 </div> <span id="formValidation" style="color:#be1e2d;" hidden>All fields are
                             required.</span>
                             <p class="form-text">First name</p>
@@ -749,7 +757,7 @@
                     <span id="shareValidation" style="font-weight:bold;color:#be1e2d;padding-left:10px;" hidden>Please
                         select atleast one contact.</span>
                     <span id="locValidation" style="font-weight:bold;color:#be1e2d;padding-left:10px;" hidden>Please
-                        turn ON your device location.</span>
+                        turn ON device location and restart the App.</span>
                     <div class="btn-done2" value="Done" id="sharelocationWithusers">Done</div>
                     <div class="btn-done2" value="Cancel" id="closeShare">Cancel</div>
                 </div>
@@ -873,6 +881,7 @@
                 </div>
             </div>
             <div class="margin-top-180p"></div>
+            <div id="pdfOutput"></div>
             <div class="panel-container" id="pdfData">
                 <div id="QSet1" class="panel">
                     <div id="ignorePDF" onclick="editQuestion(1);">
@@ -934,7 +943,8 @@
                         <div class=""><img class="img-button-edit" src="img/btn-edit.png"></div>
                     </div>
                     <p id="que" class="safety-label">I can talk to...</p>
-                    <div class="main-div">
+
+                    <div id="main-div-pdf" class="main-div">
                         <div id="main-emer-logo" class="img"><img id="emer-logo" style="width:90px;"
                                 src="img/logo-suicidecallback.jpg"> </div>
                         <div id="head-num-pdf" class="head-num">
@@ -948,7 +958,7 @@
                                     style="width:60px;" src="img/icon-phone.jpg"></a> </div>
                     </div>
 
-                    <div class="main-div">
+                    <div id="main-div-pdf" class="main-div">
                         <div id="main-emer-logo" class="img"><img id="emer-logo" style="width:90px;"
                                 src="img/logo-suicideline.jpg"> </div>
                         <div id="head-num-pdf" class="head-num">
@@ -962,7 +972,7 @@
                                     style="width:60px;" src="img/icon-phone.jpg"></a> </div>
                     </div>
 
-                    <div class="main-div">
+                    <div id="main-div-pdf" class="main-div">
                         <div id="main-emer-logo" class="img"><img id="emer-logo" style="width:90px;"
                                 src="img/logo-mensline.jpg"> </div>
                         <div id="head-num-pdf" class="head-num">
@@ -975,28 +985,28 @@
                                     style="width:60px;" src="img/icon-phone.jpg"></a> </div>
                     </div>
 
-                    <div class="main-div">
+                    <div id="main-div-pdf" class="main-div">
                         <div class="img"><img id="emer-logo" style="width:90px;" src="img/logo-lifeline.jpg"> </div>
-                        <div class="head-num">
+                        <div id="head-num-pdf" class="head-num">
                             <div class="heading"><span id="name-font" class="cus head">Lifeline</span></div>
                             <div class="num">
                                 <p id="num-font">13 11 14</p>
                             </div>
                         </div>
-                        <div class="call-icon"><a href="tel:131114"><img id="phn-logo" style="width:60px;"
-                                    src="img/icon-phone.jpg"></a> </div>
+                        <div id="main-phn-logo" class="call-icon"><a href="tel:131114"><img id="phn-logo"
+                                    style="width:60px;" src="img/icon-phone.jpg"></a> </div>
                     </div>
 
-                    <div class="main-div">
+                    <div id="main-div-pdf" class="main-div">
                         <div class="img"><img id="emer-logo" style="width:90px;" src="img/logo-kidshelpline.jpg"> </div>
-                        <div class="head-num">
+                        <div id="head-num-pdf" class="head-num">
                             <div class="heading"><span id="name-font" class="cus head">Kids Helpline</span></div>
                             <div class="num">
                                 <p id="num-font">1800 55 1800</p>
                             </div>
                         </div>
-                        <div class="call-icon"><a href="tel:1800551800"><img id="phn-logo" style="width:60px;"
-                                    src="img/icon-phone.jpg"></a> </div>
+                        <div id="main-phn-logo" class="call-icon"><a href="tel:1800551800"><img id="phn-logo"
+                                    style="width:60px;" src="img/icon-phone.jpg"></a> </div>
                     </div>
                     <div id="contactsNumbers1"></div>
                     <div id="ignorePDF" style="width:30px; height:10px; background-color: transparent"
@@ -1778,7 +1788,7 @@
         </div>
         <div class="bot-overlay-high">
         </div>
-        <div id="ContactsAddPage" class="commonhide" hidden>
+        <!--div id="ContactsAddPage" class="commonhide" hidden>
             <h4>Add</h4>
             <a href="javascript:void(0);" data-href="contacts">
                 <div class="btn-phone-contacts" id="btn-camera">New From Phone</div>
@@ -1787,8 +1797,8 @@
                 <div class="btn-add-contacts" id="btn-library">New Contact</div>
             </a>
             <img hidden id="myImage" style="width:50px; height:50px;" />
-            <!--<div class="btn-save" onclick="saveImage();">Save</div>-->
-        </div>
+           
+        </div-->
         <div class="bot-container"> <button class="btn-done" id="importContactDone">Done</button></div>
         <div class="grid-container-whitebg">
             <div class="margin-top-180p"></div>
@@ -1799,75 +1809,75 @@
         <script src="controllers/contacts.js"></script>
     </div>
     <div id="instructions" class="contents" style="display : none;">
-        <ons-page>
+        <!-- <ons-page>
             <div class="grad-top"></div>
             <div class="grad-bot"></div>
-            <div class="instructions-container">
-                <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel1" initial-index="0">
-                    <a onclick="navigate();">
-                        <div id="skip" class="skip"><img style="height:30px;width:70px;" src="img/btn-skip.jpg"></div>
-                    </a>
-                    <a onclick="next1();">
-                        <div id="start" class=""><img style="height:30px;width:70px;" src="img/btn-next.jpg"></div>
-                    </a>
-                    <ons-carousel-item>
-                        <img class="instructions-iconstart" src="img/icon-start.png">
-                        <h1 class="instructions-heading"></h1>
-                        <p class="instructions-p">A suicide safety plan can help to keep you safe when you are feeling
-                            low or suicidal.
-                            <br>
-                            <br>
-                            The ReMinder app is a simple way to develop a plan that you can access at any time.</p>
-                    </ons-carousel-item>
-                    <ons-carousel-item>
-                        <div class="icon-background"><img class="instructions-icons" src="img/safety-plan-icon.png">
-                        </div>
-                        <h1 class="instructions-heading">Create Your Safety Plan</h1>
-                        <p class="instructions-p">Your plan will remind you of reasons to live and connect you with the
-                            people and services who can help during the tough times.<br><br> Find a time when you are
-                            calm, and work with a trusted friend, family member or health professional to create your
-                            safety plan. <br><br> You will need to complete your safety plan in order to access all
-                            features of the ReMinder app.</p>
-                    </ons-carousel-item>
-                    <ons-carousel-item>
-                        <div class="instructions3-container">
-                            <img class="instructions-icons000" src="img/btn-triple0.png">
-                            <h1 class="instructions-heading2"><span>Emergency Call 000</span></h1>
-                            <p class="instructions-p">If you are in immediate danger or are concerned about your safety
-                                in any way, use this button to call 000.</p>
-                            <div class="icon-background-2"><img class="instructions-icons" src="img/btn-phone.png">
-                            </div>
-                            <h1 class="instructions-heading2"><span>My Helplines</span></h1>
-                            <p class="instructions-p">Use this button to view and contact helplines.</p>
-                        </div>
-                    </ons-carousel-item>
-                    <ons-carousel-item>
-                        <div class="instructions4-container">
-                            <div class="icon-background-1"><img class="instructions-icons" src="img/icon-myteam.png">
-                            </div>
-                            <h1 class="instructions-heading2"><span>My Team</span></h1>
-                            <p class="instructions-p">Add family and friends to reach out to when you need to talk.</p>
-                            <div class="icon-background-2"><img class="instructions-icons" src="img/icon-mystuff.png">
-                            </div>
-                            <h1 class="instructions-heading2"><span>My Stuff</span></h1>
-                            <p class="instructions-p">Add photos that you can look at to make you feel better, and
-                                select themes for your home page.</p>
-                        </div>
-                    </ons-carousel-item>
-                    <ons-carousel-cover>
-                        <div class="cover-label">
-                            <span id="dots11"> &nbsp; </span>
-                            <span id="dots21"> &nbsp; </span>
-                            <span id="dots31"> &nbsp; </span>
-                            <span id="dots41"> &nbsp; </span>
-                        </div>
-                    </ons-carousel-cover>
+            <div class="instructions-container"> -->
+        <ons-carousel fullscreen swipeable auto-scroll auto-refresh overscrollable id="carousel1" initial-index="0">
+            <a onclick="navigate();">
+                <div id="skip" class="skip"><img style="height:30px;width:70px;" src="img/btn-skip.jpg"></div>
+            </a>
+            <a onclick="next1();">
+                <div id="start" class=""><img style="height:30px;width:70px;" src="img/btn-next.jpg"></div>
+            </a>
+            <ons-carousel-item>
+                <img class="instructions-iconstart" src="img/icon-start.png">
+                <h1 class="instructions-heading"></h1>
+                <p class="instructions-p">A suicide safety plan can help to keep you safe when you are feeling
+                    low or suicidal.
+                    <br>
+                    <br>
+                    The ReMinder app is a simple way to develop a plan that you can access at any time.</p>
+            </ons-carousel-item>
+            <ons-carousel-item>
+                <div class="icon-background"><img class="instructions-icons" src="img/safety-plan-icon.png">
+                </div>
+                <h1 class="instructions-heading">Create Your Safety Plan</h1>
+                <p class="instructions-p">Your plan will remind you of reasons to live and connect you with the
+                    people and services who can help during the tough times.<br><br> Find a time when you are
+                    calm, and work with a trusted friend, family member or health professional to create your
+                    safety plan. <br><br> You will need to complete your safety plan in order to access all
+                    features of the ReMinder app.</p>
+            </ons-carousel-item>
+            <ons-carousel-item>
+                <div class="instructions3-container">
+                    <img class="instructions-icons000" src="img/btn-triple0.png">
+                    <h1 class="instructions-heading2"><span>Emergency Call 000</span></h1>
+                    <p class="instructions-p">If you are in immediate danger or are concerned about your safety
+                        in any way, use this button to call 000.</p>
+                    <div class="icon-background-2"><img class="instructions-icons" src="img/btn-phone.png">
+                    </div>
+                    <h1 class="instructions-heading2"><span>My Helplines</span></h1>
+                    <p class="instructions-p">Use this button to view and contact helplines.</p>
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-item>
+                <div class="instructions4-container">
+                    <div class="icon-background-1"><img class="instructions-icons" src="img/icon-myteam.png">
+                    </div>
+                    <h1 class="instructions-heading2"><span>My Team</span></h1>
+                    <p class="instructions-p">Add family and friends to reach out to when you need to talk.</p>
+                    <div class="icon-background-2"><img class="instructions-icons" src="img/icon-mystuff.png">
+                    </div>
+                    <h1 class="instructions-heading2"><span>My Stuff</span></h1>
+                    <p class="instructions-p">Add photos that you can look at to make you feel better, and
+                        select themes for your home page.</p>
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-cover>
+                <div class="cover-label">
+                    <span id="dots11"> &nbsp; </span>
+                    <span id="dots21"> &nbsp; </span>
+                    <span id="dots31"> &nbsp; </span>
+                    <span id="dots41"> &nbsp; </span>
+                </div>
+            </ons-carousel-cover>
 
-                </ons-carousel>
+        </ons-carousel>
 
-            </div>
+        <!-- </div>
 
-        </ons-page>
+        </ons-page> -->
         <script src="controllers/instructions.js"></script>
     </div>
     <div id="index" class="contents">
@@ -1976,7 +1986,7 @@
                     <div class="form-container">
 
                         <div class="img-container" onclick="$('#AddUserImage').show();"><img id="dummy-img"
-                                style="border-radius:60px;height:100px;width:100px;"" src=" img/btn-photo-contact.png">
+                                style="border-radius:60px;height:100px;width:100px;"" src=" img/btn-photo-contact.jpg">
                                 </div> <span id="formValidationerr" style="color:#be1e2d;" hidden>All fields are
                             required.</span>
                             <p class="form-text" style="margin:0">First Name</p>
@@ -2573,19 +2583,19 @@
                     </div>
                     <div id="contactsNumbers">
                     </div>
-                    <div id="ContactsAddPage" class="commonhide" hidden>
+                    <div id="ContactsAddPage" class="commonhide1" hidden>
                         <h4>Add</h4>
-                        <a href="javascript:void(0);" data-href="contacts">
+                        <a href="javascript:void(0);" data-href="contacts" class="custom-btn">
                             <div class="btn-phone-contacts" id="btn-camera">New From Phone</div>
                         </a>
-                        <a href="javascript:void(0);" data-href="addcontacts">
+                        <a href="javascript:void(0);" data-href="addcontacts" class="custom-btn">
                             <div class="btn-add-contacts" id="btn-library">New Contact</div>
                         </a>
                         <img hidden id="myImage" style="width:50px; height:50px;" />
                         <!--<div class="btn-save" onclick="saveImage();">Save</div>-->
                     </div>
                     <div class="AddContacts" type=""
-                        onclick="$('#ContactsAddPage').show(); localStorage.setItem('planStage','4');">
+                        onclick=" $('#ContactsAddPage').show(); localStorage.setItem('planStage','4');">
                         <div class="addoptions">
                             <p class="plus">+</p>
                         </div>
@@ -2945,7 +2955,7 @@
                 </div>
             </div>
 
-            <div class="center margin-top-neg20p"><a data-href="home" class="button custom-btn">Continue</a></div>
+            <div class="center margin-top-neg20p"><a data-href="Home" class="button custom-btn">Continue</a></div>
 
             <div class="margin-bot-100p"></div>
 

@@ -46,7 +46,7 @@ function onDeviceReadyInstruction2 () {
     } else {
       document.getElementById('dots4').style.backgroundColor = 'rgba(225,225,225,0.3)'
     }
-    if (finInstruc => 4) {
+    if (finInstruc >= 4) {
       // document.getElementById("start").style.display = "block";
       // document.getElementById("skip").style.display = "none";
     }
@@ -70,7 +70,7 @@ document.getElementById('dots4').addEventListener('click', function () {
   document.getElementById('carousel22').setActiveIndex(3)
 })
 
-ons.disableAutoStyling()
+//ons.disableAutoStyling()
 var eventName =
   'drag dragleft dragright dragup dragdown hold release swipe swipeleft swiperight ' +
   'swipeup swipedown tap doubletap touch transform pinch pinchin pinchout rotate'

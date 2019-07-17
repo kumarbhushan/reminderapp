@@ -1,52 +1,56 @@
 
-var shortName = 'WebSqlDB'
-var version = '1.0'
-var displayName = 'WebSqlDB'
-var maxSize = 4.9 * 1024 * 1024
 var selectedElement = ''
 var answers = []
 
-function createTable() {
+function createTable () {
   console.log('DEBUGGING: we are in the onBodyLoad() function')
   if (!window.openDatabase) {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (tx) {
-    tx.executeSql(
-      'CREATE TABLE IF NOT EXISTS Plan(UId INTEGER NOT NULL PRIMARY KEY, QId INTEGER NOT NULL, AId INTEGER NOT NULL, Answer TEXT NOT NULL)',
-      [], nullHandler, errorHandler)
-  }, errorHandler, successCallBack)
+  try {
+    db.transaction(function (tx) {
+      tx.executeSql(
+        'CREATE TABLE IF NOT EXISTS Plan(UId INTEGER NOT NULL PRIMARY KEY, QId INTEGER NOT NULL, AId INTEGER NOT NULL, Answer TEXT NOT NULL)',
+        [], nullHandler, errorHandler)
+    }, errorHandler, successCallBack)
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
-function GetValueFromDB(QId, AId) {
+function GetValueFromDB (QId, AId) {
   // alert('here');
   var answer = ''
   if (!window.openDatabase) {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    transaction.executeSql('SELECT Answer FROM Plan WHERE AId=? AND QId=?', [AId, QId],
-      function (transaction, results) {
-        if (results.rows.length) {
-          console.log(results.rows.item(0).Answer)
-          answer = results.rows.item(0).Answer.trim()
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql('SELECT Answer FROM Plan WHERE AId=? AND QId=?', [AId, QId],
+        function (transaction, results) {
+          if (results.rows.length) {
+            console.log(results.rows.item(0).Answer)
+            answer = results.rows.item(0).Answer.trim()
 
-          if (answer != null && answer != 'undefined' && answer != '') {
-            // $("#"+"Q"+QId+"A"+AId).show();
-            document.getElementById('Q' + QId + 'A' + AId).style.display = 'block'
-            document.getElementById('Q' + QId + 'A' + AId).innerHTML = answer
+            if (answer != null && answer != 'undefined' && answer != '') {
+              // $("#"+"Q"+QId+"A"+AId).show();
+              document.getElementById('Q' + QId + 'A' + AId).style.display = 'block'
+              document.getElementById('Q' + QId + 'A' + AId).innerHTML = answer
+            } else {
+              document.getElementById('Q' + QId + 'A' + AId).style.display = 'none'
+              document.getElementById('Q' + QId + 'A' + AId).innerHTML = ''
+            }
           } else {
-            document.getElementById('Q' + QId + 'A' + AId).style.display = 'none'
-            document.getElementById('Q' + QId + 'A' + AId).innerHTML = ''
+            answer = ''
           }
-        } else {
-          answer = ''
-        }
-      })
-  })
+        })
+    })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
-function editQuestion(QId) {
+function editQuestion (QId) {
   localStorage.setItem('editPlanMode', 'on')
   var editPlanStage = localStorage.setItem('planStage', (parseInt(QId) - 1))
   $('.contents').hide()
@@ -55,7 +59,7 @@ function editQuestion(QId) {
     GetValueFromDBPlan(QId, i)
   }
 }
-function GetContactsValueFromDB1() {
+function GetContactsValueFromDB1 () {
   var contacts = []
   var contactNumbers = []
   var contactColors = []
@@ -65,60 +69,63 @@ function GetContactsValueFromDB1() {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    transaction.executeSql('SELECT UId, ProfilePic, ContactName, ContactNumber, ContactColor FROM Contacts',
-      [],
-      function (transaction, results) {
-        if (results.rows.length) {
-          for (var i = 0; i < results.rows.length; i++) {
-            contacts.push(results.rows.item(i).ContactName)
-            contactColors.push(results.rows.item(i).ContactColor)
-            contactNumbers.push(results.rows.item(i).ContactNumber)
-            contactIds.push(results.rows.item(i).UId)
-            conactPic.push(results.rows.item(i).ProfilePic)
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql('SELECT UId, ProfilePic, ContactName, ContactNumber, ContactColor FROM Contacts',
+        [],
+        function (transaction, results) {
+          if (results.rows.length) {
+            for (var i = 0; i < results.rows.length; i++) {
+              contacts.push(results.rows.item(i).ContactName)
+              contactColors.push(results.rows.item(i).ContactColor)
+              contactNumbers.push(results.rows.item(i).ContactNumber)
+              contactIds.push(results.rows.item(i).UId)
+              conactPic.push(results.rows.item(i).ProfilePic)
+            }
+            for (var j = 0; j < contacts.length; j++) {
+              /* $("#contactsNumbers").append(
+                   '<div class="callcard-contact1" style="background-color:' +
+                   contactColors[j] +
+                   '"><div class="contact-gradient"></div><div class="contactname">' +
+                   contacts[j] + '<br>' + contactNumbers[j] +
+                   '</div><div><a class="callbtn" href="tel:' + contactNumbers[j] +
+                   '"></a></div></div>'); */
+              $('#contactsNumbers').append(
+                '<div class="main-div">' +
+                '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+                '<div class="head-num">' +
+                '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
+                '<div class="num"><p>' + contactNumbers[j] +
+                '</p> </div>' +
+                '</div>' +
+                '<div class="call-icon"><a href ="tel:' + contactNumbers[j] +
+                '" ><img style="width:60px;" src="img/icon-phone.png"></a></div>' +
+                '</div>'
+              )
+              $('#contactsNumbers1').append(
+                '<div class="main-div">' +
+                '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+                '<div class="head-num">' +
+                '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
+                '<div class="num"><p>' + contactNumbers[j] +
+                '</p> </div>' +
+                '</div>' +
+                '<div class="call-icon"><a href ="tel:' + contactNumbers[j] + '" ><img style="width:60px;" src="img/icon-phone.png"></a></div>' +
+                '</div>'
+              )
+            }
+          } else {
+            contacts = []
           }
-          for (var j = 0; j < contacts.length; j++) {
-            /* $("#contactsNumbers").append(
-                 '<div class="callcard-contact1" style="background-color:' +
-                 contactColors[j] +
-                 '"><div class="contact-gradient"></div><div class="contactname">' +
-                 contacts[j] + '<br>' + contactNumbers[j] +
-                 '</div><div><a class="callbtn" href="tel:' + contactNumbers[j] +
-                 '"></a></div></div>'); */
-            $('#contactsNumbers').append(
-              '<div class="main-div">' +
-              '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
-              '<div class="head-num">' +
-              '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
-              '<div class="num"><p>' + contactNumbers[j] +
-              '</p> </div>' +
-              '</div>' +
-              '<div class="call-icon"><a href ="tel:' + contactNumbers[j] +
-              '" ><img style="width:60px;" src="img/icon-phone.png"></a></div>' +
-              '</div>'
-            )
-            $('#contactsNumbers1').append(
-              '<div class="main-div">' +
-              '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
-              '<div class="head-num">' +
-              '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
-              '<div class="num"><p>' + contactNumbers[j] +
-              '</p> </div>' +
-              '</div>' +
-              '<div class="call-icon"><a href ="tel:' + contactNumbers[j] + '" ><img style="width:60px;" src="img/icon-phone.png"></a></div>' +
-              '</div>'
-            )
-          }
-        } else {
-          contacts = []
-        }
-      })
-  })
+        })
+    })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 document.addEventListener('deviceready', onDeviceReadyMySafetyPlan, false)
-function onDeviceReadyMySafetyPlan() {
+function onDeviceReadyMySafetyPlan () {
   localStorage.setItem('editPlanMode', 'off')
-  db = openDatabase(shortName, version, displayName, maxSize)
   createTable()
   for (var i = 1; i < 7; i++) {
     GetValueFromDB(1, i)
@@ -128,7 +135,7 @@ function onDeviceReadyMySafetyPlan() {
   }
   GetContactsValueFromDB1()
 }
-function getShareDocument(selector) {
+function getShareDocument (selector) {
   var $childrens = jQuery(selector).children(),
     output = []
 
@@ -149,16 +156,53 @@ function getShareDocument(selector) {
   return output.join(' ')
 }
 $(document).on('click', '#sharethis', function () {
-  var _data = $('<div style="width:165px">' + $('#pdfData').html() + '</div>')
+  var _data = $('<div style="width:185px">' + $('#pdfData').html() + '</div>')
   _data.find('#ignorePDF').remove()
   _data.find('#safetyPlanImage').css({ 'width': '170px', 'margin-top': '20px' })
-  // _data.find('#backgroundColor').css('background','rgb(255,255,255)');
-  _data.find('#emer-logo').remove()
-  _data.find('#main-emer-logo').remove()
-  _data.find('#head-num-pdf').css('display', 'inline-block')
-  _data.find('#head-num-pdf').css('width', '100px')
-  _data.find('#name-font').css('border-bottom', '3px solid #9fcd5a')
+  // _data.find('#emer-logo').remove()
+  // _data.find('#head-num-pdf').remove()
+  _data.find('#emer-logo').css('border-radius', '50%')
   _data.find('#phn-logo').remove()
+
+  _data.find('#main-emer-logo').css({
+    'float': 'left',
+    'width': '40px',
+    'padding': '0px'
+
+  })
+  _data.find('#main-phn-logo').css({
+    'float': 'left',
+    'width': '40px',
+    'padding': '0px'
+
+  })
+  _data.find('#head-num-pdf').css({
+    'float': 'left',
+    'width': '90px',
+    'padding': '40px 0px'
+
+  })
+
+  // _data.find('.num').remove();
+  // _data.find('.heading').remove();
+
+  _data.find('#emer-logo').css('width', '40px')
+  _data.find('#emer-logo1').css('width', '40px')
+  _data.find('#emer-logo1').css('height', '40px')
+  // _data.find('.heading').css('float', 'left');
+  _data.find('#emer-logo').css('float', 'left')
+  _data.find('#emer-logo1').css('float', 'left')
+  // _data.find('.num').css('float', 'left');
+  _data.find('#num-font').css('float', 'left')
+  // _data.find('#name-font').css('float', 'left');
+
+  _data.find('#phn-logo').css('float', 'left')
+  _data.find('#phn-logo').css('width', '20px')
+  // _data.find('#head-num-pdf').css('display', 'inline-block')
+  // _data.find('#head-num-pdf').css('width', '100px')
+  // _data.find('#head-num-pdf').append("Here")
+  // _data.find('#name-font').css('border-bottom', '3px solid #9fcd5a')
+  // _data.find('#phn-logo').remove()
   _data.find('#Q1A1').css('font-size', '10px')
   _data.find('#Q1A2').css('font-size', '10px')
   _data.find('#Q1A3').css('font-size', '10px')
@@ -166,10 +210,12 @@ $(document).on('click', '#sharethis', function () {
   _data.find('#Q1A5').css('font-size', '10px')
   _data.find('#Q1A6').css('font-size', '10px')
   _data.find('#que').css('font-size', '12px')
-  _data.find('#name-font').css('font-size', '6px')
-  _data.find('#num-font').css('font-size', '6px')
-  _data.find('.main-div').css('display', 'block')
-  _data.find('.main-div').css('align-items', 'center')
+  _data.find('#name-font').css('font-size', '10px')
+  _data.find('#num-font').css('font-size', '10px')
+  _data.find('#main-div-pdf').css('display', 'inline-block')
+
+  _data.find('#main-div-pdf').css('width', '185px')
+  // _data.find('.main-div').css('align-items', 'center')
 
   _data.find('#Q2A1').css('font-size', '10px')
   _data.find('#Q2A2').css('font-size', '10px')
@@ -196,6 +242,7 @@ $(document).on('click', '#sharethis', function () {
   var data = _data.html(),
     folderPath = cordova.file.cacheDirectory,
     fileName = 'safetyPlan.pdf'
+  // $('#pdfOutput').html(data)
   try {
     // alert(data);
     reportGenerator.generate(data, folderPath, fileName, function (fileUrl) {

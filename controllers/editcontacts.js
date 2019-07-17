@@ -7,11 +7,6 @@ var ContactNumber = ''
 var ProfilePic = ''
 // var ContactColor = "";
 var ContactUId = ''
-var db
-var shortName = 'WebSqlDB'
-var version = '1.0'
-var displayName = 'WebSqlDB'
-var maxSize = 4.9 * 1024 * 1024
 var colorArray = ['#bcbec0', '#be1e2d', '#f15a29', '#1b75bc', '#009444']
 
 function selectColor (el) {
@@ -28,28 +23,31 @@ function UpdateValueInDBContact (ContactFullName, ContactNumber, ContactColor, C
     console.log('Databases are not supported in this browser.')
     return
   }
-
-  db.transaction(function (transaction) {
-    console.log('Updating')
-    transaction.executeSql(
-      'UPDATE Contacts SET ContactName = ?, ContactNumber = ?, ContactColor = ?, ProfilePic = ? WHERE UId=?',
-      [ContactFullName, ContactNumber, ContactColor, ProfilePic, ContactUId],
-      function () {
-        console.log('DEBUGGING: success')
-        var planCompleted = localStorage.getItem('planCompleted')
-        if (planCompleted == '0' || planCompleted == 0) {
-          // document.location.href='CreateMySafetyPlanQ4.html';
-          $('.contents').hide()
-          $('#CreateMySafetyPlanQ4').show()
-          GetContactsValueFromDB11()
-        } else {
-          // document.location.href='myteam.html';
-          $('.contents').hide()
-          $('#myteam').show()
-          GetContactsValueFromDB11()
-        }
-      })
-  })
+  try {
+    db.transaction(function (transaction) {
+      console.log('Updating')
+      transaction.executeSql(
+        'UPDATE Contacts SET ContactName = ?, ContactNumber = ?, ContactColor = ?, ProfilePic = ? WHERE UId=?',
+        [ContactFullName, ContactNumber, ContactColor, ProfilePic, ContactUId],
+        function () {
+          console.log('DEBUGGING: success')
+          var planCompleted = localStorage.getItem('planCompleted')
+          if (planCompleted == '0' || planCompleted == 0) {
+            // document.location.href='CreateMySafetyPlanQ4.html';
+            $('.contents').hide()
+            $('#CreateMySafetyPlanQ4').show()
+            GetContactsValueFromDB11()
+          } else {
+            // document.location.href='myteam.html';
+            $('.contents').hide()
+            $('#myteam').show()
+            GetContactsValueFromDB11()
+          }
+        })
+    })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
   localStorage.setItem('editContactId', '')
 }
 
@@ -60,49 +58,53 @@ function GetValueFromDB1 (ContactUId) {
     console.log('Databases are not supported in this browser.')
     return
   }
-  db.transaction(function (transaction) {
-    transaction.executeSql(
-      'SELECT ContactName, ContactNumber, ProfilePic FROM Contacts WHERE UId=?', [
-        ContactUId
-      ],
-      function (transaction, results) {
-        if (results.rows.length) {
-          console.log(results.rows.item(0).ContactName)
+  try {
+    db.transaction(function (transaction) {
+      transaction.executeSql(
+        'SELECT ContactName, ContactNumber, ProfilePic FROM Contacts WHERE UId=?', [
+          ContactUId
+        ],
+        function (transaction, results) {
+          if (results.rows.length) {
+            console.log(results.rows.item(0).ContactName)
 
-          var FullName = results.rows.item(0).ContactName
-          var FullNameSplit = FullName.split(' ')
-          if (FullNameSplit != undefined && FullNameSplit != 'undefined') {
-            ContactFirstName = ''
-            if (FullNameSplit.length > 2) {
-              for (k = 0; k < FullNameSplit.length - 1; k++) {
-                if (ContactFirstName == '') {
-                  ContactFirstName = FullNameSplit[k]
-                } else {
-                  ContactFirstName += ' ' + FullNameSplit[k]
+            var FullName = results.rows.item(0).ContactName
+            var FullNameSplit = FullName.split(' ')
+            if (FullNameSplit != undefined && FullNameSplit != 'undefined') {
+              ContactFirstName = ''
+              if (FullNameSplit.length > 2) {
+                for (k = 0; k < FullNameSplit.length - 1; k++) {
+                  if (ContactFirstName == '') {
+                    ContactFirstName = FullNameSplit[k]
+                  } else {
+                    ContactFirstName += ' ' + FullNameSplit[k]
+                  }
                 }
+                ContactLastName = FullNameSplit[(FullNameSplit.length) - 1]
+              } else {
+                ContactFirstName = FullNameSplit[0]
+                ContactLastName = FullNameSplit[(FullNameSplit.length) - 1]
               }
-              ContactLastName = FullNameSplit[(FullNameSplit.length) - 1]
             } else {
-              ContactFirstName = FullNameSplit[0]
-              ContactLastName = FullNameSplit[(FullNameSplit.length) - 1]
+              ContactFirstName = FullName
+              ContactLastName = ''
             }
-          } else {
-            ContactFirstName = FullName
-            ContactLastName = ''
-          }
 
-          ContactNumber = results.rows.item(0).ContactNumber
-          ProfilePic = results.rows.item(0).ProfilePic
-        } else {
-          console.log('error: contact not found')
-        }
-        document.getElementById('contactFirstName').value = ContactFirstName
-        document.getElementById('contactLastName').value = ContactLastName
-        document.getElementById('contactNumber').value = ContactNumber
-        document.getElementById('ContactUId').value = ContactUId
-        $('#dummy-img-edit').attr('src', ProfilePic)
-      })
-  })
+            ContactNumber = results.rows.item(0).ContactNumber
+            ProfilePic = results.rows.item(0).ProfilePic
+          } else {
+            console.log('error: contact not found')
+          }
+          document.getElementById('contactFirstName').value = ContactFirstName
+          document.getElementById('contactLastName').value = ContactLastName
+          document.getElementById('contactNumber').value = ContactNumber
+          document.getElementById('ContactUId').value = ContactUId
+          $('#dummy-img-edit').attr('src', ProfilePic)
+        })
+    })
+  } catch (error) {
+    console.log('transaction_failed', error)
+  }
 }
 
 document.addEventListener('deviceready', onDeviceReadyEditContacts, false)
@@ -110,7 +112,6 @@ document.addEventListener('deviceready', onDeviceReadyEditContacts, false)
 function onDeviceReadyEditContacts () {
   ContactUId = localStorage.getItem('editContactId')
   console.log()
-  db = openDatabase(shortName, version, displayName, maxSize)
   GetValueFromDB1(ContactUId)
   $('#saveContact').click(function () {
     var ContactColor = colorArray[Math.floor(Math.random() * colorArray.length)]
