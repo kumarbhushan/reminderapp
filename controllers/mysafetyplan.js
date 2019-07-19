@@ -110,7 +110,7 @@ function GetContactsValueFromDB1() {
                 '<div class="num"><span>' + contactNumbers[j] +
                 '</span> </div>' +
                 '</div>' +
-                '<div class="call-icon"><a href ="tel:' + contactNumbers[j] + '" ><img style="width:60px;" src="img/icon-phone.png"></a></div>' +
+                '<div class="call-icon"><a href ="tel:' + contactNumbers[j] + '" ><img style="width:60px;" src="' + iconPhone + '"></a></div>' +
                 '</div>'
               )
             }

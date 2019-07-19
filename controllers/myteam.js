@@ -97,7 +97,7 @@ function GetContactsValueFromDB11() {
                 '</span></div>' +
                 '</div>' +
                 '<div  id="main-phn-logo"  class="call-icon"><a href ="tel:' + contactNumbers[j] +
-                '" ><img id="phn-logo"  style="width:60px;" src="img/icon-phone.png"></a><br>' +
+                '" ><img id="phn-logo"  style="width:60px;" src="' + iconPhone + '"></a><br>' +
                 '</div>' +
                 '</div>'
               )
