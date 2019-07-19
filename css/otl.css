@@ -1799,12 +1799,10 @@ img#mute {
 .grid-container-mysafetyplan #QQ5A4,
 .grid-container-mysafetyplan #QQ5A5,
 .grid-container-mysafetyplan #QQ5A6 {
-    margin-left: 0;
     height: 25px;
     margin-top: 10px !important;
     padding-left: 0;
     box-shadow: none;
-    min-height: 50px;
 }
 
 .icon-edit {

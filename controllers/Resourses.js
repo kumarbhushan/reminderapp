@@ -115,8 +115,8 @@ function GetResoursesFromDB () {
                 '<div class="border-middle-res"></div>' +
                 '<div class="edit-res"><img class="img-button-edit" src="img/btn-edit.png"></div></div><div class="delete-resourse" id="res_' + contactIds[j] + '"><img style="width:40px;height:40px;"src="img/btn-delete-dark-white.png" /></div></div>' +
 
-                '<p class="notes-label">' + resoursesName[j] + '</p>' +
-                '<p class="resourses-url">' + resoursesWeburl[j] + '</p>'
+                '<p class="notes-label"><img class="" src="img/thumbnail-resources.jpg" style="width: 60px;float:left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + resoursesName[j] + '</p>' +
+                '<p class="resourses-url" style="padding-left: 110px;font-size:14px;"><a style="z-index:-1" href="' + resoursesWeburl[j] + '" target="_blank">' + resoursesWeburl[j] + '</a></p>'
 
               var tags = resoursesTag[j].split('~')
               for (var k = 0; k < tags.length; k++) {
@@ -263,7 +263,7 @@ function AppendData (value) {
     htmlData += '<div class="border-middle-res"></div> '
     htmlData += '</div><div class="delete-resourse" id="' + val[j].id + '"></div></div>'
     htmlData += ' <p class="notes-label"><img class="" src="' + val[j].img + '" style="width: 60px;float:left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val[j].Linkname + '  </p>'
-    htmlData += ' <p class="resourses-url" style="padding-left: 110px;font-size:14px;"><a href="' + val[j].Weburl + '" target="_blank">' + val[j].Weburl + '</a></p>'
+    htmlData += ' <p class="resourses-url" style="padding-left: 110px;font-size:14px;"><a  style="z-index:-1" href="' + val[j].Weburl + '" target="_blank">' + val[j].Weburl + '</a></p>'
     $('#resourses-listStatic').append(htmlData)
   }
 }

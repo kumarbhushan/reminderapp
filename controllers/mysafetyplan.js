@@ -156,82 +156,12 @@ function getShareDocument(selector) {
   return output.join(' ')
 }
 $(document).on('click', '#sharethis', function () {
-  var _data = $('<div style="width:185px">' + $('#pdfData').html() + '</div>')
-  _data.find('#ignorePDF').remove()
-  _data.find('#safetyPlanImage').css({ 'width': '170px', 'margin-top': '20px' })
-  _data.find('#emer-logo').remove()
-  // _data.find('#head-num-pdf').remove()
-  _data.find('#phn-logo').remove()
-  _data.find('#main-phn-logo').remove()
-  // _data.find('#emer-logo').css({
-  //   'display': 'inline-block',
-  //   'float': 'left',
-  //   'width': '40px',
-  //   'height': '35px',
-  //   'padding': '0px'
-  // })
-  _data.find('#head-num-pdf').css({
-    'display': 'inline-block',
-    'float': 'left',
-    'width': '120px',
-    'height': '45px',
-    'padding': '5px 5px'
-
-  })
-
-  _data.find('#emer-logo1').css('width', '40px')
-  _data.find('#emer-logo1').css('height', '40px')
-  _data.find('#Q1A1').css('font-size', '10px')
-  _data.find('#Q1A2').css('font-size', '10px')
-  _data.find('#Q1A3').css('font-size', '10px')
-  _data.find('#Q1A4').css('font-size', '10px')
-  _data.find('#Q1A5').css('font-size', '10px')
-  _data.find('#Q1A6').css('font-size', '10px')
-  _data.find('#Q1A1').css('padding-right', '10px')
-  _data.find('#Q1A2').css('padding-right', '10px')
-  _data.find('#Q1A3').css('padding-right', '10px')
-  _data.find('#Q1A4').css('padding-right', '10px')
-  _data.find('#Q1A5').css('padding-right', '10px')
-  _data.find('#Q1A6').css('padding-right', '10px')
-  _data.find('#que').css('padding-right', '12px')
-  _data.find('#que').css('font-size', '12px')
-  _data.find('#que').css('font-family', 'proxima_nova_condensedSBd')
-  _data.find('#name-font').css('font-size', '10px')
-  _data.find('#name-font').css('height', '10px')
-  _data.find('#num-font').css('font-size', '10px')
-  _data.find('#num-font').css('height', '10px')
-  _data.find('#name-font').css('border-bottom', '1px solid #9ecd59')
-  _data.find('#main-div-pdf').css('display', 'block')
-  _data.find('#main-div-pdf').css('width', '185px')
-  _data.find('#main-div-pdf').css('height', '50px')
-  _data.find('#main-div-pdf').css('min-height', '50px')
-  _data.find('#main-div-pdf').css('max-height', '50px')
-  _data.find('#main-div-pdf').css('overflow', 'hidden')
-  _data.find('#Q2A1').css('font-size', '10px')
-  _data.find('#Q2A2').css('font-size', '10px')
-  _data.find('#Q2A3').css('font-size', '10px')
-  _data.find('#Q2A4').css('font-size', '10px')
-  _data.find('#Q2A5').css('font-size', '10px')
-  _data.find('#Q2A6').css('font-size', '10px')
-  _data.find('#Q3A1').css('font-size', '10px')
-  _data.find('#Q3A2').css('font-size', '10px')
-  _data.find('#Q3A3').css('font-size', '10px')
-  _data.find('#Q3A4').css('font-size', '10px')
-  _data.find('#Q3A5').css('font-size', '10px')
-  _data.find('#Q3A6').css('font-size', '10px')
-  _data.find('#Q5A1').css('font-size', '10px')
-  _data.find('#Q5A2').css('font-size', '10px')
-  _data.find('#Q5A3').css('font-size', '10px')
-  _data.find('#Q5A4').css('font-size', '10px')
-  _data.find('#Q5A5').css('font-size', '10px')
-  _data.find('#Q5A6').css('font-size', '10px')
-  _data.find('#QSet7').css('font-size', '12px')
-
-  let data = _data.html()
+  $('.share-text').text('sharing...')
+  $('#sharethis').hide()
   let folderPath = cordova.file.cacheDirectory
   let fileName = 'safetyPlan.pdf'
   try {
-    reportGenerator.generate(data, folderPath, fileName, function (fileUrl) {
+    reportGenerator.generate(folderPath, fileName, function (fileUrl) {
       // alert(fileUrl);
       var options = {
         message: 'share this', // not supported on some apps (Facebook, Instagram)
@@ -243,8 +173,12 @@ $(document).on('click', '#sharethis', function () {
         appPackageName: 'com.apple.social.facebook' // Android only, you can provide id of the App you want to share with
       }
       window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError)
+      $('.share-text').text('Share Safety Plan')
+      $('#sharethis').show()
     })
   } catch (ex) {
+    $('.share-text').text('Share Safety Plan')
+    $('#sharethis').show()
     console.log('genratepdf', ex)
   }
 })
