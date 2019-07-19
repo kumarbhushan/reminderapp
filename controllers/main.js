@@ -27,7 +27,7 @@ try {
 } catch (err) {
   console.log('main', err)
 }
-function navigate () {
+function navigate() {
   console.log('navigation')
   var planCompleted = localStorage.getItem('planCompleted')
   if (planCompleted == '1' || planCompleted == 1) {
@@ -43,7 +43,7 @@ function navigate () {
     $('#inner-header').show()
   }
 }
-function qnavigate (que) {
+function qnavigate(que) {
   $('.contents').hide()
   $('#CreateMySafetyPlanQ1').hide()
   $('#CreateMySafetyPlanQ2').hide()
@@ -55,24 +55,24 @@ function qnavigate (que) {
   $('#' + que).show()
 }
 
-function errorHandler (transaction, error) {
+function errorHandler(transaction, error) {
   console.log('Error: ' + error.message + ' code: ' + error.code)
 }
-function successCallBack () {
+function successCallBack() {
   console.log('DEBUGGING: success')
 }
-function nullHandler () { };
+function nullHandler() { };
 document.addEventListener('deviceready', onDeviceReady, false)
 // PhoneGap is ready
 //
-function onDeviceReady () {
+function onDeviceReady() {
   var popuphome = true
   // StatusBar.hide();
 }
-function cancelCall () {
+function cancelCall() {
   document.getElementById('CallConfirm').style.display = 'none'
 }
-function call () {
+function call() {
   document.getElementById('CallConfirm').style.display = 'block'
 
   console.log('call')
@@ -428,7 +428,7 @@ generate = function (writer) {
   savebase64AsPDF(folderpath, filename, myBase64, contentType)
 }
 
-function headerFooterFormatting (doc, totalPages) {
+function headerFooterFormatting(doc, totalPages) {
   for (var i = totalPages; i >= 1; i--) {
     doc.setPage(i)
     // header
@@ -439,7 +439,7 @@ function headerFooterFormatting (doc, totalPages) {
   }
 };
 
-function header (doc) {
+function header(doc) {
   doc.setFontSize(30)
   doc.setTextColor(40)
   doc.setFontStyle('normal')
@@ -448,7 +448,7 @@ function header (doc) {
   doc.line(3, 70, margins.width + 43, 70) // horizontal line
 };
 
-function imgToBase64 (url, callback, imgVariable) {
+function imgToBase64(url, callback, imgVariable) {
   if (!window.FileReader) {
     callback(null)
     return
@@ -467,14 +467,14 @@ function imgToBase64 (url, callback, imgVariable) {
   xhr.send()
 };
 
-function footer (doc, pageNumber, totalPages) {
+function footer(doc, pageNumber, totalPages) {
   var str = 'Page ' + pageNumber + ' of ' + totalPages
   doc.setFontSize(10)
   doc.text(str, margins.left, doc.internal.pageSize.height - 20)
 };
 
 /* load js dynamically */
-function loadjscssfile (filename, filetype) {
+function loadjscssfile(filename, filetype) {
   if (filetype == 'js') { // if filename is a external JavaScript file
     var fileref = document.createElement('script')
     fileref.setAttribute('type', 'text/javascript')
@@ -488,7 +488,7 @@ function loadjscssfile (filename, filetype) {
   if (typeof fileref !== 'undefined') { document.getElementsByTagName('head')[0].appendChild(fileref) }
 }
 
-function b64toBlob (b64Data, contentType, sliceSize) {
+function b64toBlob(b64Data, contentType, sliceSize) {
   contentType = contentType || ''
   sliceSize = sliceSize || 512
 
@@ -521,7 +521,7 @@ function b64toBlob (b64Data, contentType, sliceSize) {
  * @param filename {String} The name of the file that will be created
  * @param content {Base64 String} Important : The content can't contain the following string (data:application/pdf;base64). Only the base64 string is expected.
  */
-function savebase64AsPDF (folderpath, filename, content, contentType) {
+function savebase64AsPDF(folderpath, filename, content, contentType) {
   // Convert the base64 string in a Blob
   var DataBlob = b64toBlob(content, contentType)
   console.log('Starting to write the file :3')
@@ -541,7 +541,7 @@ function savebase64AsPDF (folderpath, filename, content, contentType) {
   })
 }
 /* code snip */
-function goBack1 () {
+function goBack1() {
   $('#AddTheme').hide()
   $('.contents').hide()
   $('.tab-content').hide()
@@ -554,7 +554,7 @@ function goBack1 () {
   $('#themeTitle').val('')
 }
 
-function goBack () {
+function goBack() {
   var planCompleted = localStorage.getItem('planCompleted')
   if (planCompleted == '0' || planCompleted == 0) {
     // alert('here');
@@ -573,3 +573,5 @@ function goBack () {
     $('#myteam').show()
   }
 }
+
+let dummybase64 = 'data:image/png;base64,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'

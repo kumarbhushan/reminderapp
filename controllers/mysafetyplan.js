@@ -104,7 +104,7 @@ function GetContactsValueFromDB1() {
               )
               $('#contactsNumbers1').append(
                 '<div class="main-div">' +
-                '<img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	' +
+                '<img style="width:90px;height:90px;border-radius:50%;" src="' + dummybase64 + '">' +
                 '<div class="head-num">' +
                 '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
                 '<div class="num"><span>' + contactNumbers[j] +

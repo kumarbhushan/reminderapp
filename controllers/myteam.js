@@ -1,9 +1,9 @@
 
-function getContactId (contactId) {
+function getContactId(contactId) {
   localStorage.setItem('editContactId', contactId)
   return true
 }
-function createContactsTable () {
+function createContactsTable() {
   if (!window.openDatabase) {
     console.log('Databases are not supported in this browser.')
     return
@@ -19,7 +19,7 @@ function createContactsTable () {
   }
 }
 
-function GetContactsValueFromDB11 () {
+function GetContactsValueFromDB11() {
   //
 
   var contacts = []
@@ -90,7 +90,7 @@ function GetContactsValueFromDB11 () {
               )
               $('#contactsNumbers1').append(
                 '<div id="main-div-pdf" class="main-div">' +
-                '<img id="emer-logo" style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">' +
+                '<img id="emer-logo" style="width:90px;height:90px;border-radius:50%;" src="' + dummybase64 + '">' +
                 '<div id="head-num-pdf"  class="head-num">' +
                 '<div class="heading"><span id="name-font" class="cus head">' + contacts[j] + '</span></div>' +
                 '<div id="num-font" class="num"><span>' + contactNumbers[j] +
@@ -160,7 +160,7 @@ function GetContactsValueFromDB11 () {
   }
 }
 
-function DeleteContactFromDB (ContactUId) {
+function DeleteContactFromDB(ContactUId) {
   try {
     db.transaction(function (transaction) {
       transaction.executeSql('DELETE FROM Contacts WHERE UId=?', [ContactUId], function () {
@@ -171,7 +171,7 @@ function DeleteContactFromDB (ContactUId) {
     console.log('transaction_failed', error)
   }
 }
-function myTeamInit () {
+function myTeamInit() {
   localStorage.setItem('editPlanMode', 'off')
   createContactsTable()
   GetContactsValueFromDB11()
@@ -276,7 +276,7 @@ function myTeamInit () {
   })
 }
 document.addEventListener('deviceready', onDeviceReadyMyTheme, false)
-function onDeviceReadyMyTheme () {
+function onDeviceReadyMyTheme() {
   StatusBar.hide()
   myTeamInit()
 }
@@ -295,10 +295,10 @@ $(document).ready(function () {
   })
 })
 
-function CreateContactData () {
+function CreateContactData() {
 
 }
 
-function AvaiableData () {
+function AvaiableData() {
 
 }
