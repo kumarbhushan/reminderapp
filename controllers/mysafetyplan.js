@@ -2,7 +2,7 @@
 var selectedElement = ''
 var answers = []
 
-function createTable () {
+function createTable() {
   console.log('DEBUGGING: we are in the onBodyLoad() function')
   if (!window.openDatabase) {
     console.log('Databases are not supported in this browser.')
@@ -18,7 +18,7 @@ function createTable () {
     console.log('transaction_failed', error)
   }
 }
-function GetValueFromDB (QId, AId) {
+function GetValueFromDB(QId, AId) {
   // alert('here');
   var answer = ''
   if (!window.openDatabase) {
@@ -50,7 +50,7 @@ function GetValueFromDB (QId, AId) {
     console.log('transaction_failed', error)
   }
 }
-function editQuestion (QId) {
+function editQuestion(QId) {
   localStorage.setItem('editPlanMode', 'on')
   var editPlanStage = localStorage.setItem('planStage', (parseInt(QId) - 1))
   $('.contents').hide()
@@ -59,7 +59,7 @@ function editQuestion (QId) {
     GetValueFromDBPlan(QId, i)
   }
 }
-function GetContactsValueFromDB1 () {
+function GetContactsValueFromDB1() {
   var contacts = []
   var contactNumbers = []
   var contactColors = []
@@ -124,7 +124,7 @@ function GetContactsValueFromDB1 () {
   }
 }
 document.addEventListener('deviceready', onDeviceReadyMySafetyPlan, false)
-function onDeviceReadyMySafetyPlan () {
+function onDeviceReadyMySafetyPlan() {
   localStorage.setItem('editPlanMode', 'off')
   createTable()
   for (var i = 1; i < 7; i++) {
@@ -135,7 +135,7 @@ function onDeviceReadyMySafetyPlan () {
   }
   GetContactsValueFromDB1()
 }
-function getShareDocument (selector) {
+function getShareDocument(selector) {
   var $childrens = jQuery(selector).children(),
     output = []
 
@@ -195,6 +195,7 @@ $(document).on('click', '#sharethis', function () {
   _data.find('#Q1A6').css('padding-right', '10px')
   _data.find('#que').css('padding-right', '12px')
   _data.find('#que').css('font-size', '12px')
+  _data.find('#que').css('font-family', 'proxima_nova_condensedSBd')
   _data.find('#name-font').css('font-size', '10px')
   _data.find('#name-font').css('height', '10px')
   _data.find('#num-font').css('font-size', '10px')
@@ -244,6 +245,7 @@ $(document).on('click', '#sharethis', function () {
       window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError)
     })
   } catch (ex) {
+    console.log('genratepdf', ex)
   }
 })
 var onSuccess = function (result) {

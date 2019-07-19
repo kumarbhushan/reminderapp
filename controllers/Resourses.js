@@ -140,9 +140,9 @@ function GetResoursesFromDB () {
             $('#resourses-list').empty()
             // $("#delete-notes").empty();
             contacts = []
-            $('#resourses-list').append(
-              '<div style="text-align: center;" class="empty-space">Add your first Resourses.</div>'
-            )
+            // $('#resourses-list').append(
+            //   '<div style="text-align: center;" class="empty-space">Add your first Resourses.</div>'
+            // )
           }
         })
     })
@@ -174,15 +174,13 @@ function GetTagsFromDB () {
               $('#tag-list').append(
 
                 '<p class="tag-tags">' + resoursesTagName[j] + '</p>'
-
               )
             }
-            // $("#tag-list").append('<div class="empty-space"></div>');
           } else {
             $('#tag-list').empty()
             // contacts = [];
             $('#tag-list').append(
-              '<div style="text-align: center;" class="empty-space">Add your first tag.</div>'
+              '<div style="width:100%;text-align: center;" >Add your first tag.</div>'
             )
           }
         })
@@ -211,8 +209,65 @@ function onDeviceReadyResourses () {
   registerEventsAndInit()
 }
 $(document).ready(function () {
-  // registerEventsAndInit()
+  registerEventsAndInit()
 })
+
+function CreateResouceData () {
+  var resourseTable = []
+  var ResoursesData = { id: '', Linkname: '', Weburl: '', img: '' }
+
+  ResoursesData.id = 1
+  ResoursesData.Linkname = 'Suicide Call Back Service'
+  ResoursesData.Weburl = 'https://www.suicidecallbackservice.org.au/'
+  ResoursesData.img = 'img/tweets-logo.png'
+  resourseTable.push(ResoursesData)
+
+  ResoursesData = { id: '', Linkname: '', Weburl: '' }
+  ResoursesData.id = 2
+  ResoursesData.Linkname = 'SuicideLine Victoria'
+  ResoursesData.Weburl = 'https://www.suicideline.org.au/'
+  ResoursesData.img = 'img/logo-suicideline.png'
+  resourseTable.push(ResoursesData)
+  ResoursesData = { id: '', Linkname: '', Weburl: '' }
+  ResoursesData.id = 3
+  ResoursesData.Linkname = 'Mensline Australia'
+  ResoursesData.Weburl = 'https://mensline.org.au/'
+  ResoursesData.img = 'img/logo-mensline.png'
+  resourseTable.push(ResoursesData)
+  ResoursesData = { id: '', Linkname: '', Weburl: '' }
+  ResoursesData.id = 4
+  ResoursesData.Linkname = 'Lifeline'
+  ResoursesData.Weburl = 'https://www.lifeline.org.au/'
+  ResoursesData.img = 'img/logo-lifeline.png'
+  resourseTable.push(ResoursesData)
+  ResoursesData = { id: '', Linkname: '', Weburl: '' }
+  ResoursesData.id = 5
+  ResoursesData.Linkname = 'Kids Helpline'
+  ResoursesData.Weburl = 'https://kidshelpline.com.au/'
+  ResoursesData.img = 'img/logo-kidshelpline.png'
+  resourseTable.push(ResoursesData)
+  localforage.setItem('ResourceDB', JSON.stringify(resourseTable), function (err, value) {
+    if (err) {
+      console.error('Oh noes!')
+    } else {
+      AppendData(value)
+    }
+  })
+}
+
+function AppendData (value) {
+  $('#resourses-listStatic').empty()
+  var val = JSON.parse(value)
+  for (var j = 0; j < val.length; j++) {
+    var htmlData = '<div class="main-edit-delete" style="margin-bottom: 25px;"><div  class="" data-id="' + val[j].id + '"> '
+    htmlData += '<div class="border-middle-res"></div> '
+    htmlData += '</div><div class="delete-resourse" id="' + val[j].id + '"></div></div>'
+    htmlData += ' <p class="notes-label"><img class="" src="' + val[j].img + '" style="width: 60px;float:left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val[j].Linkname + '  </p>'
+    htmlData += ' <p class="resourses-url" style="padding-left: 110px;font-size:14px;"><a href="' + val[j].Weburl + '" target="_blank">' + val[j].Weburl + '</a></p>'
+    $('#resourses-listStatic').append(htmlData)
+  }
+}
+
 function registerEventsAndInit () {
   createResoursesTable()
   GetResoursesFromDB()
@@ -332,6 +387,17 @@ function registerEventsAndInit () {
     } else {
       $('#formValidationEditResourses').show()
       console.log('Validation Faild')
+    }
+  })
+  localforage.getItem('ResourceDB', function (err, value) {
+    if (err) {
+      console.log('iconlogo29!')
+    } else {
+      if (value == null) {
+        CreateResouceData()
+      } else {
+        AppendData(value)
+      }
     }
   })
 }

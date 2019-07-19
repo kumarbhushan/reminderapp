@@ -1,9 +1,9 @@
 
-function getContactId(contactId) {
+function getContactId (contactId) {
   localStorage.setItem('editContactId', contactId)
   return true
 }
-function createContactsTable() {
+function createContactsTable () {
   if (!window.openDatabase) {
     console.log('Databases are not supported in this browser.')
     return
@@ -19,7 +19,7 @@ function createContactsTable() {
   }
 }
 
-function GetContactsValueFromDB11() {
+function GetContactsValueFromDB11 () {
   //
 
   var contacts = []
@@ -58,19 +58,6 @@ function GetContactsValueFromDB11() {
             $('#contactsNumbers1').empty()
 
             for (var j = 0; j < contacts.length; j++) {
-              // alert(j +"----" +contactIds[j]);
-              /* $("#contacts-container").append(
-                  '<div class="callcard-contact1" style="background-color:' +
-                  contactColors[j] +
-                  '"><div class="contact-gradient"></div><div class="contactname">' +
-                  contacts[j] + '<br>' + contactNumbers[j] +
-                  '</div><div><a href="tel:' + contactNumbers[j] +
-                  '" class="callbtn"></a></div><div><a onclick=" return getContactId(' +
-                  contactIds[j] +
-                  ');" data-id = "' + contactIds[j] +
-                  '" data-href="editcontacts" href="javascript:void();" class="editcontact custom-btn-edit"></a></div></div>'
-              ); */
-
               $('#contacts-container').append(
                 '<div class="main-div">' +
 
@@ -152,17 +139,9 @@ function GetContactsValueFromDB11() {
                 '</div>'
               )
             }
-            //         $("#contact-data-share").append(
-            //         '<div class="btn-done2" value="Done" id="sharelocationWithusers"  >Done</div>'+
-            // '<div class="btn-done2" value="Cancel" id="closeShare" >Cancel</div>'
-
-            //         );
             $('#contacts-container').append('<div class="empty-space"></div>')
             $('#delete-contacts-container').append('<div class="empty-space"></div>')
-            // $("#contacts-container").append('<div class="empty-space"></div>');
           } else {
-            // alert('``````````');
-
             $('#contacts-container').empty()
             $('#delete-contacts-container').empty()
             $('#contact-data-share').empty()
@@ -181,20 +160,18 @@ function GetContactsValueFromDB11() {
   }
 }
 
-function DeleteContactFromDB(ContactUId) {
-  // alert(ContactUId);
+function DeleteContactFromDB (ContactUId) {
   try {
     db.transaction(function (transaction) {
       transaction.executeSql('DELETE FROM Contacts WHERE UId=?', [ContactUId], function () {
-        // document.getElementById("deleteConfirm").style.display = "none";
-        // goBack();
+
       })
     })
   } catch (error) {
     console.log('transaction_failed', error)
   }
 }
-function myTeamInit() {
+function myTeamInit () {
   localStorage.setItem('editPlanMode', 'off')
   createContactsTable()
   GetContactsValueFromDB11()
@@ -299,7 +276,29 @@ function myTeamInit() {
   })
 }
 document.addEventListener('deviceready', onDeviceReadyMyTheme, false)
-function onDeviceReadyMyTheme() {
+function onDeviceReadyMyTheme () {
   StatusBar.hide()
   myTeamInit()
+}
+
+$(document).ready(function () {
+  localforage.getItem('ContactDB', function (err, value) {
+    if (err) {
+      alert('Oh noes!')
+    } else {
+      if (value == null) {
+        CreateContactData()
+      } else {
+        AvaiableData()
+      }
+    }
+  })
+})
+
+function CreateContactData () {
+
+}
+
+function AvaiableData () {
+
 }

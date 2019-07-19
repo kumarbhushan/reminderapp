@@ -677,7 +677,7 @@ h4 {
     /* border-bottom: 2px solid #9fcd5a; */
     /* border-top: 2px solid #9fcd5a; */
     width: 50%;
-    background: #9FCD5A;
+    background: #9fcd5a;
     border-radius: 30px;
 
 
@@ -1516,6 +1516,7 @@ a {
     float: left;
     margin-top: 24px;
 }
+
 .border-middle-res {
     border-bottom: 2px solid #9fcd5a;
     width: 85%;
@@ -2257,7 +2258,7 @@ div#notes-list {
 }
 
 .tabs.activeTab {
-    border-bottom: 2px solid limegreen;
+    border-bottom: 2px solid #9fcd5a;
     margin: 0px;
 }
 
@@ -3738,17 +3739,21 @@ ons-carousel-item {
 .call-icon {
     margin-top: 13px;
 }
+
 .main-edit-delete {
     float: left;
     width: 100%;
 }
+
 .edit-res {
     float: right;
 }
+
 .custom-resourses-edit {
     width: 80%;
     float: left;
 }
+
 .delete-resourse {
     display: inline-block;
     margin-left: 10px;
@@ -3793,9 +3798,9 @@ input:focus {
     font-size: 3px;
     position: relative;
     text-indent: -9999em;
-    border-top: 1.1em solid rgba(159,205,90, 1);
-    border-right: 1.1em solid rgba(169,205,90, 1);
-    border-bottom: 1.1em solid rgba(179,205,90, 1);
+    border-top: 1.1em solid rgba(159, 205, 90, 1);
+    border-right: 1.1em solid rgba(169, 205, 90, 1);
+    border-bottom: 1.1em solid rgba(179, 205, 90, 1);
     border-left: 1.1em solid #ffffff;
     -webkit-transform: translateZ(0);
     -ms-transform: translateZ(0);
@@ -3877,22 +3882,26 @@ input:focus {
 /* But it does not work with newer browsers, the below doesn't hide the play button parent div */
 
 *::-webkit-media-controls-panel {
-    display: none!important;
+    display: none !important;
     -webkit-appearance: none;
-  }
-  
-  /* Old shadow dom for play button */
-  
-  *::-webkit-media-controls-play-button {
-    display: none!important;
+}
+
+/* Old shadow dom for play button */
+
+*::-webkit-media-controls-play-button {
+    display: none !important;
     -webkit-appearance: none;
-  }
-  
-  /* New shadow dom for play button */
-  
-  /* This one works! */
-  
-  *::-webkit-media-controls-start-playback-button {
-    display: none!important;
+}
+
+/* New shadow dom for play button */
+
+/* This one works! */
+
+*::-webkit-media-controls-start-playback-button {
+    display: none !important;
     -webkit-appearance: none;
-  }
+}
+
+.botnav-container.wh {
+    background: linear-gradient(rgba(70, 105, 100, 0) 0%, rgb(255, 255, 255, 0.9) 0%) !important;
+}

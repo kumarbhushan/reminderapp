@@ -14,6 +14,7 @@ function onDeviceReadyContacts () {
     filter = ['displayName', 'name', 'photos']   // return contact.displayName
     navigator.contacts.find(filter, onSuccessContact, onErrorContact, options)
     StatusBar.hide()
+    GetValueFromDBContact()
     $('#importContactDone').click(function () {
       $('#loader').show()
       $('.selectedContact').each(function (index) {

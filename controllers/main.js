@@ -28,6 +28,7 @@ try {
   console.log('main', err)
 }
 function navigate() {
+  console.log('navigation')
   var planCompleted = localStorage.getItem('planCompleted')
   if (planCompleted == '1' || planCompleted == 1) {
     $('.contents').hide()
@@ -120,6 +121,9 @@ $(document).ready(function (e) {
     page = $(this).data('href')
     if (page == 'Home') {
       newInit()
+      $('.botnav-container').removeClass('wh')
+    } else {
+      $('.botnav-container').addClass('wh')
     }
     if (page == 'instructions') {
       $('#QQ1A1').focus()
@@ -166,14 +170,24 @@ $(document).ready(function (e) {
     $('#' + page).show()
     return false
   })
-  /* $('.question').click(function (e) {
-               e.preventDefault();
-               page = $(this).data('href');
-               $('.contents').hide();
-               $('#' + page).show();
-               return false;
-           }); */
-
+  $('#AddNotes_ArrowBack').click(function () {
+    $('#add-notes-btn').show()
+    $('#add-image-btn').hide()
+    $('#add-resourses-btn').hide()
+    $('#delete-selected-notes').hide()
+    $('#add-notes').hide()
+    $('#edit-notes').hide()
+    $('#delete-notes').hide()
+    $('#addNewNoteBtn').hide()
+    $('#editNewNoteBtn').hide()
+    $('#select-all-notes').hide()
+    $('#deselect-all-notes').hide()
+    $('#show-notes-list').show()
+    $('#delete-icon-black-notes').hide()
+    $('#notes-list').show()
+    $('#addThemePop').hide()
+    $('#AddNotes_ArrowBack').hide()
+  })
   $('.tabs').click(function (e) {
     e.preventDefault()
     tab = $(this).data('tab')
@@ -197,6 +211,7 @@ $(document).ready(function (e) {
       $('#delete-icon-black-notes').hide()
       $('#notes-list').show()
       $('#addThemePop').hide()
+      $('#AddNotes_ArrowBack').hide()
     }
     if (tab == 'resourses') {
       $('#add-resourses-btn').show()
@@ -300,12 +315,7 @@ $(document).ready(function (e) {
     // }
   })
   $('.grid-container').click(function (e) {
-    // alert(e.target.id);
-    // if( e.target.id != 'pophide' && this.id != 'addNewThemeBtn' ) {
-    // if($(".commonhide").is(":visible")){
     $('.commonhide').hide()
-    // }
-    // }
   })
 
   $('#searchContact').keyup(function () {

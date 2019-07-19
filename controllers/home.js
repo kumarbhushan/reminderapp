@@ -147,6 +147,12 @@ function newInit () {
           if (document.getElementById('video_5')) document.getElementById('video_5').muted = false
           if (document.getElementById('video_5')) document.getElementById('video_5').play()
           $('#mute').attr('src', 'img/icon-sound.png')
+        } else {
+          if (document.getElementById('video_1')) document.getElementById('video_1').muted = true
+          if (document.getElementById('video_2')) document.getElementById('video_2').muted = true
+          if (document.getElementById('video_3')) document.getElementById('video_3').muted = true
+          if (document.getElementById('video_4')) document.getElementById('video_4').muted = true
+          if (document.getElementById('video_5')) document.getElementById('video_5').muted = true
         }
       } catch (err) {
 

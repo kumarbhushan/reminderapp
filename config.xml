@@ -114,13 +114,11 @@
     </platform>
 
     <platform name="android">
-        <!-- iOS 8.0+ -->
-        <!-- iPhone 6 Plus  -->
+        <icon density="ldpi" src="img/iconlogo29.png" />
+        <icon density="mdpi" src="img/iconlogo58.png" />
+        <icon density="hdpi" src="img/iconlogo76.png" />
+        <icon density="xhdpi" src="img/iconlogo100.png" />
         <!-- <icon src="img/iconLogo.png" width="192" height="192" /> -->
-
-        <!-- iOS 7.0+ -->
-        <!-- iPhone / iPod Touch  -->
-
     </platform>
 
     <!-- Plugins -->
