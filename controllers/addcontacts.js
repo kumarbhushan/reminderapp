@@ -23,7 +23,7 @@ function successCallBack () {
 }
 
 function errorHandlerImage (transaction, error) {
-  alert('***' + error)
+  alert('***' + JSON.stringify(transaction))
 }
 
 function successCallBackImage () {
@@ -35,23 +35,6 @@ function InsertDBSuccessCallBack () {
 }
 
 function nullHandler () { };
-
-function createTable () {
-  if (!window.openDatabase) {
-    console.log('Databases are not supported in this browser.')
-    return
-  }
-  try {
-    db.transaction(function (tx) {
-      tx.executeSql('DROP TABLE IF EXISTS Contacts')
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS Contacts(UId INTEGER NOT NULL PRIMARY KEY, ContactName TEXT NOT NULL, ContactNumber TEXT NOT NULL,ProfilePic TEXT NOT NULL, ContactColor TEXT NOT NULL)',
-        [], nullHandler, errorHandler)
-    }, errorHandler, successCallBack)
-  } catch (error) {
-    console.log('transaction_failed', error)
-  }
-}
 
 function InsertValueInDB (ContactFullName, ContactNumber, ContactColor, ImageUrl) {
   console.log('inside insert')
@@ -104,62 +87,12 @@ function InsertValueInDB (ContactFullName, ContactNumber, ContactColor, ImageUrl
   }
 }
 
-function AddContactLocalForAge (ContactFullName, ContactNumber, ContactColor, ImageUrl) {
-  localforage.getItem('ContactDB', function (err, value) {
-    if (err) {
-      alert('Oh noes!')
-    } else {
-      if (value == null) {
-        var ContactTable = []
-        var ContactData = { id: '', ContactFullName: '', ContactNumber: '', ContactColor: '', ImageUrl: '' }
-
-        ContactsData.id = 1
-        ContactsData.ContactFullName = ContactFullName
-        ContactsData.ContactNumber = ContactNumber
-        ContactsData.ContactColor = ContactColor
-        ContactsData.ImageUrl = ImageUrl
-        ContactTable.push(ContactData)
-        localforage.setItem('ContactDB', JSON.stringify(ContactTable), function (err, value) {
-          if (err) {
-            console.error('Oh noes!')
-          } else {
-
-          }
-        })
-      } else {
-        var val = JSON.parse(value)
-        var ContactTable = []
-        var ContactData = { id: '', ContactFullName: '', ContactNumber: '', ContactColor: '', ImageUrl: '' }
-
-        for (var j = 0; j < val.length; j++) {
-          ContactsData.id = j++
-          ContactsData.ContactFullName = ContactFullName
-          ContactsData.ContactNumber = ContactNumber
-          ContactsData.ContactColor = ContactColor
-          ContactsData.ImageUrl = ImageUrl
-          ContactTable.push(ContactData)
-          ContactData = { id: '', ContactFullName: '', ContactNumber: '', ContactColor: '', ImageUrl: '' }
-        }
-        localforage.setItem('ContactDB', JSON.stringify(ContactTable), function (err, value) {
-          if (err) {
-            console.error('Oh noes!')
-          } else {
-
-          }
-        })
-      }
-    }
-  })
-}
-
 document.addEventListener('deviceready', onDeviceReadyAddContacts, false)
 
 function onDeviceReadyAddContacts () {
   var ImageUrl = ''
   createTable()
   $('#addNewContactBtn').click(function () {
-    // alert('here');
-    // ContactColor = selectedColor;
     var ContactColor = colorArray[Math.floor(Math.random() * colorArray.length)]
     console.log(document.getElementById('addContactFirstName').value)
     ContactFirstName = document.getElementById('addContactFirstName').value
@@ -168,7 +101,7 @@ function onDeviceReadyAddContacts () {
     ContactFullName = ContactFirstName.trim() + ' ' + ContactLastName.trim()
     ImageUrl = $('#dummy-img').attr('src')
     if (ImageUrl == 'img/btn-photo-contact.jpg') {
-      ImageUrl == 'img/dummy.png'
+      ImageUrl == dummybase64
     }
 
     if (ContactFirstName.trim() != '' && ContactLastName.trim() != '' && ContactNumber.trim() !=
@@ -238,19 +171,20 @@ function getPhotoFromCameraProfilePic () {
     quality: 50,
     correctOrientation: true,
     sourceType: navigator.camera.PictureSourceType.CAMERA,
-    destinationType: navigator.camera.DestinationType.FILE_URI
+    destinationType: navigator.camera.DestinationType.DATA_URL
   })
 }
 
 function onPhotoDataSuccessProfilePic (imageData) {
   console.log(imageData)
-
+  let base64Image = 'data:image/jpeg;base64,' + imageData
+  $('#dummy-img').attr('src', base64Image)
   // var image = document.getElementById('myImage');
   // image.style.display = 'block';
   // image.src =imageData;
   // console.log(imageData);
   // CheckImageInDB(imageData);
-  moveProfilePic(imageData)
+  // moveProfilePic(imageData)
 }
 
 function getPhotoFromAlbumProfilePic () {
@@ -261,27 +195,29 @@ function getPhotoFromAlbumProfilePic () {
     quality: 50,
     correctOrientation: true,
     sourceType: navigator.camera.PictureSourceType.SAVEDPHOTOALBUM,
-    destinationType: navigator.camera.DestinationType.FILE_URI
+    destinationType: navigator.camera.DestinationType.DATA_URL
   })
 }
 
-function onPhotoURISuccessProfilePic (imageURI) {
+function onPhotoURISuccessProfilePic (imageData) {
   // var image = document.getElementById('myImage');
   // image.style.display = 'block';
   // image.src = imageURI;
   // console.log(imageURI);
   // CheckImageInDB(imageURI);
-  if (imageURI[0] == 'c' || imageURI[0] == 'C') {
-    window.FilePath.resolveNativePath(imageURI, function (result) {
-      // onSuccess code
-      var correctedImageURI = 'file://' + result
-      moveProfilePic(correctedImageURI)
-    }, function (error) {
-      // onError code here
-    })
-  } else {
-    moveProfilePic(imageURI)
-  }
+  let base64Image = 'data:image/jpeg;base64,' + imageData
+  $('#dummy-img').attr('src', base64Image)
+  // if (imageURI[0] == 'c' || imageURI[0] == 'C') {
+  //   window.FilePath.resolveNativePath(imageURI, function (result) {
+  //     // onSuccess code
+  //     var correctedImageURI = 'file://' + result
+  //     moveProfilePic(correctedImageURI)
+  //   }, function (error) {
+  //     // onError code here
+  //   })
+  // } else {
+  //   moveProfilePic(imageURI)
+  // }
 }
 
 function errorCallback () { }
@@ -295,7 +231,7 @@ function getPhoto (pictureSource) {
   // Retrieve image file location from specified source
   navigator.camera.getPicture(onPhotoURISuccessProfilePic, onFailProfilePic, {
     quality: 50,
-    destinationType: destinationType.FILE_URI,
+    destinationType: destinationType.DATA_URL,
     sourceType: source
   })
 }

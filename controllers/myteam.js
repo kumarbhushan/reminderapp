@@ -64,13 +64,13 @@ function GetContactsValueFromDB11() {
                 '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
                 '<div class="head-num">' +
                 '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
-                '<div class="num"><p>' + contactNumbers[j] +
+                '<div id="numid'+j+'" class="num"><p>' + contactNumbers[j] +
                 '</p> <a onclick=" return getContactId(' +
                 contactIds[j] +
                 ');" data-id = "' + contactIds[j] +
                 '" data-href="editcontacts" href="javascript:void();" class="custom-btn-edit"><img style="width:40px;" src="img/btn-edit.png"></a></div>' +
                 '</div>' +
-                '<div class="call-icon"><a href ="tel:' + contactNumbers[j] +
+                '<div  class="call-icon"><a href ="tel:' + contactNumbers[j] +
                 '" ><img style="width:60px;" src="img/icon-phone.png"></a><br>' +
                 '<img  class="shareloc" style="width:60px;" src="img/btn-location.png">	</div>' +
                 '</div>'
@@ -90,7 +90,7 @@ function GetContactsValueFromDB11() {
               )
               $('#contactsNumbers1').append(
                 '<div id="main-div-pdf" class="main-div">' +
-                '<img id="emer-logo" style="width:90px;height:90px;border-radius:50%;" src="' + dummybase64 + '">' +
+                '<img id="emer-logo" style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">' +
                 '<div id="head-num-pdf"  class="head-num">' +
                 '<div class="heading"><span id="name-font" class="cus head">' + contacts[j] + '</span></div>' +
                 '<div id="num-font" class="num"><span>' + contactNumbers[j] +
@@ -101,6 +101,7 @@ function GetContactsValueFromDB11() {
                 '</div>' +
                 '</div>'
               )
+              
               $('#contacts-container-emergency').append(
                 '<div class="main-div">' +
                 '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
@@ -114,6 +115,8 @@ function GetContactsValueFromDB11() {
                 '</div>' +
                 '</div>'
               )
+
+             
               $('#delete-contacts-container').append(
                 '<div class="main-div">' +
                 '<div class="check-contact"><div id="' + contactIds[j] + '" class=" checkContact contactUnchecked"></div></div>' +
@@ -122,13 +125,17 @@ function GetContactsValueFromDB11() {
                 '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
                 '<div class="num"><p>' + contactNumbers[j] +
                 '</p> </div>' +
-                '</div>' +
-
+                '</div>' + 
                 '</div>'
               )
+              
+             var id= contactNumbers[j].replace("(",''); 
+              id = id.replace(")",'');
+              id = id.replace("+",'');
+              id = id.replace(/\s/g,'') 
               $('#contact-data-share').append(
                 '<div class="main-div">' +
-                '<div class="check-contact"><div id="' + contactNumbers[j].replace('+', '') + '" data-href ="' + contactNumbers[j] + '" class=" checkContactShare contactUncheckedShare"></div></div>' +
+                '<div class="check-contact"><div id="' +id + '" data-href ="' + contactNumbers[j] + '" class=" checkContactShare contactUncheckedShare"></div></div>' +
                 '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
                 '<div class="head-num">' +
                 '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +

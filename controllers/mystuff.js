@@ -557,6 +557,7 @@ function myStuffInit () {
     $('#notes-list').hide()
     $('#edit-notes').show()
     $('#editNewNoteBtn').show()
+    $('#AddNotes_ArrowBack').show()
     $('#add-notes-btn').hide()
     GetNotesValueFromDB($(this).data('id'))
     return false
@@ -679,7 +680,7 @@ function onDeviceReadyMyStuff () {
 // Gallery codes come below
 $('document').ready(function () {
   var popuphome = true
-  // myStuffInit()
+  myStuffInit()
 })
 // function Viewerslider()
 //      {

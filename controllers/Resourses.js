@@ -111,23 +111,28 @@ function GetResoursesFromDB () {
             $('#addLinkTag').empty()
 
             for (var j = 0; j < resoursesWeburl.length; j++) {
-              var htmlData = ' <div class="main-edit-delete"><div  class="custom-resourses-edit" data-id="' + contactIds[j] + '">' +
+              var htmlData = "<div id='Rec" + j + "'>"
+              htmlData += ' <div class="main-edit-delete"><div  class="custom-resourses-edit" data-id="' + contactIds[j] + '">' +
                 '<div class="border-middle-res"></div>' +
                 '<div class="edit-res"><img class="img-button-edit" src="img/btn-edit.png"></div></div><div class="delete-resourse" id="res_' + contactIds[j] + '"><img style="width:40px;height:40px;"src="img/btn-delete-dark-white.png" /></div></div>' +
 
                 '<p class="notes-label"><img class="" src="img/thumbnail-resources.jpg" style="width: 60px;float:left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + resoursesName[j] + '</p>' +
-                '<p class="resourses-url" style="padding-left: 110px;font-size:14px;"><a style="z-index:-1" href="' + resoursesWeburl[j] + '" target="_blank">' + resoursesWeburl[j] + '</a></p>'
+                '<p class="resourses-url" style="padding-left: 110px;font-size:14px;"><a class="link" href="' + resoursesWeburl[j] + '" target="_blank">' + resoursesWeburl[j] + '</a></p>'
 
-              var tags = resoursesTag[j].split('~')
-              for (var k = 0; k < tags.length; k++) {
-                if (k == 0) {
-                  htmlData += '<div class="tag-list">'
-                }
-                htmlData += '<p class="resourses-tags">' + tags[k] + '</p>'
-                if (k == tags.length - 1) {
-                  htmlData += '</div>'
+              if (resoursesTag[j].length > 0) {
+                var tags = resoursesTag[j].split('~')
+                for (var k = 0; k < tags.length; k++) {
+                  if (k == 0) {
+                    htmlData += '<div class="tag-list">'
+                  }
+                  htmlData += '<p class="resourses-tags">' + tags[k] + '</p>'
+                  if (k == tags.length - 1) {
+                    htmlData += '</div>'
+                  }
                 }
               }
+              htmlData += '<p class="searchRec" style="display:none;">' + resoursesName[j] + '</p>'
+              htmlData += '</div>'
 
               $('#resourses-list').append(htmlData)
               $('#addLinkTag').append(
@@ -209,7 +214,7 @@ function onDeviceReadyResourses () {
   registerEventsAndInit()
 }
 $(document).ready(function () {
-  registerEventsAndInit()
+  // registerEventsAndInit()
 })
 
 function CreateResouceData () {
@@ -261,9 +266,13 @@ function AppendData (value) {
   for (var j = 0; j < val.length; j++) {
     var htmlData = '<div class="main-edit-delete" style="margin-bottom: 25px;"><div  class="" data-id="' + val[j].id + '"> '
     htmlData += '<div class="border-middle-res"></div> '
-    htmlData += '</div><div class="delete-resourse" id="' + val[j].id + '"></div></div>'
+    htmlData += '</div></div>'
     htmlData += ' <p class="notes-label"><img class="" src="' + val[j].img + '" style="width: 60px;float:left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val[j].Linkname + '  </p>'
-    htmlData += ' <p class="resourses-url" style="padding-left: 110px;font-size:14px;"><a  style="z-index:-1" href="' + val[j].Weburl + '" target="_blank">' + val[j].Weburl + '</a></p>'
+    htmlData += ' <p  class="resourses-url" value="' + val[j].Weburl + '" style="padding-left: 110px;font-size:14px;"><a class="link" href="' + val[j].Weburl + '" target="_blank">' + val[j].Weburl + '</a></p>'
+    htmlData += '<div style="display:none;" class="tag-list">'
+    htmlData += '<p class="resourses-tagsStatic">' + val[j].Linkname + '</p>'
+    htmlData += '</div>'
+
     $('#resourses-listStatic').append(htmlData)
   }
 }
@@ -278,7 +287,7 @@ function registerEventsAndInit () {
     resoursesWeburl = document.getElementById('addWeburl').value
     resoursesName = document.getElementById('addName').value
     resoursesTag = document.getElementById('addTag').value
-    if (resoursesWeburl.trim() != '' && resoursesName.trim() != '' && resoursesTag.trim() != '') {
+    if (resoursesWeburl.trim() != '' && resoursesName.trim() != '') {
       $('#formValidationResourses').hide()
       if (!isUrlValid(resoursesWeburl)) {
         $('#validateResoursesUrl').show()
@@ -325,6 +334,15 @@ function registerEventsAndInit () {
   $(document).on('click', '.close-it', function () {
     $(this).parent().remove()
   })
+
+  ///  open site on broswer after click on links
+  $(document).on('click', '.link', function (e) {
+    e.stopPropagation()
+    e.preventDefault()
+    window.open($(this).attr('href'), '_system')
+    return false
+  })
+
   $('#editNewResoursesBtn').click(function () {
     editWeburl = document.getElementById('editWeburl').value
     editName = document.getElementById('editName').value
@@ -479,26 +497,33 @@ function InsertResoursesInDB (resoursesWeburl, resoursesName, resoursesTag) {
           document.getElementById('addWeburl').value = ''
           document.getElementById('addName').value = ''
           document.getElementById('addTag').value = ''
+          if (resoursesTag && resoursesTag != '') {
+            db.transaction(function (transaction) {
+              transaction.executeSql(
+                'SELECT  Name FROM Tags WHERE Name=?', [
+                  resoursesTag
+                ],
+                function (transaction, results) {
+                  if (results.rows.length) {
 
-          db.transaction(function (transaction) {
-            transaction.executeSql(
-              'SELECT  Name FROM Tags WHERE Name=?', [
-                resoursesTag
-              ],
-              function (transaction, results) {
-                if (results.rows.length) {
-
-                } else {
-                  InsertTagInDB(resoursesTag)
-                }
-                GetResoursesFromDB()
-                GetTagsFromDB()
-                $('#add-resourses').hide()
-                $('#resourses-list').show()
-                $('#tag-list').show()
-                $('#add-resourses-btn').show()
-              })
-          })
+                  } else {
+                    InsertTagInDB(resoursesTag)
+                  }
+                  GetResoursesFromDB()
+                  GetTagsFromDB()
+                  $('#add-resourses').hide()
+                  $('#resourses-list').show()
+                  $('#tag-list').show()
+                  $('#add-resourses-btn').show()
+                })
+            })
+          } else {
+            GetResoursesFromDB()
+            $('#add-resourses').hide()
+            $('#resourses-list').show()
+            $('#tag-list').show()
+            $('#add-resourses-btn').show()
+          }
         }, errorHandler, successCallBack)
     })
   } catch (error) {

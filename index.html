@@ -143,7 +143,9 @@
             <img src="img/icon-smile.png" id="emoji3" class="emoji3" onclick="changeto3()">
             <a href="javascript:void(0);" data-href="k10assessment" class="custom-btn">
                 <div class="btn-k10-assessment"><img src="img/icon-k10.png">
-                    <p>K10 Assessment</p>
+                    <p style="
+                    font-size: 130%;
+                ">K10 Assessment</p>
                 </div>
             </a>
         </div>
@@ -364,7 +366,6 @@
             <div id="resourses-listStatic">
 
 
-
             </div>
             <div id="resourses-list">
 
@@ -513,15 +514,13 @@
 
                     <span id="formValidationNote" style="color:#be1e2d;" hidden>All fields are
                         required.</span>
-
-
                     <input maxlength="20" placeholder="Add Title of Note" class="form-textfield mt20_addnote"
                         type="text" name="addTitle" id="addTitle">
                     <br>
 
                     <!--input placeholder="Add notes" class="form-textfield" type="text" name="addNote" id="addNote"-->
                     <textarea placeholder="Add notes" class="form-textfield borderbtmO_addnote paddingtop_addnote"
-                        name="addNote" id="addNote"></textarea>
+                        name="addNote" id="addNote" style="height: calc(100vh - 435px);"></textarea>
                     <br><br>
                 </div>
 
@@ -542,7 +541,8 @@
                     <br>
 
                     <!--input placeholder="Add notes" class="form-textfield" type="text" name="editNote" id="editNote"-->
-                    <textarea placeholder="Add notes" class="form-textfield" name="editNote" id="editNote"></textarea>
+                    <textarea placeholder="Add notes" class="form-textfield borderbtmO_addnote" style="height: calc(100vh - 435px);"
+                        name="editNote" id="editNote"></textarea>
                     <br><br>
                 </div>
 
@@ -1786,7 +1786,7 @@
                                 src="img/icon-phone.png"></a> </div>
                 </div>
             </div>
-            <div class="contacts-container" id="contacts-container-emergency"></div>
+            <!-- <div class="contacts-container" id="contacts-container-emergency"></div> -->
             <div class="margin-bot-70p"></div>
         </div>
     </div>

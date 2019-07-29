@@ -290,7 +290,6 @@ $(document).ready(function (e) {
     }
     $('.contents').hide()
     $('#' + page).show()
-
     return false
   })
   $('#start11').click(function () {
@@ -345,6 +344,20 @@ $(document).ready(function (e) {
   $('#searchTags').keyup(function () {
     var filter = this.value.toLowerCase()  // no need to call jQuery here
 
+    $('.resourses-tagsStatic').each(function () {
+      var _this = $(this)
+      var title = _this.text().toLowerCase()
+      if (title.indexOf(filter) < 0) {
+        _this.parent().prev().hide()
+        _this.parent().prev().prev().hide()
+        _this.parent().prev().prev().prev().hide()
+      } else {
+        _this.parent().prev().show()
+        _this.parent().prev().prev().show()
+        _this.parent().prev().prev().prev().show()
+      }
+    })
+
     $('.resourses-tags').each(function () {
       var _this = $(this)
       var title = _this.text().toLowerCase()
@@ -370,6 +383,7 @@ $(document).ready(function (e) {
       }
     })
   })
+
   if ((localStorage.getItem('emoji') != 'icon-sad') && (localStorage.getItem('emoji') != 'icon-neutral') && (
     localStorage.getItem('emoji') != 'icon-smile')) {
     localStorage.setItem('emoji', 'icon-neutral')

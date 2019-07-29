@@ -5,13 +5,13 @@ var reportGenerator = reportGenerator || {}
 // Used to create file from Text input
 reportGenerator.generate = function (folderPath, fileName, callback) {
   if (folderPath) { // check is content and file type available
-    var report = new jsPDF('p', 'pt', [50, 300])
+    var report = new jsPDF('p', 'pt', [50 * 4, 300 * 5])
     function jfilter (node) {
       return (node.id !== 'ignorePDF')
     }
     domtoimage.toPng(document.getElementById('pdfData'), { filter: jfilter, quality: 0.95 })
       .then(function (dataUrl) {
-        report.addImage(dataUrl, 'JPEG', 0, 0, 50, 280)
+        report.addImage(dataUrl, 'JPEG', 0, 0, 50 * 4, 280 * 5)
         // report.save('test.pdf')
         // console.log('dataUrl', dataUrl)
         var blobContent = report.output('blob')

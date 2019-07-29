@@ -1,7 +1,7 @@
 
 var assessmentResult = 0
 
-function submitQ1() {
+function submitQ1 () {
   for (var i = 0; i < 5; i++) {
     if ($('.K10Q1')[i].checked) {
       assessmentResult = assessmentResult + parseInt($('.K10Q1')[i].value)
@@ -9,7 +9,7 @@ function submitQ1() {
   }
 }
 
-function submitQ2() {
+function submitQ2 () {
   for (var i = 0; i < 5; i++) {
     if ($('.K10Q2')[i].checked) {
       assessmentResult = assessmentResult + parseInt($('.K10Q2')[i].value)
@@ -17,7 +17,7 @@ function submitQ2() {
   }
 }
 
-function submitQ3() {
+function submitQ3 () {
   for (var i = 0; i < 5; i++) {
     if ($('.K10Q3')[i].checked) {
       assessmentResult = assessmentResult + parseInt($('.K10Q3')[i].value)
@@ -25,7 +25,7 @@ function submitQ3() {
   }
 }
 
-function submitQ4() {
+function submitQ4 () {
   for (var i = 0; i < 5; i++) {
     if ($('.K10Q4')[i].checked) {
       assessmentResult = assessmentResult + parseInt($('.K10Q4')[i].value)
@@ -33,7 +33,7 @@ function submitQ4() {
   }
 }
 
-function submitQ5() {
+function submitQ5 () {
   for (var i = 0; i < 5; i++) {
     if ($('.K10Q5')[i].checked) {
       assessmentResult = assessmentResult + parseInt($('.K10Q5')[i].value)
@@ -41,7 +41,7 @@ function submitQ5() {
   }
 }
 
-function submitQ6() {
+function submitQ6 () {
   for (var i = 0; i < 5; i++) {
     if ($('.K10Q6')[i].checked) {
       assessmentResult = assessmentResult + parseInt($('.K10Q6')[i].value)
@@ -49,7 +49,7 @@ function submitQ6() {
   }
 }
 
-function submitQ7() {
+function submitQ7 () {
   for (var i = 0; i < 5; i++) {
     if ($('.K10Q7')[i].checked) {
       assessmentResult = assessmentResult + parseInt($('.K10Q7')[i].value)
@@ -57,7 +57,7 @@ function submitQ7() {
   }
 }
 
-function submitQ8() {
+function submitQ8 () {
   for (var i = 0; i < 5; i++) {
     if ($('.K10Q8')[i].checked) {
       assessmentResult = assessmentResult + parseInt($('.K10Q8')[i].value)
@@ -65,7 +65,7 @@ function submitQ8() {
   }
 }
 
-function submitQ9() {
+function submitQ9 () {
   for (var i = 0; i < 5; i++) {
     if ($('.K10Q9')[i].checked) {
       assessmentResult = assessmentResult + parseInt($('.K10Q9')[i].value)
@@ -73,7 +73,7 @@ function submitQ9() {
   }
 }
 
-function submitQ10() {
+function submitQ10 () {
   for (var i = 0; i < 5; i++) {
     if ($('.K10Q10')[i].checked) {
       assessmentResult = assessmentResult + parseInt($('.K10Q10')[i].value)
@@ -85,56 +85,57 @@ function submitQ10() {
   // document.location.href = "k10results.html";
   $('.contents').hide()
   $('#k10results').show()
+  k10_results_init()
 }
 
-function showQ2() {
+function showQ2 () {
   document.getElementById('k10Ans1').style.display = 'none'
   document.getElementById('k10Ans2').style.display = 'block'
 }
 
-function showQ3() {
+function showQ3 () {
   document.getElementById('k10Ans2').style.display = 'none'
   document.getElementById('k10Ans3').style.display = 'block'
 }
 
-function showQ4() {
+function showQ4 () {
   document.getElementById('k10Ans3').style.display = 'none'
   document.getElementById('k10Ans4').style.display = 'block'
 }
 
-function showQ5() {
+function showQ5 () {
   document.getElementById('k10Ans4').style.display = 'none'
   document.getElementById('k10Ans5').style.display = 'block'
 }
 
-function showQ6() {
+function showQ6 () {
   document.getElementById('k10Ans5').style.display = 'none'
   document.getElementById('k10Ans6').style.display = 'block'
 }
 
-function showQ7() {
+function showQ7 () {
   document.getElementById('k10Ans6').style.display = 'none'
   document.getElementById('k10Ans7').style.display = 'block'
 }
 
-function showQ8() {
+function showQ8 () {
   document.getElementById('k10Ans7').style.display = 'none'
   document.getElementById('k10Ans8').style.display = 'block'
 }
 
-function showQ9() {
+function showQ9 () {
   document.getElementById('k10Ans8').style.display = 'none'
   document.getElementById('k10Ans9').style.display = 'block'
 }
 
-function showQ10() {
+function showQ10 () {
   document.getElementById('k10Ans9').style.display = 'none'
   document.getElementById('k10Ans10').style.display = 'block'
 }
 
 document.addEventListener('deviceready', onDeviceReadyK10q, false)
 
-function onDeviceReadyK10q() {
+function onDeviceReadyK10q () {
   $('.K10Q1').click(function () {
     $('#K10SubmitQ1').show()
   })

@@ -2,7 +2,7 @@
 var selectedElement = ''
 var answers = []
 
-function createTable() {
+function createTable () {
   console.log('DEBUGGING: we are in the onBodyLoad() function')
   if (!window.openDatabase) {
     console.log('Databases are not supported in this browser.')
@@ -18,7 +18,7 @@ function createTable() {
     console.log('transaction_failed', error)
   }
 }
-function GetValueFromDB(QId, AId) {
+function GetValueFromDB (QId, AId) {
   // alert('here');
   var answer = ''
   if (!window.openDatabase) {
@@ -50,7 +50,7 @@ function GetValueFromDB(QId, AId) {
     console.log('transaction_failed', error)
   }
 }
-function editQuestion(QId) {
+function editQuestion (QId) {
   localStorage.setItem('editPlanMode', 'on')
   var editPlanStage = localStorage.setItem('planStage', (parseInt(QId) - 1))
   $('.contents').hide()
@@ -59,7 +59,7 @@ function editQuestion(QId) {
     GetValueFromDBPlan(QId, i)
   }
 }
-function GetContactsValueFromDB1() {
+function GetContactsValueFromDB1 () {
   var contacts = []
   var contactNumbers = []
   var contactColors = []
@@ -83,13 +83,6 @@ function GetContactsValueFromDB1() {
               conactPic.push(results.rows.item(i).ProfilePic)
             }
             for (var j = 0; j < contacts.length; j++) {
-              /* $("#contactsNumbers").append(
-                   '<div class="callcard-contact1" style="background-color:' +
-                   contactColors[j] +
-                   '"><div class="contact-gradient"></div><div class="contactname">' +
-                   contacts[j] + '<br>' + contactNumbers[j] +
-                   '</div><div><a class="callbtn" href="tel:' + contactNumbers[j] +
-                   '"></a></div></div>'); */
               $('#contactsNumbers').append(
                 '<div class="main-div">' +
                 '<div class="img" id="main-emer-logo" ><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
@@ -102,9 +95,10 @@ function GetContactsValueFromDB1() {
                 '" ><img style="width:60px;" src="img/icon-phone.png"></a></div>' +
                 '</div>'
               )
+
               $('#contactsNumbers1').append(
                 '<div class="main-div">' +
-                '<img style="width:90px;height:90px;border-radius:50%;" src="' + dummybase64 + '">' +
+                '<img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">' +
                 '<div class="head-num">' +
                 '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
                 '<div class="num"><span>' + contactNumbers[j] +
@@ -124,7 +118,7 @@ function GetContactsValueFromDB1() {
   }
 }
 document.addEventListener('deviceready', onDeviceReadyMySafetyPlan, false)
-function onDeviceReadyMySafetyPlan() {
+function onDeviceReadyMySafetyPlan () {
   localStorage.setItem('editPlanMode', 'off')
   createTable()
   for (var i = 1; i < 7; i++) {
@@ -135,7 +129,7 @@ function onDeviceReadyMySafetyPlan() {
   }
   GetContactsValueFromDB1()
 }
-function getShareDocument(selector) {
+function getShareDocument (selector) {
   var $childrens = jQuery(selector).children(),
     output = []
 
@@ -144,7 +138,6 @@ function getShareDocument(selector) {
       return !jQuery(this).get(0).hasAttribute('onclick') && jQuery(this).is(
         ':visible') && !jQuery(this).is('img')
     })
-
     if ($child.length > 0) {
       jQuery.each($child, function (index, element) {
         var $this = jQuery(element)
