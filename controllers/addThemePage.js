@@ -185,6 +185,7 @@ function onDeviceReadyAddThemePage () {
   addThemePageInit()
 }
 function addThemePageInit () {
+  window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function () { }, resOnError)
   pictureSource = navigator.camera.PictureSourceType
   destinationType = navigator.camera.DestinationType
   createThemeTable()
@@ -235,7 +236,6 @@ function successMoveTheme (entry) {
 }
 function resOnError (error) {
   console.log(error)
-  location.reload(true)
 }
 function getPhotoFromCameraTheme () {
   navigator.camera.getPicture(onPhotoDataSuccessTheme, onFailTheme, {
@@ -246,18 +246,12 @@ function getPhotoFromCameraTheme () {
   })
 }
 function onPhotoDataSuccessTheme (imageData) {
-  console.log(imageData)
-  // var image = document.getElementById('myImage');
-  // image.style.display = 'block';
-  // image.src =imageData;
-  // console.log(imageData);
-  // CheckImageInDB(imageData);
   moveTheme(imageData)
 }
 function getPhotoFromAlbumTheme () {
   console.log(pictureSource)
   console.log(destinationType)
-  navigator.camera.getPicture(onPhotoURISuccessTheme, onFail, {
+  navigator.camera.getPicture(onPhotoURISuccessTheme, onFailTheme, {
     quality: 50,
     correctOrientation: true,
     sourceType: navigator.camera.PictureSourceType.SAVEDPHOTOALBUM,
@@ -265,18 +259,13 @@ function getPhotoFromAlbumTheme () {
   })
 }
 function onPhotoURISuccessTheme (imageURI) {
-  // var image = document.getElementById('myImage');
-  // image.style.display = 'block';
-  // image.src = imageURI;
-  // console.log(imageURI);
-  // CheckImageInDB(imageURI);
   if (imageURI[0] == 'c' || imageURI[0] == 'C') {
     window.FilePath.resolveNativePath(imageURI, function (result) {
       // onSuccess code
       var correctedImageURI = 'file://' + result
       moveTheme(correctedImageURI)
     }, function (error) {
-      // onError code here
+      console.log('error:' + error)
     })
   } else {
     moveTheme(imageURI)
@@ -285,7 +274,6 @@ function onPhotoURISuccessTheme (imageURI) {
 function errorCallback () { }
 function onFailTheme (message) {
   console.log('Failed because:' + message)
-  location.reload(true)
 }
 function getPhoto (pictureSource) {
   // Retrieve image file location from specified source
@@ -297,6 +285,6 @@ function getPhoto (pictureSource) {
 }
 // Gallery codes come below
 $('document').ready(function () {
-  addThemePageInit()
+  // addThemePageInit()
   var popuphome = true
 })

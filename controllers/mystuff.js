@@ -371,11 +371,6 @@ function getPhotoFromAlbum () {
   })
 }
 function onPhotoURISuccess (imageURI) {
-  // var image = document.getElementById('myImage');
-  // image.style.display = 'block';
-  // image.src = imageURI;
-  // console.log(imageURI);
-  // CheckImageInDB(imageURI);
   if (imageURI[0] == 'c' || imageURI[0] == 'C') {
     window.FilePath.resolveNativePath(imageURI, function (result) {
       // onSuccess code
@@ -672,29 +667,13 @@ function onDeviceReadyMyStuff () {
   console.log(destinationType)
   // openGallery();
   StatusBar.hide()
-  navigator.geolocation.getCurrentPosition(onSuccessLoc, onErrorMap, {
-    timeout: 30000
-  })
+  // navigator.geolocation.getCurrentPosition(onSuccessLoc, onErrorMap, {
+  //   timeout: 30000
+  // })
   myStuffInit()
 }
 // Gallery codes come below
 $('document').ready(function () {
   var popuphome = true
-  myStuffInit()
+  // myStuffInit()
 })
-// function Viewerslider()
-//      {
-//       var galley = document.getElementById('gallery');
-//       var viewer = new Viewer(galley, {
-//         url: 'src',
-//         toolbar: {
-//           delete:true,
-//           zoomIn: true,
-//           zoomOut: true,
-//           prev: true,
-//           next: true,
-//           rotateLeft: true,
-//           rotateRight: true,
-//               }
-//       });
-//     }

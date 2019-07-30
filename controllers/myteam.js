@@ -3,21 +3,6 @@ function getContactId(contactId) {
   localStorage.setItem('editContactId', contactId)
   return true
 }
-function createContactsTable() {
-  if (!window.openDatabase) {
-    console.log('Databases are not supported in this browser.')
-    return
-  }
-  try {
-    db.transaction(function (tx) {
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS Contacts(UId INTEGER NOT NULL PRIMARY KEY, ContactName TEXT NOT NULL, ContactNumber TEXT NOT NULL, ContactColor TEXT NOT NULL)',
-        [], nullHandler, errorHandler)
-    }, errorHandler, successCallBack)
-  } catch (error) {
-    console.log('transaction_failed', error)
-  }
-}
 
 function GetContactsValueFromDB11() {
   //
@@ -26,7 +11,7 @@ function GetContactsValueFromDB11() {
   var contactColors = []
   var contactIds = []
   var contactNumbers = []
-  var conactPic = []
+  var contactPic = []
   if (!window.openDatabase) {
     console.log('Databases are not supported in this browser.')
     return
@@ -44,7 +29,7 @@ function GetContactsValueFromDB11() {
               contactNumbers.push(results.rows.item(i).ContactNumber)
               contactColors.push(results.rows.item(i).ContactColor)
               contactIds.push(results.rows.item(i).UId)
-              conactPic.push(results.rows.item(i).ProfilePic)
+              contactPic.push(results.rows.item(i).ProfilePic)
               // alert(results.rows.item(i).UId);
             }
             console.log(contacts)
@@ -61,10 +46,10 @@ function GetContactsValueFromDB11() {
               $('#contacts-container').append(
                 '<div class="main-div">' +
 
-                '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+                '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + contactPic[j] + '">	</div>' +
                 '<div class="head-num">' +
                 '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
-                '<div id="numid'+j+'" class="num"><p>' + contactNumbers[j] +
+                '<div id="numid' + j + '" class="num"><p>' + contactNumbers[j] +
                 '</p> <a onclick=" return getContactId(' +
                 contactIds[j] +
                 ');" data-id = "' + contactIds[j] +
@@ -77,7 +62,7 @@ function GetContactsValueFromDB11() {
               )
               $('#contactsNumbers').append(
                 '<div class="main-div">' +
-                '<div class="img" id="main-emer-logo" ><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+                '<div class="img" id="main-emer-logo" ><img style="width:90px;height:90px;border-radius:50%;" src="' + contactPic[j] + '">	</div>' +
                 '<div class="head-num">' +
                 '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
                 '<div class="num"><span>' + contactNumbers[j] +
@@ -90,7 +75,7 @@ function GetContactsValueFromDB11() {
               )
               $('#contactsNumbers1').append(
                 '<div id="main-div-pdf" class="main-div">' +
-                '<img id="emer-logo" style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">' +
+                '<img id="emer-logo" style="width:90px;height:90px;border-radius:50%;" src="' + contactPic[j] + '">' +
                 '<div id="head-num-pdf"  class="head-num">' +
                 '<div class="heading"><span id="name-font" class="cus head">' + contacts[j] + '</span></div>' +
                 '<div id="num-font" class="num"><span>' + contactNumbers[j] +
@@ -101,10 +86,10 @@ function GetContactsValueFromDB11() {
                 '</div>' +
                 '</div>'
               )
-              
+
               $('#contacts-container-emergency').append(
                 '<div class="main-div">' +
-                '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+                '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + contactPic[j] + '">	</div>' +
                 '<div class="head-num">' +
                 '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
                 '<div class="num"><p>' + contactNumbers[j] +
@@ -116,27 +101,26 @@ function GetContactsValueFromDB11() {
                 '</div>'
               )
 
-             
               $('#delete-contacts-container').append(
                 '<div class="main-div">' +
                 '<div class="check-contact"><div id="' + contactIds[j] + '" class=" checkContact contactUnchecked"></div></div>' +
-                '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+                '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + contactPic[j] + '">	</div>' +
                 '<div class="head-num">' +
                 '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
                 '<div class="num"><p>' + contactNumbers[j] +
                 '</p> </div>' +
-                '</div>' + 
+                '</div>' +
                 '</div>'
               )
-              
-             var id= contactNumbers[j].replace("(",''); 
-              id = id.replace(")",'');
-              id = id.replace("+",'');
-              id = id.replace(/\s/g,'') 
+
+              var id = contactNumbers[j].replace('(', '')
+              id = id.replace(')', '')
+              id = id.replace('+', '')
+              id = id.replace(/\s/g, '')
               $('#contact-data-share').append(
                 '<div class="main-div">' +
-                '<div class="check-contact"><div id="' +id + '" data-href ="' + contactNumbers[j] + '" class=" checkContactShare contactUncheckedShare"></div></div>' +
-                '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+                '<div class="check-contact"><div id="' + id + '" data-href ="' + contactNumbers[j] + '" class=" checkContactShare contactUncheckedShare"></div></div>' +
+                '<div class="img"><img style="width:90px;height:90px;border-radius:50%;" src="' + contactPic[j] + '">	</div>' +
                 '<div class="head-num">' +
                 '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
                 '<div class="num"><p>' + contactNumbers[j] +
@@ -180,7 +164,6 @@ function DeleteContactFromDB(ContactUId) {
 }
 function myTeamInit() {
   localStorage.setItem('editPlanMode', 'off')
-  createContactsTable()
   GetContactsValueFromDB11()
   $(document).on('click', '.checkContact', function () {
     var id = $(this).attr('id')
@@ -249,6 +232,9 @@ function myTeamInit() {
     $('#select-all-contacts').show()
   })
   $(document).on('click', '.shareloc', function () {
+    navigator.geolocation.getCurrentPosition(onSuccessLoc, onErrorMap, {
+      timeout: 30000
+    })
     $('#share-contacts-container').show()
     $('.checkContactShare').addClass('contactUncheckedShare').removeClass('contactCheckedShare')
   })
@@ -273,9 +259,9 @@ function myTeamInit() {
         $('#locValidation').hide()
         window.plugins.socialsharing.shareViaSMS(shareUrlMap, numbers, function (msg) { $('#share-contacts-container').hide(); $('#shareSuccess').hide(); console.log('ok: ' + msg) }, function (msg) { alert('error: ' + msg) })
       } else {
-        navigator.geolocation.getCurrentPosition(onSuccessLoc, onErrorMap, {
-          timeout: 30000
-        })
+        // navigator.geolocation.getCurrentPosition(onSuccessLoc, onErrorMap, {
+        //   timeout: 30000
+        // })
         // $('#share-contacts-container').hide();
         $('#locValidation').show()
       }
@@ -286,26 +272,4 @@ document.addEventListener('deviceready', onDeviceReadyMyTheme, false)
 function onDeviceReadyMyTheme() {
   StatusBar.hide()
   myTeamInit()
-}
-
-$(document).ready(function () {
-  localforage.getItem('ContactDB', function (err, value) {
-    if (err) {
-      alert('Oh noes!')
-    } else {
-      if (value == null) {
-        CreateContactData()
-      } else {
-        AvaiableData()
-      }
-    }
-  })
-})
-
-function CreateContactData() {
-
-}
-
-function AvaiableData() {
-
 }

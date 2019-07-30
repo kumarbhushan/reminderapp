@@ -2,7 +2,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.thebigcanvas.reminder"
-        versionCode = "3" 
+        versionCode = "3"
         version   = "1.0.3">
 
     <name>ReMinder</name>
@@ -27,7 +27,7 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="prerendered-icon" value="true" />
     <preference name="android-minSdkVersion" value="7" />
-    <preference name="android-targetSdkVersion" value="26" />
+    <preference name="android-targetSdkVersion" value="22" />
     <preference name="android-installLocation" value="auto" />
     <preference name="loadUrlTimeoutValue" value="70000000" />
     <preference name="AllowInlineMediaPlayback" value="true" />
@@ -127,14 +127,14 @@
 
     <plugin name="cordova-plugin-contacts" spec="2.3.1" />
     <plugin spec="https://github.com/chrisdurfee/cordova-android-camera-permissions" source="git" />
-    <plugin name="cordova-plugin-camera" spec="2.1.1">
+    <plugin name="cordova-plugin-camera" spec="2.3.1">
         <variable name="CAMERA_USAGE_DESCRIPTION" value="The app would like to access the camera when you attach photos to content." />
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="The app would like to access the photo library when you attach images to content." />
     </plugin>
     <plugin name="cordova-pdf-generator" spec="1.0.0" />
 
     <plugin name="cordova-plugin-file" spec="4.0.0" />
-    <plugin name="cordova-plugin-filepath" spec="1.0.0" />
+    <plugin name="cordova-plugin-filepath-generic" spec="1.0.3" />
 
     <plugin name="cordova-plugin-hidden-statusbar" spec="1.0.0" />
 

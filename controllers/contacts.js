@@ -7,7 +7,35 @@ var Contactimg = {}
 var numbers = {}
 var colorArray = ['#bcbec0', '#be1e2d', '#f15a29', '#1b75bc', '#009444']
 document.addEventListener('deviceready', onDeviceReadyContacts, false)
-function onDeviceReadyContacts() {
+function getFileContentAsBase64 (path, callback) {
+  if (path && path != 'null') {
+    if (path.includes('content://')) {
+      window.FilePath.resolveNativePath(path, function (newPath) {
+        window.resolveLocalFileSystemURL(newPath, gotFile, fail)
+      }, fail)
+    } else {
+      window.resolveLocalFileSystemURL('file://' + path, gotFile, fail)
+    }
+  } else {
+    callback(dummybase64)
+  }
+
+  function gotFile (fileEntry) {
+    fileEntry.file(function (file) {
+      var reader = new FileReader()
+      reader.onloadend = function (e) {
+        var content = this.result
+        callback(content)
+      }
+      // The most important point, use the readAsDatURL Method from the file plugin
+      reader.readAsDataURL(file)
+    })
+  }
+  function fail (e) {
+    console.log('Cannot found requested file', e)
+  }
+}
+function onDeviceReadyContacts () {
   try {
     var options = new ContactFindOptions()
     options.filter = ''          // empty search string returns all contacts
@@ -20,123 +48,70 @@ function onDeviceReadyContacts() {
     GetValueFromDBContact()
     $('#importContactDone').click(function () {
       $('#loader').show()
-
+      let count = $('.selectedContact').length
       $('.selectedContact').each(function (index) {
         var ContactName = $(this).prev().prev()[0].innerText.trim()
         var ContactNumber = $(this).prev()[0].innerText.trim()
         var contactimg = $(this).prev().prev().prev()[0].innerText.trim()
-
         if ($(this).prev().prev().is(':visible')) {
-          // alert('here');
-
-          AddValueToDB_new(ContactName, ContactNumber, contactimg)
+          getFileContentAsBase64(contactimg, function (img) {
+            AddValueToDB_new(ContactName, ContactNumber, img)
+            count--
+            if (count == 0) {
+              $('#loader').hide()
+              $('#searchContact').val('')
+              $('.contactList').show()
+              var planCompleted = localStorage.getItem('planCompleted')
+              if (planCompleted == '0' || planCompleted == 0) {
+                $('.contents').hide()
+                $('#CreateMySafetyPlanQ4').show()
+                GetContactsValueFromDB11()
+                GetValueFromDBContact()
+              } else {
+                if (localStorage.getItem('editPlanMode') == 'on') {
+                  $('.contents').hide()
+                  $('#MySafetyPlan').show()
+                  GetContactsValueFromDB11()
+                  GetValueFromDBContact()
+                } else {
+                  $('.contents').hide()
+                  $('#myteam').show()
+                  GetContactsValueFromDB11()
+                  GetValueFromDBContact()
+                }
+              }
+            }
+          })
         }
       })
-      // setTimeout(function(){
-      $('#loader').hide()
-      // }, 1000);
-      $('#searchContact').val('')
-      $('.contactList').show()
-      // alert('0ut');
-      var planCompleted = localStorage.getItem('planCompleted')
-      if (planCompleted == '0' || planCompleted == 0) {
-        // document.location.href='CreateMySafetyPlanQ4.html';
-        // alert('0');
-        $('.contents').hide()
-        $('#CreateMySafetyPlanQ4').show()
-        GetContactsValueFromDB11()
-        GetValueFromDBContact()
-      } else {
-        if (localStorage.getItem('editPlanMode') == 'on') {
-          // alert('0n');
-          // document.location.href='MySafetyPlan.html';
-          $('.contents').hide()
-          $('#MySafetyPlan').show()
-          GetContactsValueFromDB11()
-          GetValueFromDBContact()
-        } else {
-          // alert('0ff');
-          // document.location.href='myteam.html';
-          $('.contents').hide()
-          $('#myteam').show()
-          GetContactsValueFromDB11()
-          GetValueFromDBContact()
-        }
-      }
     })
   } catch (err) {
-    alert(err)
+    console.log(err)
   }
 }
 
-function errorHandlerContact(transaction, error) {
+function errorHandlerContact (transaction, error) {
   alert('Error: ' + error.message + ' code: ' + error.code)
 }
-function successCallBackContact() {
+function successCallBackContact () {
   console.log('DEBUGGING: success')
   // alert('Success');
 }
-function createTable() {
+function createTable () {
   if (!window.openDatabase) {
     console.log('Databases are not supported in this browser.')
     return
   }
   try {
     db.transaction(function (tx) {
-      tx.executeSql('CREATE TABLE IF NOT EXISTS Contacts(UId INTEGER NOT NULL PRIMARY KEY, ContactName TEXT NOT NULL, ContactNumber TEXT NOT NULL, ContactColor TEXT NOT NULL,ProfilePic TEXT NOT NULL)', [], nullHandler, errorHandler)
+      tx.executeSql('CREATE TABLE IF NOT EXISTS Contacts(UId INTEGER NOT NULL PRIMARY KEY, ContactName TEXT NOT NULL, ContactNumber TEXT NOT NULL, ContactColor TEXT NOT NULL,ProfilePic TEXT  NULL)', [], nullHandler, errorHandler)
     }, errorHandler, successCallBack)
   } catch (error) {
     console.log('transaction_failed', error)
   }
 }
 
-// try is functions using for base64
-
-// function toDataURL(url, callback) {
-//   var xhr = new XMLHttpRequest();
-//   xhr.onload = function() {
-//     var reader = new FileReader();
-//     reader.onloadend = function() {
-//       callback(reader.result);
-//     }
-//     reader.readAsDataURL(xhr.response);
-//   };
-//   xhr.open('GET', url);
-//   xhr.responseType = 'blob';
-//   xhr.send();
-// }
-
-// function getFileContentAsBase64(path,callback){
-//   window.resolveLocalFileSystemURL(path, gotFile, fail);
-
-//   function fail(e) {
-//         alert('Cannot found requested file');
-//   }
-
-//   function gotFile(fileEntry) {
-//          fileEntry.file(function(file) {
-//             var reader = new FileReader();
-//             reader.onloadend = function(e) {
-//                  var content = this.result;
-//                  callback(content);
-//             };
-//             // The most important point, use the readAsDatURL Method from the file plugin
-//             reader.readAsDataURL(file);
-//          });
-//   }
-// }
-
-function AddValueToDB_new(ContactName, ContactNumber, Contactimg) {
-  // var path = "file://storage/0/downloads/myimage.png";
-
-  // // Convert image
-  // getFileContentAsBase64(path,function(base64Image){
-  //   //window.open(base64Image);
-  //   alert();
-  //   console.log(base64Image);
-  //   // Then you'll be able to handle the myimage.png file as base64
-  // });
-
+function AddValueToDB_new (ContactName, ContactNumber, Contactimg) {
   var ImageUrl = $('#dummy-img').attr('src')
   if (ImageUrl == 'img/btn-photo-contact.jpg') {
     ImageUrl == dummybase64
@@ -144,7 +119,6 @@ function AddValueToDB_new(ContactName, ContactNumber, Contactimg) {
   if (Contactimg && Contactimg != 'null') {
     ImageUrl = Contactimg
   }
-
   var ContactColor = colorArray[Math.floor(Math.random() * colorArray.length)]
   if (!window.openDatabase) {
     console.log('Databases are not supported in this browser.')
@@ -166,7 +140,7 @@ function AddValueToDB_new(ContactName, ContactNumber, Contactimg) {
     console.log('transaction_failed', error)
   }
 }
-function GetValueFromDBContact() {
+function GetValueFromDBContact () {
   // alert('db');
   $('.clickable').addClass('addContactBtn')
   $('.clickable').removeClass('selectedContact')
@@ -208,7 +182,7 @@ function GetValueFromDBContact() {
     console.log('transaction_failed', error)
   }
 }
-function onSuccessContact(contacts) {
+function onSuccessContact (contacts) {
   // alert(JSON.stringify(contacts[0].phoneNumbers[0].value));
   for (var i = 0; i < contacts.length; i++) {
     if (contacts[i].name) {  // many contacts don't have displayName
@@ -326,7 +300,7 @@ function onSuccessContact(contacts) {
     // $(this).hide();
   })
 }
-function onErrorContact(contactError) {
+function onErrorContact (contactError) {
   console.log('onError!')
   var planCompleted = localStorage.getItem('planCompleted')
   if (planCompleted == '0' || planCompleted == 0) {

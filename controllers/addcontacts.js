@@ -101,7 +101,7 @@ function onDeviceReadyAddContacts () {
     ContactFullName = ContactFirstName.trim() + ' ' + ContactLastName.trim()
     ImageUrl = $('#dummy-img').attr('src')
     if (ImageUrl == 'img/btn-photo-contact.jpg') {
-      ImageUrl == dummybase64
+      ImageUrl = dummybase64
     }
 
     if (ContactFirstName.trim() != '' && ContactLastName.trim() != '' && ContactNumber.trim() !=

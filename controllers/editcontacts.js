@@ -172,8 +172,6 @@ function successMoveProfilePicEdit (entry) {
   // alert
   ImageUrl = entry.toURL()
   $('#dummy-img-edit').attr('src', ImageUrl)
-  // CheckThemeInDB(entry.toURL());
-  // alert(entry.toURL());
 }
 
 function resOnError (error) {
@@ -189,19 +187,15 @@ function getPhotoFromCameraProfilePicEdit () {
     quality: 50,
     correctOrientation: true,
     sourceType: navigator.camera.PictureSourceType.CAMERA,
-    destinationType: navigator.camera.DestinationType.FILE_URI
+    destinationType: navigator.camera.DestinationType.DATA_URL
   })
 }
 
 function onPhotoDataSuccessProfilePicEdit (imageData) {
   console.log(imageData)
-  // alert('imgdata')
-  // var image = document.getElementById('myImage');
-  // image.style.display = 'block';
-  // image.src =imageData;
-  // console.log(imageData);
-  // CheckImageInDB(imageData);
-  moveProfilePicEdit(imageData)
+  let base64Image = 'data:image/jpeg;base64,' + imageData
+  $('#dummy-img-edit').attr('src', base64Image)
+  // moveProfilePicEdit(imageData)
 }
 
 function getPhotoFromAlbumProfilePicEdit () {
@@ -212,28 +206,24 @@ function getPhotoFromAlbumProfilePicEdit () {
     quality: 50,
     correctOrientation: true,
     sourceType: navigator.camera.PictureSourceType.SAVEDPHOTOALBUM,
-    destinationType: navigator.camera.DestinationType.FILE_URI
+    destinationType: navigator.camera.DestinationType.DATA_URL
   })
 }
-function onPhotoURISuccessProfilePicEdit (imageURI) {
-  // var image = document.getElementById('myImage');
-  // image.style.display = 'block';
-  // image.src = imageURI;
-  // console.log(imageURI);
-  // CheckImageInDB(imageURI);
-  if (imageURI[0] == 'c' || imageURI[0] == 'C') {
-    window.FilePath.resolveNativePath(imageURI, function (result) {
-      // onSuccess code
-      var correctedImageURI = 'file://' + result
-      moveProfilePicEdit(correctedImageURI)
-    }, function (error) {
-      // onError code here
-    })
-  } else {
-    moveProfilePicEdit(imageURI)
-  }
+function onPhotoURISuccessProfilePicEdit (imageData) {
+  let base64Image = 'data:image/jpeg;base64,' + imageData
+  $('#dummy-img-edit').attr('src', base64Image)
+  // if (imageURI[0] == 'c' || imageURI[0] == 'C') {
+  //   window.FilePath.resolveNativePath(imageURI, function (result) {
+  //     // onSuccess code
+  //     var correctedImageURI = 'file://' + result
+  //     moveProfilePicEdit(correctedImageURI)
+  //   }, function (error) {
+  //     // onError code here
+  //   })
+  // } else {
+  //   moveProfilePicEdit(imageURI)
+  // }
 }
 function onFailProfilePicEdit (message) {
   console.log('Failed because:' + message)
-  location.reload(true)
 }

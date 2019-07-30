@@ -80,12 +80,12 @@ function GetContactsValueFromDB1 () {
               contactColors.push(results.rows.item(i).ContactColor)
               contactNumbers.push(results.rows.item(i).ContactNumber)
               contactIds.push(results.rows.item(i).UId)
-              conactPic.push(results.rows.item(i).ProfilePic)
+              contactPic.push(results.rows.item(i).ProfilePic)
             }
             for (var j = 0; j < contacts.length; j++) {
               $('#contactsNumbers').append(
                 '<div class="main-div">' +
-                '<div class="img" id="main-emer-logo" ><img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">	</div>' +
+                '<div class="img" id="main-emer-logo" ><img style="width:90px;height:90px;border-radius:50%;" src="' + contactPic[j] + '">	</div>' +
                 '<div class="head-num">' +
                 '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
                 '<div class="num"><p>' + contactNumbers[j] +
@@ -98,7 +98,7 @@ function GetContactsValueFromDB1 () {
 
               $('#contactsNumbers1').append(
                 '<div class="main-div">' +
-                '<img style="width:90px;height:90px;border-radius:50%;" src="' + conactPic[j] + '">' +
+                '<img style="width:90px;height:90px;border-radius:50%;" src="' + contactPic[j] + '">' +
                 '<div class="head-num">' +
                 '<div class="heading"><span class="cus head">' + contacts[j] + '</span></div>' +
                 '<div class="num"><span>' + contactNumbers[j] +
