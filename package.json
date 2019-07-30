@@ -1,0 +1,40 @@
+{
+    "name": "com.phonegap.helloworld",
+    "version": "1.0.0",
+    "displayName": "Reminder",
+    "cordova": {
+        "platforms": [
+            "android"
+        ],
+        "plugins": {
+            "cordova-pdf-generator": {},
+            "cordova-plugin-whitelist": {},
+            "cordova-plugin-console": {},
+            "cordova-plugin-statusbar": {},
+            "cordova-plugin-file": {},
+            "cordova-plugin-contacts": {},
+            "cordova-plugin-camera": {
+                "CAMERA_USAGE_DESCRIPTION": "The app would like to access the camera when you attach photos to content.",
+                "PHOTOLIBRARY_USAGE_DESCRIPTION": "The app would like to access the photo library when you attach images to content."
+            },
+            "cordova-plugin-filepath-generic": {}
+        }
+    },
+    "dependencies": {
+        "cordova-android": "~7.1.4",
+        "cordova-browser": "^5.0.4",
+        "cordova-ios": "^5.0.1",
+        "cordova-plugin-console": "~1.0.1",
+        "cordova-plugin-filepath-generic": "^1.0.3",
+        "cordova-plugin-statusbar": "~1.0.1",
+        "cordova-plugin-whitelist": "~1.2.0"
+    },
+    "standard": {
+        "globals": [
+            "StatusBar",
+            "$",
+            "localStorage"
+        ],
+        "parser": "babel-eslint"
+    }
+}

@@ -1,0 +1,56 @@
+{
+  "_from": "cordova-plugin-filepath-generic",
+  "_id": "cordova-plugin-filepath-generic@1.0.3",
+  "_inBundle": false,
+  "_integrity": "sha512-XI2QZ00DDbVZkprKlPXx1ZptSzeLC0PwH3EN9kprR7GEaDXXszprk1dA5WT1HsMM3JIAL6lwSubqMS7pJaaPuA==",
+  "_location": "/cordova-plugin-filepath-generic",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-filepath-generic",
+    "name": "cordova-plugin-filepath-generic",
+    "escapedName": "cordova-plugin-filepath-generic",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-filepath-generic/-/cordova-plugin-filepath-generic-1.0.3.tgz",
+  "_shasum": "3f6f8b3cee04ed67d15e75989402b6b1cc5ee237",
+  "_spec": "cordova-plugin-filepath-generic",
+  "_where": "/Users/mac/Offical/projects/reminderApp/remonderapp",
+  "author": {
+    "name": "Vasco Ferreira",
+    "email": "vascomferreira@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/vascoferreira/cordova-plugin-filepath-generic/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-filepath-generic",
+    "platforms": [
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "Resolve native file paths from content URLs for Cordova platforms",
+  "homepage": "https://github.com/vascoferreira/cordova-plugin-filepath-generic#readme",
+  "keywords": [
+    "cordova",
+    "file",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "license": "Apache 2.0",
+  "name": "cordova-plugin-filepath-generic",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vascoferreira/cordova-plugin-filepath-generic.git"
+  },
+  "version": "1.0.3"
+}

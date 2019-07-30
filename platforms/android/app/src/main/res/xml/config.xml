@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.adobe.phonegap.app" version="1.8.4" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <feature name="PDFService">
+        <param name="android-package" value="com.pdf.generator.PDFGenerator" />
+    </feature>
+    <feature name="StatusBar">
+        <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="StreamingMedia">
+        <param name="android-package" value="com.hutchind.cordova.plugins.streamingmedia.StreamingMedia" />
+    </feature>
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+        <param name="onload" value="true" />
+    </feature>
+    <allow-navigation href="cdvfile:*" />
+    <feature name="Contacts">
+        <param name="android-package" value="org.apache.cordova.contacts.ContactManager" />
+    </feature>
+    <feature name="Camera">
+        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+    </feature>
+    <feature name="FilePath">
+        <param name="android-package" value="com.vascoferreira.cordova.filepath.FilePath" />
+        <param name="onload" value="true" />
+    </feature>
+    <name>PhoneGap</name>
+    <description>
+        The PhoneGap Developer app is a testing utility for web developers and designers using the PhoneGap framework. After installing this app on your device you will be able to connect it to the PhoneGap desktop app to instantly view and test your work
+    </description>
+    <author email="support@phonegap.com" href="http://phonegap.com">
+        Adobe PhoneGap Team
+    </author>
+    <hook src="resources/script/before-test-runner.js" type="before_prepare" />
+    <hook src="resources/script/after-test-runner.js" type="after_prepare" />
+    <hook src="resources/script/copy-android-push-icon.js" type="before_build" />
+    <hook src="resources/script/add-version.js" type="before_build" />
+    <hook src="resources/script/remove-version.js" type="after_compile" />
+    <content src="index.html" />
+    <allow-navigation href="http://twitter.com/*" />
+    <allow-navigation href="*://*.twitter.com/*" />
+    <allow-navigation href="*" />
+    <allow-navigation href="http://*/*" />
+    <allow-navigation href="https://*/*" />
+    <allow-navigation href="data:*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="http://twitter.com/*" />
+    <allow-intent href="*://*.twitter.com/*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="geo:*" />
+    <allow-intent href="*" />
+    <access origin="http://google.com" />
+    <access origin="https://google.com" />
+    <access origin="http://aspiregenesis-test.com" />
+    <access origin="http://maps.google.com" />
+    <access origin="http://*.google.com" />
+    <access origin="https://*.google.com" />
+    <access origin="content:///*" />
+    <access origin="cdvfile://*" />
+    <access origin="*" />
+    <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
+        <string>ReMinder needs Camera access to take pictures.</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
+        <string>ReMinder needs Photo Library access.</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
+        <string>ReMinder needs Photo Library access to save pictures.</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
+        <string>ReMinder need location access to find things nearby</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSContactsUsageDescription">
+        <string>ReMinder need contact access to sync</string>
+    </edit-config>
+    <icon density="ldpi" src="resources/icon/android/icon-36.png" />
+    <icon density="mdpi" src="resources/icon/android/icon-48.png" />
+    <icon density="hdpi" src="resources/icon/android/icon-72.png" />
+    <icon density="xhdpi" src="resources/icon/android/icon-96.png" />
+    <resource-file src="google-services.json" target="google-services.json" />
+    <preference name="loglevel" value="DEBUG" />
+    <preference name="StatusBarStyle" value="default" />
+    <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="permissions" value="none" />
+    <preference name="orientation" value="default" />
+    <preference name="target-device" value="universal" />
+    <preference name="fullscreen" value="true" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="android-minSdkVersion" value="19" />
+    <preference name="android-targetSdkVersion" value="26" />
+    <preference name="loadUrlTimeoutValue" value="70000000" />
+    <preference name="AllowInlineMediaPlayback" value="true" />
+    <preference name="webviewbounce" value="true" />
+    <preference name="prerendered-icon" value="true" />
+    <preference name="stay-in-webview" value="false" />
+    <preference name="ios-statusbarstyle" value="black-opaque" />
+    <preference name="detect-data-types" value="true" />
+    <preference name="exit-on-suspend" value="false" />
+    <preference name="show-splash-screen-spinner" value="true" />
+    <preference name="auto-hide-splash-screen" value="true" />
+    <preference name="disable-cursor" value="false" />
+    <preference name="android-installLocation" value="auto" />
+    <preference name="AndroidPersistentFileLocation" value="Internal" />
+    <preference name="iosPersistentFileLocation" value="Library" />
+    <preference name="Orientation" value="default" />
+    <preference name="SplashScreenDelay" value="0" />
+</widget>
