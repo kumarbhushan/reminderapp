@@ -75,6 +75,9 @@ function GetContactsValueFromDB1 () {
         [],
         function (transaction, results) {
           if (results.rows.length) {
+            $('#contactsNumbers').empty()
+            $('#contactsNumbers1').empty()
+
             for (var i = 0; i < results.rows.length; i++) {
               contacts.push(results.rows.item(i).ContactName)
               contactColors.push(results.rows.item(i).ContactColor)

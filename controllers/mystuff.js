@@ -47,7 +47,7 @@ function createStuffTable () {
     console.log('transaction_failed', error)
   }
 }
-function GetStuffFromDB () {
+GetStuffFromDB = function () {
   if (!window.openDatabase) {
     console.log('Databases are not supported in this browser.')
     return
@@ -600,7 +600,6 @@ function myStuffInit () {
 }
 
 function DeleteImage (Imageurl) {
-  Imageurl = Imageurl.replace('file:///data/user/0/com.adobe.phonegap.app/files/phonegapdevapp/www/', '')
   $('#imageDeleteConfirm').hide()
 
   var isDefaultImage
@@ -642,11 +641,16 @@ function DeleteImage (Imageurl) {
       return
     }
     try {
+      let _imageUri = imageURI.split('/')
+      let imageName = _imageUri[_imageUri.length - 1]
       db.transaction(function (transaction) {
-        transaction.executeSql('DELETE FROM MyStuff WHERE ImageURI=?', [imageURI], function () {
+        transaction.executeSql('DELETE FROM MyStuff WHERE ImageURI LIKE "%' + imageName + '"', [], function (res) {
+          console.log(res)
           close()
           $('#imageDeleteConfirm').hide()
           GetStuffFromDB()
+        }, function (tr, err) {
+          console.log(err)
         })
       })
     } catch (error) {

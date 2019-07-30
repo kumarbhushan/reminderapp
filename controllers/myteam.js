@@ -1,10 +1,10 @@
 
-function getContactId(contactId) {
+function getContactId (contactId) {
   localStorage.setItem('editContactId', contactId)
   return true
 }
 
-function GetContactsValueFromDB11() {
+function GetContactsValueFromDB11 () {
   //
 
   var contacts = []
@@ -151,7 +151,7 @@ function GetContactsValueFromDB11() {
   }
 }
 
-function DeleteContactFromDB(ContactUId) {
+function DeleteContactFromDB (ContactUId) {
   try {
     db.transaction(function (transaction) {
       transaction.executeSql('DELETE FROM Contacts WHERE UId=?', [ContactUId], function () {
@@ -162,7 +162,7 @@ function DeleteContactFromDB(ContactUId) {
     console.log('transaction_failed', error)
   }
 }
-function myTeamInit() {
+function myTeamInit () {
   localStorage.setItem('editPlanMode', 'off')
   GetContactsValueFromDB11()
   $(document).on('click', '.checkContact', function () {
@@ -269,7 +269,7 @@ function myTeamInit() {
   })
 }
 document.addEventListener('deviceready', onDeviceReadyMyTheme, false)
-function onDeviceReadyMyTheme() {
+function onDeviceReadyMyTheme () {
   StatusBar.hide()
   myTeamInit()
 }

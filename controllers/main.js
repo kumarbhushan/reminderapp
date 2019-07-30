@@ -7,6 +7,7 @@ var shortName = 'WebSqlDB'
 var version = '1.0'
 var displayName = 'WebSqlDB'
 var maxSize = 1 * 1024 * 1024
+let GetStuffFromDB = function () { }
 try {
   db = openDatabase(shortName, version, displayName, maxSize)
 } catch (error) {
