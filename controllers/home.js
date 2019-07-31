@@ -1,5 +1,5 @@
 
-function newInit () {
+function newInit() {
   console.log('*********************************newInt***********************************************')
   try {
     var selectedEmoji = localStorage.getItem('emoji')
@@ -92,8 +92,11 @@ function newInit () {
       }
     }
     setTimeout(function () {
-      if (document.getElementById('video_1')) document.getElementById('video_1').play()
-      if (document.getElementById('video_1')) document.getElementById('video_1').muted = false
+      if (!window.videoInit) {
+        window.videoInit = true
+        if (document.getElementById('video_1')) document.getElementById('video_1').play()
+        if (document.getElementById('video_1')) document.getElementById('video_1').muted = false
+      }
     }, 100)
   } catch (err) { console.log('home', err) }
   GetThemeFromDBHomePage()
@@ -173,14 +176,14 @@ document.addEventListener('init', function (event) {
     newInit()
   } catch (err) { console.log('home', err) }
 }, false)
-function showPopUp () {
+function showPopUp() {
   try {
     document.getElementById('popup').style.display = 'block'
     document.getElementById('emoji-container').style.display = 'none'
   } catch (err) { console.log('home', err) }
 }
 
-function changeto1 () {
+function changeto1() {
   try {
     document.getElementById('emoji').src = 'img/icon-sad.png'
     document.getElementById('popup').style.display = 'none'
@@ -189,7 +192,7 @@ function changeto1 () {
   } catch (err) { console.log('home', err) }
 }
 
-function changeto2 () {
+function changeto2() {
   try {
     document.getElementById('emoji').src = 'img/icon-neutral.png'
     document.getElementById('popup').style.display = 'none'
@@ -198,7 +201,7 @@ function changeto2 () {
   } catch (err) { console.log('home', err) }
 }
 
-function changeto3 () {
+function changeto3() {
   try {
     document.getElementById('emoji').src = 'img/icon-smile.png'
     document.getElementById('popup').style.display = 'none'
@@ -206,7 +209,7 @@ function changeto3 () {
     localStorage.setItem('emoji', 'icon-smile')
   } catch (err) { console.log('home', err) }
 }
-function MuteUnmute () {
+function MuteUnmute() {
   var carousel = document.getElementById('carousel')
   var curr = carousel.getActiveIndex()
   var index = curr + 1
