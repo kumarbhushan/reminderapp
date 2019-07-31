@@ -1,10 +1,10 @@
-console.log('*********************************onsInt***********************************************')
+
 function newInit () {
+  console.log('*********************************newInt***********************************************')
   try {
     var selectedEmoji = localStorage.getItem('emoji')
     document.getElementById('emoji').src = 'img/' + selectedEmoji + '.png'
-    if (document.getElementById('video_1')) document.getElementById('video_1').muted = false
-    if (document.getElementById('video_1')) document.getElementById('video_1').play()
+
     var lakeTheme = localStorage.getItem('lake')
     if (lakeTheme != 'enabled') {
       if ($('#ons-carousel-item1').length) { $('#ons-carousel-item1').remove() }
@@ -91,61 +91,69 @@ function newInit () {
         )
       }
     }
+    setTimeout(function () {
+      if (document.getElementById('video_1')) document.getElementById('video_1').play()
+      if (document.getElementById('video_1')) document.getElementById('video_1').muted = false
+    }, 100)
   } catch (err) { console.log('home', err) }
   GetThemeFromDBHomePage()
   /* Images */
   var carousel = document.getElementById('carousel')
-  var curr = carousel.getActiveIndex()
   if (!window.postchange) {
-    window.cpostchange = true
+    window.postchange = true
     carousel.addEventListener('postchange', function () {
+      console.log('*********************************postchange***********************************************')
       try {
         var curr = carousel.getActiveIndex()
         // document.getElementById("video" + curr).play();
         if (curr == 0) {
           // alert()
-          if (document.getElementById('video_1')) document.getElementById('video_1').muted = false
-          if (document.getElementById('video_2')) document.getElementById('video_2').muted = true
-          if (document.getElementById('video_3')) document.getElementById('video_3').muted = true
-          if (document.getElementById('video_4')) document.getElementById('video_4').muted = true
-          if (document.getElementById('video_5')) document.getElementById('video_5').muted = true
           if (document.getElementById('video_1')) document.getElementById('video_1').play()
-          $('#mute').attr('src', 'img/icon-sound.png')
-        }
-        if (curr == 1) {
-          if (document.getElementById('video_1')) document.getElementById('video_1').muted = true
-          if (document.getElementById('video_2')) document.getElementById('video_2').muted = false
+          if (document.getElementById('video_1')) document.getElementById('video_1').muted = false
+
+          if (document.getElementById('video_2')) document.getElementById('video_2').muted = true
           if (document.getElementById('video_3')) document.getElementById('video_3').muted = true
           if (document.getElementById('video_4')) document.getElementById('video_4').muted = true
           if (document.getElementById('video_5')) document.getElementById('video_5').muted = true
+
+          $('#mute').attr('src', 'img/icon-sound.png')
+        } else if (curr == 1) {
           if (document.getElementById('video_2')) document.getElementById('video_2').play()
-          $('#mute').attr('src', 'img/icon-sound.png')
-        }
-        if (curr == 2) {
+          if (document.getElementById('video_2')) document.getElementById('video_2').muted = false
+
           if (document.getElementById('video_1')) document.getElementById('video_1').muted = true
-          if (document.getElementById('video_2')) document.getElementById('video_2').muted = true
-          if (document.getElementById('video_3')) document.getElementById('video_3').muted = false
+          if (document.getElementById('video_3')) document.getElementById('video_3').muted = true
           if (document.getElementById('video_4')) document.getElementById('video_4').muted = true
           if (document.getElementById('video_5')) document.getElementById('video_5').muted = true
+
+          $('#mute').attr('src', 'img/icon-sound.png')
+        } else if (curr == 2) {
           if (document.getElementById('video_3')) document.getElementById('video_3').play()
+          if (document.getElementById('video_3')) document.getElementById('video_3').muted = false
+
+          if (document.getElementById('video_1')) document.getElementById('video_1').muted = true
+          if (document.getElementById('video_2')) document.getElementById('video_2').muted = true
+          if (document.getElementById('video_4')) document.getElementById('video_4').muted = true
+          if (document.getElementById('video_5')) document.getElementById('video_5').muted = true
           $('#mute').attr('src', 'img/icon-sound.png')
-        }
-        if (curr == 3) {
+        } else if (curr == 3) {
+          if (document.getElementById('video_4')) document.getElementById('video_4').play()
+          if (document.getElementById('video_4')) document.getElementById('video_4').muted = false
+
           if (document.getElementById('video_1')) document.getElementById('video_1').muted = true
           if (document.getElementById('video_2')) document.getElementById('video_2').muted = true
           if (document.getElementById('video_3')) document.getElementById('video_3').muted = true
-          if (document.getElementById('video_4')) document.getElementById('video_4').muted = false
           if (document.getElementById('video_5')) document.getElementById('video_5').muted = true
-          if (document.getElementById('video_4')) document.getElementById('video_4').play()
+
           $('#mute').attr('src', 'img/icon-sound.png')
-        }
-        if (curr == 4) {
+        } else if (curr == 4) {
+          if (document.getElementById('video_5')) document.getElementById('video_5').play()
+          if (document.getElementById('video_5')) document.getElementById('video_5').muted = false
+
           if (document.getElementById('video_1')) document.getElementById('video_1').muted = true
           if (document.getElementById('video_2')) document.getElementById('video_2').muted = true
           if (document.getElementById('video_3')) document.getElementById('video_3').muted = true
           if (document.getElementById('video_4')) document.getElementById('video_4').muted = true
-          if (document.getElementById('video_5')) document.getElementById('video_5').muted = false
-          if (document.getElementById('video_5')) document.getElementById('video_5').play()
           $('#mute').attr('src', 'img/icon-sound.png')
         } else {
           if (document.getElementById('video_1')) document.getElementById('video_1').muted = true

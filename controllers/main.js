@@ -23,6 +23,7 @@ function navigate () {
     $('#inner-header').show()
     $('.topnav').show()
     $('.botnav-container').show()
+    newInit()
   } else {
     $('.contents').hide()
     $('#CreateMySafetyPlanQ1').show()
@@ -417,6 +418,7 @@ $(document).ready(function (e) {
     $('#inner-header').show()
     $('.topnav').show()
     $('.botnav-container').show()
+    newInit()
   }
   $('#QQ1A1').focus()
 })
